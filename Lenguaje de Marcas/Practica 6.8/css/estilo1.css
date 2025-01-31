@@ -27,6 +27,7 @@ h1{
     font-family:Verdana,sans-serif;
     margin:10px 0;
 }
+
 #primero{
     display:flex;
     justify-content:space-around;
@@ -84,6 +85,7 @@ footer{
     border-bottom-left-radius:15px;
     border-bottom-right-radius:15px;
 }
+
 #segundo{
     background:whitesmoke;
     padding:20px;
