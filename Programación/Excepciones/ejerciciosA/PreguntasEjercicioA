@@ -1,0 +1,48 @@
+-Ejercicio 1
+¿Cuál es el nombre en Java de la clase que define las excepciones, y de la que debe
+heredar cualquier clase que queramos usar para representar una excepción?
+
+Exception
+
+-Ejercicio 2
+¿Cuál es el nombre en Java de la clase que representa las excepciones que se producen al
+invocar un método de un objeto cuyo valor es “null”?
+
+NullPointerException
+
+-Ejercicio 3
+¿Cuál es el nombre en Java de la clase que representa las excepciones que se producen al
+obtener un comportamiento anómalo en la entrada y/o salida de información?
+
+IOException
+
+-Ejercicio 4
+Observa el siguiente fragmento de código:
+	String [] array_string = new String [25];
+	System.out.println (array_string [3].length());
+¿Qué excepción se produciría en el mismo?
+
+NullPointerException
+
+-Ejercicio 5
+Observa el siguiente fragmento de código:
+	String aux = “hola”;
+	int aux2 = Integer.parseInt (aux);
+¿Qué sucedería al ejecutar el mismo?
+
+Lanzará NumberFormatException, al intentar convertir "hola" en un entero y o poder
+
+-Ejercicio 6
+¿Cuál es la peculiaridad de las excepciones del tipo “RuntimeException” (o de las subclases
+de la misma)?
+
+Que se comprueban durante la ejecución debido a errores lógicos en el programa, lanzando de forma automática la clase de Exception correspondiente,
+y que no es obligatorio manejarlas con try-catch ni declararlas con throws, al contrario que las excepciones de tipo Checked.
+
+-Ejercicio 7
+¿Qué información de utilidad aporta el método “printStackTrace()” de una excepción?
+
+Muestra en la consola la traza completa del error, indicando dónde y cómo ocurrió.
+Imprime el tipo de excepción y su mensaje de error, la secuencia de llamadas a métodos (stack trace) que llevo a ese error, 
+y la linea exacta donde ocurre la excepción
+

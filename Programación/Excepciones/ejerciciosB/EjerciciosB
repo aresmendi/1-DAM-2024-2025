@@ -1,0 +1,508 @@
+Analiza el código de cada ejercicio sin ejecutarlo, y explica si se producirá algún error
+o excepción, cuándo, dónde, por qué y cual sería la salida por pantalla.
+
+-Ejercicio 1
+public static void main(String [] args){
+	double [] v = new double [15];
+	acceso (v, 16);
+}
+public static double acceso (double [] v, int j) throws RuntimeException {
+	try{
+		if ((0 <= j) && (j < v.length))
+		return v[j];
+	else
+	throw new RuntimeException ("El indice " + j
+	+ " no existe en el vector");
+	}
+	catch (RuntimeException exc){
+	throw exc;
+	}
+}
+
+
+¿Se producirá algún error?
+Sí. Se lanzará una excepción RuntimeException.
+
+
+Explicación del error
+En main(), se crea un array v de tamaño 15, es decir, con índices válidos de 0 a 14.
+Se llama a acceso(v, 16), intentando acceder al índice 16, que está fuera del rango.
+En acceso(), la condición (0 <= j) && (j < v.length) falla porque 16 >= 15.
+Se ejecuta el bloque else, que lanza una RuntimeException con el mensaje:
+"El índice 16 no existe en el vector"
+Aunque hay un catch, este simplemente relanza la misma excepción sin manejarla.
+Como la excepción no es manejada en main(), el programa se detiene con un error.
+
+
+Salida esperada en la consola
+Exception in thread "main" java.lang.RuntimeException: El índice 16 no existe en el vector
+	at acceso(Ejercicio1.java:10)
+	at main(Ejercicio1.java:4)
+
+
+
+-Ejercicio 2
+public static void main(String [] args){
+	double [] v = new double [15];
+	acceso (v, 16);
+}
+public static double acceso (double [] v, int j) throws RuntimeException {
+	try{
+		if ((0 <= j) && (j <= v.length))
+		return v[j];
+		else
+		throw new Exception ("El indice " + j
+		+ " no existe en el vector");
+	}
+	catch (RuntimeException exc){
+	throw exc;
+	}
+}
+
+
+¿Se producirá algún error?
+Sí. El código tiene dos errores que harán que falle en tiempo de 
+ejecución y en compilación.
+
+
+Errores en el código
+1ºError de rango del índice (j <= v.length) ERROR DE EJECUCIÓN
+Si j = 15 o más, se intentará acceder a v[15], 
+lo que generará una ArrayIndexOutOfBoundsException.
+
+2ºError en throw new Exception("El índice " + j + " no existe en el vector");  ERROR DE COMPILACIÓN
+Se intenta lanzar una Exception, pero el método solo declara throws RuntimeException.
+En Java, Exception es una "checked exception" y debe manejarse o declararse en throws.
+Como el catch solo captura RuntimeException, la Exception no será atrapada y el código no compilará.
+
+
+Salida esperada y tipo de error
+Error de compilación (antes de ejecutar el código):
+Unhandled exception type Exception
+El compilador no permite lanzar una Exception sin manejarla o declararla en throws.
+
+Si corriges el error de compilación y ejecutas el código, obtendrás un ArrayIndexOutOfBoundsException
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 16 out of bounds for length 15
+
+
+
+-Ejercicio 3
+public static void main(String [] args){
+	double [] v = new double [15];
+	acceso (v, 16);
+}
+public static double acceso (double [] v, int j) throws Exception {
+	try{
+		if ((0 <= j) && (j < v.length))
+		return v[j];
+		else
+		throw new Exception ("El indice " + j
+		+ " no existe en el vector");
+	}
+	catch (Exception exc){
+		throw exc;
+	}
+}
+
+
+¿Se producirá algún error?
+Sí.Se lanzará una Exception.
+
+
+Errores en el código
+El error está en que se intenta acceder a un índice que no existe en el Array,
+por lo que el programa lanzará la excepción creada. 
+"El índice 16 no existe en el vector"
+Aunque hay un catch, este simplemente relanza la misma excepción sin manejarla.
+Como la excepción no es manejada en main(), el programa se detiene con un error.
+
+
+Salida esperada y tipo de error
+Exception in thread "main" java.lang.Exception: El índice 16 no existe en el vector
+	at acceso(Ejercicio3.java:10)
+	at main(Ejercicio3.java:4)
+
+
+
+-Ejercicio 4
+public static void main(String [] args){
+	double [] v = new double [15];
+	acceso (v, 16);
+}
+public static double acceso (double [] v, int j) throws Exception {
+	try{
+		if ((0 <= j) && (j < v.length))
+		return v[j];
+		else
+		throw new RuntimeException ("El indice " + j
+		+ " no existe en el vector");
+	}
+	catch (RuntimeException exc){
+		throw exc;
+	}
+}
+
+¿Se producirá algún error?
+Sí. Se lanzará una RuntimeException, pero NO HAY ERROR DE COMPILACIÓN
+
+
+Errores en el código
+1ºError de rango del índice (j <= v.length) ERROR DE EJECUCIÓN
+Si j = 15 o más, se intentará acceder a v[15], 
+lo que lanzará nuestra RuntimeException
+"El índice 16 no existe en el vector".
+
+RuntimeException es una excepción NO verificada (unchecked exception) y NO necesita ser declarada en throws,
+al contrario que Exception.
+El código compila perfectamente sin ningún problema.
+
+
+Salida esperada y tipo de error
+Exception in thread "main" java.lang.RuntimeException: El índice 16 no existe en el vector
+    at acceso(Ejercicio4.java:10)
+    at main(Ejercicio4.java:4)
+
+Esto indica que la RuntimeException fue lanzada en acceso()
+y se propagó hasta main(), deteniendo el programa.
+
+
+
+-Ejercicio 5
+public static void main (String [] args) {
+	try {
+		System.out.println (metodo( ));
+	}
+	catch (Exception e) {
+		System.out.println ("Excepcion en metodo ( ) ");
+		e.printStackTrace ( );
+	}
+}
+private static int metodo ( ) {
+	int valor =0;
+	try {
+		valor = valor +1;
+		valor = valor + Integer.parseInt("42");
+		valor = valor + 1;
+		System.out.println ("Valor al final del try : " + valor) ;
+	}
+	catch (NumberFormatException e ) {
+		valor = valor + Integer.parseInt("42");
+		System.out.println ("Valor al final del catch :" + valor);
+	}
+	finally {
+		valor = valor + 1;
+		System.out.println("Valor al final de finally :" + valor) ;
+	}
+	valor = valor + 1;
+	System.out.println ("Valor antes del return : " + valor);
+	return valor;
+}
+
+
+¿Se producirá algún error?
+No.El código no produce ninguna excepción porque "42" es una cadena
+válida para Integer.parseInt(), por lo que el bloque catch nunca se 
+ejecuta.
+
+
+Explicación paso a paso del flujo de ejecución
+1ºSe ejecuta metodo().
+
+2ºEn el bloque try:
+
+	valor = 0 + 1 = 1
+	valor = 1 + Integer.parseInt("42") = 43
+	valor = 43 + 1 = 44
+	Se imprime: "Valor al final del try: 44"
+
+3ºNo hay error, así que el catch se salta.
+
+4ºEl bloque finally siempre se ejecuta:
+
+	valor = 44 + 1 = 45
+	Se imprime: "Valor al final de finally: 45"
+
+5ºContinúa la ejecución:
+
+	valor = 45 + 1 = 46
+	Se imprime: "Valor antes del return: 46"
+
+6ºEl método retorna 46, y en main() se imprime:
+
+	"46"
+
+
+Salida esperada en consola
+Valor al final del try: 44
+Valor al final de finally: 45
+Valor antes del return: 46
+46
+
+
+
+-Ejercicio 6
+public static void main (String [] args) {
+	try {
+		System.out.println (metodo( ));
+	}
+	catch (Exception e) {
+		System.out.println ("Excepcion en metodo ( ) ");
+		e.printStackTrace ( );
+	}
+}
+private static int metodo ( ) {
+	int valor =0;
+	try {
+		valor = valor +1;
+		valor = valor + Integer.parseInt("W");
+		valor = valor + 1;
+		System.out.println ("Valor al final del try : " + valor) ;
+	}
+	catch (NumberFormatException e ) {
+		valor = valor + Integer.parseInt("42");
+		System.out.println ("Valor al final del catch :" + valor);
+	}
+	finally {
+		valor = valor + 1;
+		System.out.println("Valor al final de finally :" + valor) ;
+	}
+	valor = valor + 1;
+	System.out.println ("Valor antes del return : " + valor);
+	return valor;
+}
+
+
+¿Se producirá algún error?
+No.El código sí produce una excepción, pero está correctamente
+manejada en el bloque catch. No habrá una interrupción en la 
+ejecución del programa.
+
+
+Explicación paso a paso del flujo de ejecución
+1ºSe ejecuta metodo().
+
+2ºEn el bloque try:
+
+	valor = 0 + 1 = 1
+	valor = valor + Integer.parseInt("W")
+	Aquí se lanza NumberFormatException porque "W" no es un número.
+	Se salta el resto del try y va directamente al catch.
+
+3ºEn el bloque catch:
+
+	valor = 1 + Integer.parseInt("42") = 43
+	
+	Se imprime: "Valor al final del catch: 43"
+
+4ºEl bloque finally siempre se ejecuta:
+
+	valor = 43 + 1 = 44
+	Se imprime: "Valor al final de finally: 44"
+
+5ºContinúa la ejecución:
+
+	valor = 44 + 1 = 45
+	Se imprime: "Valor antes del return: 45"
+
+6ºEl método retorna 45, y en main() se imprime:
+
+	"45"
+
+
+Salida esperada en consola
+Valor al final del catch: 43
+Valor al final de finally: 44
+Valor antes del return: 45
+45
+
+
+
+-Ejercicio 7
+public static void main (String [] args) {
+	try {
+		System.out.println (metodo( ));
+	}
+	catch (Exception e) {
+		System.out.println ("Excepcion en metodo ( ) ");
+		e.printStackTrace ( );
+	}
+}
+private static int metodo ( ) throws NumberFormatException {
+	int valor =0;
+	try {
+		valor = valor +1;
+		valor = valor + Integer.parseInt("W");
+		valor = valor + 1;
+		System.out.println ("Valor al final del try : " + valor) ;
+	}
+	catch (NumberFormatException e ) {
+		valor = valor + Integer.parseInt("42");
+		System.out.println ("Valor al final del catch :" + valor);
+		throw e;
+	}
+	finally {
+		valor = valor + 1;
+		System.out.println("Valor al final de finally :" + valor) ;
+	}
+	valor = valor + 1;
+	System.out.println ("Valor antes del return : " + valor);
+	return valor;
+}
+
+
+¿Se producirá algún error?
+Sí.El código lanza una excepción NumberFormatException, 
+la maneja en el catch, pero luego relanza la excepción con 
+throw e.
+Dado que main() sí captura la excepción en su catch, el programa 
+no se detendrá abruptamente, pero imprimirá el mensaje de error y la 
+traza de la pila (printStackTrace()).
+
+
+Explicación paso a paso del flujo de ejecución
+1ºSe ejecuta metodo().
+
+2ºEn el bloque try:
+
+	valor = 0 + 1 = 1
+	valor = valor + Integer.parseInt("W")
+	Aquí se lanza NumberFormatException porque "W" no es un número.
+	Se interrumpe el try, saltando el resto del bloque.
+
+3ºEn el bloque catch:
+
+	valor = 1 + Integer.parseInt("42") = 43
+	Se imprime: "Valor al final del catch: 43"
+	Se relanza la excepción con throw e.
+
+4ºEl bloque finally se ejecuta siempre antes de salir del método:
+
+	valor = 43 + 1 = 44
+	Se imprime: "Valor al final de finally: 44"
+
+5ºComo se relanzó la excepción, se interrumpe el método y 
+nunca llega a ejecutar valor = valor + 1 ni el return.
+
+6ºLa excepción es capturada en main():
+
+	Se imprime: "Excepción en metodo()"
+	Se imprime la traza de la pila (printStackTrace()), que muestra dónde ocurrió el error.
+
+
+Salida esperada en consola
+Valor al final del catch: 43
+Valor al final de finally: 44
+Excepción en metodo()
+java.lang.NumberFormatException: For input string: "W"
+	at java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:68)
+	at java.base/java.lang.Integer.parseInt(Integer.java:658)
+	at java.base/java.lang.Integer.parseInt(Integer.java:776)
+	at Ejercicio7.metodo(Ejercicio7.java:10)
+	at Ejercicio7.main(Ejercicio7.java:4)
+
+
+
+-Ejercicio 8
+public static int devuelveEntero (int num) {
+	try{
+		if (num % 2 == 0) {
+			throw new Exception("Lanzando excepcion");
+		}
+		return 1;
+	} catch (Exception e) {
+		return 2;
+	} finally {
+		return 3;
+	}
+}
+public static void main (String [] args) {
+	for (int i = 0; i < 10; i++) {
+		System.out.println(devuelveEntero(i));
+	}
+}
+
+
+¿Se producirá algún error?
+No.El código no tiene errores de compilación ni de ejecución, pero su
+comportamiento no es el esperado debido al finally.
+Problema clave:El finally siempre se ejecuta y su return sobrescribe 
+cualquier otro return previo.Por lo tanto, sin importar lo que pase 
+en try o catch, la función siempre devolverá 3.
+
+
+Explicación paso a paso del flujo de ejecución
+Para cada número del 0 al 9, la función devuelveEntero(i) sigue estos pasos:
+
+1ºSi num es par (0, 2, 4, 6, 8):
+
+	Se lanza la excepción con throw new Exception("Lanzando excepcion").
+	El catch captura la excepción y devuelve 2, pero el finally sobrescribe ese retorno con 3.
+
+2ºSi num es impar (1, 3, 5, 7, 9):
+
+	Se ejecuta return 1, pero el finally lo sobrescribe con return 3.
+
+3ºEn todos los casos, la salida es 3.
+
+
+Salida esperada en consola
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+
+
+
+-Ejercicio 9
+public static int devuelveEntero (int num) throws Exception {
+	try{
+		if (num % 2 == 0) {
+			throw new Exception("Lanzando excepcion rana");
+		} else {
+			throw new IOException("Lanzando excepcion pezespada");
+		}
+	} catch (IOException io) {
+		System.out.println(io.getMessage());
+		return 2;
+	} 
+}
+public static void main (String [] args) {
+	int a = 99;
+	for (int i = 0; i < 10; i++) {
+		try{
+			a = devuelveEntero(i);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			a = 99;
+		}
+		System.out.println(a);
+	}
+}
+
+
+¿Se producirá algún error?
+Sí, el código tendrá un error en tiempo de compilación.
+El problema está en que el bloque catch solo captura IOException, 
+pero se lanza una Exception general cuando num es par, lo que provoca
+que no haya un catch adecuado para manejarla dentro de 
+devuelveEntero().
+Como IOException es una subclase de Exception, el bloque catch 
+(IOException io) no capturará las excepciones generales (Exception). 
+Esto causará un error de compilación, ya que no todas las excepciones 
+lanzadas dentro del try son manejadas.
+
+
+Errores en el código
+Error de compilación
+El compilador detectará que la excepción Exception lanzada en if 
+(num % 2 == 0) no es capturada porque solo se maneja IOException.
+
+
+Salida esperada en consola
+Exception java.io.IOException is never thrown in body of corresponding try statement
