@@ -1,0 +1,23 @@
+Fórmula para sacar la dirección red: Dirección IP(binario) AND Máscara de red(binario) = DIRECCIÓN DE RED
+EJEMPLO
+DIRECCIÓN IP (BN) 11000000.10101000.00000001.00000010 =(DC)192.168.1.2
+MÁSCARA DE RED (BN) 11111111.11111111.11111111.00000000 =(DC)255.255.255.0
+DIRECCIÓN DE RED (BN) 11000000.10101000.00000001.00000000 =(DC)192.168.1.0
+
+El CIDR permite expresar la máscara en forma compacta = IP/número de bits de red (EN BINARIO)
+EJEMPLOS: 192.168.1.0/24 =255.255.255.0
+
+¿Qué indica la máscara? Cuántos bits pertenecen a la red y cuántos al host
+MÁSCARA DECIMAL 255.0.0.0 CIDR /8
+		255.255.255.0 CIDR/24
+		255.255.240.0 CIDR/20
+
+EJERCICIOS DE EJEMPLO
+Dada la dirección IP 192.168.10.5 con la máscara 255.255.255.0, indica:
+a)Dirección red
+IP en Binario 11000000.10101000.10100000.00000101
+Máscara en Binario 11111111.11111111.11111111.00000000
+-Dirección Red 11000000.10101000.10100000.00000000 ---> 192.168.10.0
+-Dirección Broadcast 11000000.10101000.10100000.11111111 ---> 192.168.10.255
+-Host válido 254 por que 192.168.10.0 -> Identifica la Red y 192.168.10.255 -> Identifica la dirección Broadcast así que contamos
+desde 192.168.10.1 hasta 192.168.10.254
