@@ -1,0 +1,68 @@
+1º
+a)PID Firefox 635
+b)ºPPID Firefox (zsh 434)
+c)Mostrar todos los procesos que cuelgan de Firefox---- pstree -s 635  
+d)Aumentar prioridad a -10---- 1ºsudo top 2º r,635,-10
+
+2º Lista todos los procesos de tu usuario
+ps -u aresmendi 
+
+3º Muestra todos los procesos del usuario root en forma de árbol
+pstree root
+
+4ºCon la orden top, muestra únicamente los procesos que están consumiendo recursos del
+sistema (los procesos inactivos no han de aparecer por pantalla)
+top, i
+
+5ºPon la prioridad del navegador Firefox a 12 mediante la orden top
+top,r,635,12
+
+6ºMuestra todos los PID de los procesos asociados al navegador Firefox
+pidof Firefox
+
+7ºUtiliza el monitor del sistema en el entorno gráfico para contestar a las siguientes
+preguntas
+a) ¿Qué proceso está consumiendo más memoria?
+Firefox con 166.5 MB
+b) ¿Cuál es la prioridad con el que se está ejecutando la aplicación Firefox?
+Very Low
+c) ¿Cuál está siendo el consumo de la/s CPU/s?
+0.00-0.02
+
+8) Abre un editor nano en segundo plano
+nano &
+bg %1
+
+9) Abre un navegador Firefox desde la consola en segundo plano.
+firefox, ctrl+z+ bg %2
+
+10) Comprueba que el editor nano y el Firefox que acabas de invocar son trabajos detenidos
+en segundo plano
+Jobs
+
+11) Pasa el editor nano a primer plano para poder trabajar con él.
+fg %1
+
+12) Abre un terminal nuevo y mata el proceso del editor nano de manera inmediata.
+pidof nano
+kill -9 8114  
+
+13) Termina todos los procesos de Firefox (de todos los Firefox abiertos) en un solo comando.
+killall firefox
+
+14) Abre un terminal nuevo (deberías tener mínimo 3 abiertos) y comprueba con el comando
+ps que existen 3 terminales abiertos.
+ps aux | grep terminal
+
+15) Matar los procesos de los otros dos terminales:
+ps aux | grep terminal
+kill <PID>
+
+16) Desde el terminal, envía una señal para que el equipo se reinicie en 2 minutos. Haz que se escriba el mensaje "En dos minutos se va a proceder a reiniciar el sistema. Disculpen las molestias"
+sudo shutdown -r +2 "En dos minutos se va a proceder a reiniciar el sistema. Disculpen las molestias"
+
+17) Antes de que se reinicie el sistema, cancela la orden anterior (cancela el reinicio)
+sudo shutdown -c 
+
+18) Envía ahora una señal para que el equipo se apague automáticamente a las 21:25.
+sudo shutdown -h 21:25 

@@ -6,18 +6,99 @@ DIRECCIÓN DE RED (BN) 11000000.10101000.00000001.00000000 =(DC)192.168.1.0
 
 El CIDR permite expresar la máscara en forma compacta = IP/número de bits de red (EN BINARIO)
 EJEMPLOS: 192.168.1.0/24 =255.255.255.0
+Que viene a ser siendo en binario 11111111.11111111.11111111.00000000 (24 unos)
 
 ¿Qué indica la máscara? Cuántos bits pertenecen a la red y cuántos al host
-MÁSCARA DECIMAL 255.0.0.0 CIDR /8
-		255.255.255.0 CIDR/24
-		255.255.240.0 CIDR/20
+MÁSCARA DECIMAL 255.0.0.0 CIDR /8 bits pertenecen a la red
+		255.255.255.0 CIDR/24 bits pertenecen a la red
+		255.255.240.0 CIDR/20 bits pertenecen a la red
 
 EJERCICIOS DE EJEMPLO
-Dada la dirección IP 192.168.10.5 con la máscara 255.255.255.0, indica:
+1)Dada la dirección IP 192.168.10.5 con la máscara 255.255.255.0, indica:
 a)Dirección red
 IP en Binario 11000000.10101000.10100000.00000101
 Máscara en Binario 11111111.11111111.11111111.00000000
 -Dirección Red 11000000.10101000.10100000.00000000 ---> 192.168.10.0
 -Dirección Broadcast 11000000.10101000.10100000.11111111 ---> 192.168.10.255
--Host válido 254 por que 192.168.10.0 -> Identifica la Red y 192.168.10.255 -> Identifica la dirección Broadcast así que contamos
+-Hosts válidos 254 por qué 192.168.10.0 -> Identifica la Red y 192.168.10.255 -> Identifica la dirección Broadcast así que contamos
 desde 192.168.10.1 hasta 192.168.10.254
+2. Convierte la siguiente máscara de red a notación CIDR: 255.255.255.192.
+255 -> 11111111 (8)
+255 -> 11111111 (8)
+255 -> 11111111 (8)
+192 -> 11000000 (2)
+		8+8+8+2 =26
+Notación CIDR = /26
+3. ¿Cuántos hosts válidos pueden existir en una red con máscara /27?
+Bits totales siempre son 32 por que 8 * 4 = 32
+Entonces 32 -27 = 5 (Este número lo se lo ponemos de exponente a 2 por que Binario ;-) )
+Los Hosts posibles son 2 elevado a 5 menos la red y el broadcast (2), que son 30 hosts válidos
+
+4. ¿Están en la misma red los siguientes hosts, usando la máscara 255.255.255.0?
+• Host A: 192.168.1.25
+• Host B: 192.168.1.200
+Dirección máscara en Binario 11111111.11111111.11111111.00000000
+Dirección del Host 1 en Binario 11000000.10101000.10100000.00011001
+Dirección del Host 2 en Binario 11000000.10101000.10100000. 11001000
+Dirección red Host 1 en Binario 11000000.10101000.10100000.00000000
+Dirección red Host 2 en Binario 11000000.10101000.10100000.00000000
+Como podemos ver, las direcciones red coinciden, así que pertenecen a la misma red, que en decimal sería 192.168.1.0/24
+
+5. Tienes la red 192.168.0.0/24. ¿En cuántas subredes puedes dividirla si usas una
+máscara /26? ¿Cuál es el rango de direcciones de la segunda subred?
+26-24 = 2 bits que se añaden a la máscara de red
+32 - 26 = 6 bits para Hosts, que son los 6 bits que podremos usar para contar direcciones en cada Subred
+2^6 = 64 direcciones
+No todas esas 64 direcciones son válidas para hosts:
+1 se reserva como dirección de red (todo ceros en los bits de host).
+1 se reserva como dirección de broadcast (todo unos en los bits de host).
+✅ Entonces:
+64 - 2 = 62 hosts válidos por subred.
+Subredes DE MÁS Posibles = 2 elevado a 2 (bits que se añaden a la máscara red = 4
+📦 ¿Cómo quedan las subredes?
+Las subredes de 192.168.0.0/24 al dividirla en /26 se ven así:
+Subred	Rango de direcciones	Broadcast
+1ª	192.168.0.0 → 192.168.0.63	192.168.0.63
+2ª ✅	192.168.0.64 → 192.168.0.127	192.168.0.127
+3ª	192.168.0.128 → 192.168.0.191	192.168.0.191
+4ª	192.168.0.192 → 192.168.0.255	192.168.0.255
+Así que la segunda subred tiene:
+Dirección de red: 192.168.0.64
+Broadcast: 192.168.0.127
+Hosts válidos: 192.168.0.65 → 192.168.0.126
+
+6. Escribe de forma abreviada la siguiente dirección IPv6:
+2001:0db8:0000:0000:0000:ff00:0042:8329
+Solución:
+• Paso 1: Elimina los ceros a la izquierda en cada bloque:
+2001:db8:0:0:0:ff00:42:8329
+• Paso 2: Sustituye una sola vez los bloques consecutivos de ceros por :::
+2001:db8::ff00:42:8329
+
+7. Expande completamente la siguiente dirección IPv6 abreviada:
+fe80::1
+Solución:
+• Paso 1: :: representa grupos de ceros. Como la dirección IPv6 tiene 8
+bloques en total, y solo vemos 2 (fe80 y 1), faltan 6 bloques de ceros entre
+ellos.
+• Paso 2: Añade los ceros necesarios y completa cada bloque a 4 dígitos:
+fe80:0000:0000:0000:0000:0000:0000:0001
+
+8. Dada la dirección IPv6 2001:0db8:abcd:0012:0000:0000:0000:0001/64, determina:
+• La dirección de red
+• El ID de interfaz (host ID)
+Solución:
+• Paso 1: La notación /64 indica que los primeros 64 bits (los primeros 4
+bloques) son la parte de red.
+Dirección completa:
+2001:0db8:abcd:0012:0000:0000:0000:0001
+Dirección de red:
+Con los primeros 64 bits sin cambios, y el resto en ceros:
+2001:0db8:abcd:0012:0000:0000:0000:0000
+Host ID (últimos 64 bits):
+0000:0000:0000:0001
+Resultado final:
+• Dirección de red: 2001:db8:abcd:12::
+• Host ID: ::1
+
+

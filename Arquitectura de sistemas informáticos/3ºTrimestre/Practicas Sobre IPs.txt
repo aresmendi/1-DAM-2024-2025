@@ -1,0 +1,194 @@
+1. Indica a qué clase pertenecen las siguientes direcciones y si son públicas o privadas:
+REDES PRIVADAS = 10.X.X.X/172.X.X.X/192.X.X.X
+CLASE A = 1-127 (Máscara por defecto /8)
+CLASE B = 128-191 (Máscara por defecto /16)
+CLASE C = 192-223 (Máscara por defecto /24)
+CLASE D = 224-239 (Máscara por defecto /32)
+CLASE E = 240-255 Experimental
+• 9.2.1.240:Red Pública - Clase A
+• 194.32.5.125: Red Pública - Clase C
+• 192.168.50.94:Red Privada - Clase C
+• 220.6.39.167:Red Pública - Clase C
+• 10.243.11.90:Red Privada - Clase A
+• 172.20.71.87:Red Privada - Clase B
+• 10.0.92.17:Red Privada - Clase A
+• 212.102.64.54:Red Pública - Clase C
+• 172.30.210.40:Red privada - Clase B
+• 172.32.3.1:Red Privada - Clase B
+
+2. Calcula la dirección de red y dirección de broadcast (difusión) de las máquinas con las
+siguientes direcciones IP y máscaras de subred (si no se especifica, se utiliza la máscara
+por defecto de su clase):
+
+• 18.120.16.250:
+Clase A, así que máscara /8 (Es decir, "18." es la parte de la red, el resto "120.16.250" el Host)
+Dirección de red (todos los bits de host a 0) = 18.0.0.0
+Dirección broadcast (todos los bits de host a 1) = 18.255.255.255
+
+• 18.120.16.255 / 255.255.0.0:
+Clase A, pero aquí la máscara es /16, por lo que la parte de la red es "18.120."
+Dirección de red = 18.120.0.0
+Dirección broadcast = 18.120.255.255
+
+• 155.4.220.39:
+Clase B, por lo que máscara /16
+Dirección de red = 155.4.0.0
+Dirección broadcast = 155.4.255.255
+
+• 194.209.14.33:
+Clase C, por lo que máscara /24
+Dirección de red = 194.209.14.0
+Dirección broadcast = 194.209.14.255
+
+• 190.33.109.133 / 255.255.255.0:
+Clase B, pero la máscara es /24, por lo que
+Dirección red = 190.33.109.0
+Dirección broadcast = 190.33.109.255
+
+• 29.83.145.21:
+Clase A por lo que máscara /8
+Dirección red = 29.0.0.0
+Dirección broadcast = 29.255.255.255
+
+• 188.40.19.25:
+Clase B por lo que máscara /16
+Dirección red = 188.40.0.0
+Dirección broadcast = 188.40.255.255
+
+• 210.67.80.159:
+Clase C por lo que máscara /24
+Dirección red = 210.67.80.0
+Dirección broadcast = 210.67.80.255
+
+• 128.23.4.10:
+Clase B por lo que máscara /16
+Dirección red = 128.23.0.0
+Dirección broadcast = 128.23.255.255
+
+• 10.2.7.98 / 255.255.255.224:
+Clase A, pero máscara /27 (Como ya sabemos que 255. = 11111111., solo debemos pasar a binario el último tramo para saber cuantos bits se queda la máscara)
+Como tenemos que hacer una operación AND, tenemos que pasar la dirección IP y la máscara de subred a binario
+Dirección IP = 00001010.00000010.00000111.01100010
+Dirección Máscara /27 = 11111111.11111111.11111111.11100000
+
+Dirección red binario = 00001010.00000010.00000111.01100000
+Pasamos el último tramo de binario a decimal 01100000 = 96
+
+Dirección broadcast en binario = 00001010.00000010.00000111.01111111
+Pasamos el último tramo de binario a decima 011111111 = 127
+
+Dirección red = 10.2.7.96
+
+Dirección Broadcast = 10.2.7.127
+
+• 10.2.7.25 / 255.255.255.248:
+Clase A, pero la máscara /29
+Dirección IP = 00001010.00000010.00000111.00011001
+Dirección Máscara /29 = 11111111.11111111.11111111.11111000
+
+Dirección red binario = 00001010.00000010.00000111.00011000
+Dirección broadcast binario =00001010.00000010.00000111.00011111
+
+Dirección red = 10.2.7.24
+Dirección broadcast = 10.2.7.31
+
+• 10.2.7.239 / 255.255.255.240:
+Clase A, pero la máscara /28
+Dirección IP = 00001010.00000010.00000111.11101111
+Dirección máscara /28 = 11111111.11111111.11111111.11110000
+
+Dirección red binario = 00001010.00000010.00000111.11100000
+Dirección broadcast binario = 00001010.00000010.00000111.11101111
+
+Dirección red = 10.2.7.224
+Dirección broadcast = 10.2.7.239
+
+• 10.2.7.239 / 255.255.255.248:
+Clase A, pero la máscara /29
+Dirección IP = 00001010.00000010.00000111.11101111
+Dirección máscara /29 = 11111111.11111111.11111111.11111000
+
+Dirección red binario = 00001010.00000010.00000111.11101000
+Dirección broadcast binario = 00001010.00000010.00000111.11101111
+
+Dirección red = 10.2.7.232
+Dirección broadcast = 10.2.7.239
+
+• 10.2.7.239 / 255.255.255.224:
+Clase A, pero la máscara /27
+Dirección IP = 00001010.00000010.00000111.11101111
+Dirección Máscara /27 = 11111111.11111111.11111111.11100000
+
+Dirección red binario = 00001010.00000010.00000111.11100000
+Dirección broadcast binario = 00001010.00000010.00000111.11111111
+
+Dirección red = 10.2.7.224
+Dirección broadcast = 10.2.7.255
+
+• 156.90.92.10 / 255.255.254.0:
+Clase B, pero la máscara /23
+Dirección IP = 10001000.01011010.01011100.00001010
+Dirección Máscara /23 = 11111111.11111111.11111110.00000000
+
+Dirección red binario = 10001000.01011010.01011100.00000000
+Dirección broadcast binario = 10001000.01011010.01011100.01111111
+
+Dirección red = 156.90.92.0
+Dirección broadcast = 156.90.92.127
+• 156.90.93.211 / 255.255.254.0:
+Clase B, pero la máscara /23
+Dirección IP = 10001000.01011010.01010011.11010011
+Dirección máscara /23 = 11111111.11111111.11111110.00000000
+
+Dirección red binario = 10001000.01011010.01010010.00000000
+Dirección broadcast binario = 10001000.01011010.01010011.11111111
+
+Dirección red = 156.90.93.0
+Dirección broadcast = 156.90.93.255
+
+• 212.101.64.210 / 255.255.255.252:
+Clase C, pero la máscara /30
+Dirección IP binario = 11010100.01100101.01000000.11010010
+Dirección máscara /30 binario = 11111111.11111111.11111111.11111100
+
+Dirección red binario = 11010100.01100101.01000000.11010000
+Dirección broadcast binario = 11010100.01100101.01000000.11010011
+
+Dirección red = 212.101.64.208
+Dirección broadcast = 212.101.64.211
+• 155.40.5.14 /255.255.128.0:
+Clase B, pero la máscara /17
+Dirección IP binario = 10011011.00101000.00000101.00001110
+Dirección máscara binario = 11111111.1111111.10000000.00000000
+
+Dirección red binario = 10011011.00101000.00000000.00000000
+Dirección broadcast binario = 10011011.00101000.01111111.11111111
+
+Dirección red = 155.40.0.0
+Dirección broadcast = 155.40.127.255
+
+3. Suponiendo que nuestro ordenador tiene la dirección IP 192.168.5.65 con máscara
+255.255.255.0, indica qué significan las siguientes direcciones especiales:
+
+• 192.168.5.0:
+Dirección red
+
+• 255.255.255.255:
+Dirección de broadcast limitada (especial).
+Sirve para enviar un mensaje a todos los dispositivos en la red local, independientemente de la IP o subred.
+
+• 192.130.5.255:
+Otra red, sin relación con la mía.
+
+• 127.0.0.1: 
+Dirección de retorno (loopback o localhost)
+
+4. Calcula la dirección de red y dirección de broadcast (difusión) de las máquinas con las
+siguientes direcciones IP y máscaras de subred:
+• 190.33.109.133 / 255.255.255.128:
+• 192.168.20.25 / 255.255.255.240:
+• 192.168.20.25 / 255.255.255.224:
+• 192.168.20.25 / 255.255.255.192:
+• 140.190.20.10 / 255.255.192.0:
+• 140.190.130.10 / 255.255.192.0:
+• 140.190.220.10 / 255.255.192.0: 
