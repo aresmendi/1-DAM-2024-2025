@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="practica de javascript">
+    <meta name="keywords" content="javascript">
+    <meta name="author" content="Jova">
+    <title>Tema 1 </title>
+    <script> //Script interno para empezar 
+        function dataRequest() {
+            let usrName = prompt( //Pide datos
+                'Enter your name', ''); //Preferiblemente definir el segundo parametro vacío pero no obligatorio
+            alert('Hello, ' + usrName); //Muestra una alerta
+
+            //PRUEBA DEL WRITE
+            /*document.write('Hola ' + usrName); | Hacer esto borra lo que haya en la pagina*/
+            /*document.getElementById("contenedor").innerHTML = 'Hola ' + usrName;  | Esto borra el p pero no el boton*/
+            // Busca el párrafo dentro del contenedor y le AGREGA el saludo
+            document.querySelector('#contenedor p').innerHTML += '<br> Hola ' + usrName; 
+            /*tambien puedo poner directamente p[0] con tagname o ponerle un id pero lo dejo porq es el mas rebuscado*/
+
+            console.log(usrName + ", esto 'se ve en la consola del' navegador."); //Si algo tiene comillas, usar las otras para englobarlo.
+        }  
+
+        /*ARRAYS EMPIEZAN EN CERO COMO EN TODAS PARTES y le puedes poner valores diferentes 
+        let mixto = ["string", 4, true]; 
+        */
+
+        /*OBJETOS: json (-.-), llaves y par clave valor
+        let consola = {
+            brand: 'Nintendo',
+            model: 'Switch'
+        }
+
+        Se "llaman" con el punto : consola.model o con corchetes consola['brand'];
+        */
+
+        /*El foreach aqui se usa for of
+            let days: ['lunes', 'martes'..]
+        FOR (let dia OF days){
+            alert(dia);
+        }*/
+    </script>
+
+</head>
+
+<body>
+    <!-- Boton visible -->
+    <button id="botonPrincipal" onclick="dataRequest()">&gt;RUN generaElementos&lt;</button>
+
+    <!-- Contenedor -->
+    <div id="contenedor">
+        <p>Esto es una prueba</p>
+    </div>
+
+    <noscript> <!--Hay que probarlo deshabilitando JS (no lo he hecho)-->
+            <p>Esta pagina usa javascript. Por favor activelo para tener la experiencia completa</p>
+    </noscript> 
+</body>
+
+<!--DIFERENCIAS CONSTANTES/VARIABLES-->
+<!--Al poner const se reserva el espacio del array declarado PERO SE PUEDEN CAMBIAR LOS VALORES DE SUS ELEMENTOS-->
+<!--Variables globales: var. No es recomendable y es antigua-->
+<!--Variables de bloque: let. la que mas usamos y todo ok.-->
+
+</html>
