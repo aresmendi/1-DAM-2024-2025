@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="practica de javascript">
+    <meta name="keywords" content="javascript">
+    <meta name="author" content="Jova Rojas">
+    <title>Tema 2 </title>
+    <script>
+        /*A pesar de todas las pruebas mi opinion mas sincera es: 
+        ¡ES MEJOR GUARDAR EN VARIABLES Y LUEGO HACER COSAS*/
+
+        function utilidades() {
+            let lm = "Lenguajes de Marcas";
+            alert(lm.length); //19
+            let str1 = "Lenguajes ";
+            let str2 = str1.concat(" de Marcas").toUpperCase();
+            alert(str2);
+            //Lo mismo pero mas barato si pones:
+            let str3 = ("Lenguajes" + " de Marcas").toLowerCase(); //lower pa probarlo todo
+            alert(str3);
+        }
+
+        function posiciones() {
+            let palabra = "Unas palabras sin letra equis";
+            let godaime = palabra.charAt(5); //
+            alert("Con variable: La letra en la posicion num 4 es " + godaime); //Espacio vacio, probar con 5 xd 
+            alert(" La primera a esta en la posicion : " + palabra.indexOf('a')); // 2, imprimo directamente sin guardar
+            alert("La ultima a esta en: " + palabra.lastIndexOf("a"));//
+            alert("Resultado de buscar la letra x: " + palabra.indexOf("x"));
+        }
+
+        function substrings() {
+            let str = "JavaScript";
+            let lm = "Lenguajes de Marcas";
+            /*substring ordena siempre las posiciones de menor a mayor, incluye la posicion menor pero no la mayor.*/
+            let sub1 = str.substring(2, 6); //'vaSc'
+            let sub2 = str.substring(6, 2); //'vaSc'
+            let sub3 = str.substring(7); //'ipt'Si solo pones un num es de ese num en adelante.
+
+            alert("substring: " + sub1 + "," + sub2 + "," + sub3);
+
+            //Corta un texto por el delimitador y crea un array con sus partes y se muestra separado por comas
+            let letters = sub2.split(""); //Vacio pa que te regrese las letras xd, algo original para ahorrarte el bucle con charAt
+            //['v','a','S','c']
+            let words = lm.split(" ");
+            //["Lenguajes", "de", "marcas"]
+            alert("split: " + letters + "\n" + words);
+        }
+
+        function arrays() {
+            let abcde = ['a', 'b', 'c', 'd', 'e'];
+            alert(".length: " + abcde.length); //5
+            //use la misma variable para agregarle otro array no creado, pero podria ser uno creado
+            abcde = abcde.concat(['f', 'g']); //Añadir array
+            abcde = abcde.concat("jova", "prueba") //Añadir Strings
+            alert("Funciona si le añado algo que no sea array? " + abcde + "\nRespuesta: si");
+
+            alert("con el concat: " + abcde);
+            //Un poco obvio al no guardarse en la variable pero por probar.
+            alert("con el concat dentro del parentesis: " + abcde.concat(['h', 'i']) +
+                "\nResultado: no se cambia el array original");
+
+            alert("Con el join cambiado: " + abcde.join("$"));
+            alert(".length: " + abcde.length); //7
+
+            //Ya que aqui si se modifica el array y ambas son funciones. 
+            //Pop devuelve el elemento eliminado(y elimina el ULTIMO elemento)
+            alert("Prueba: si elimino con pop() un elemento dentro de un alert, se elimina realmente? \n" +
+                " Array original: " + abcde + "\nelemento ult eliminado: " + abcde.pop() + "\narray final: "
+                + abcde + "\nRespuesta: si");
+
+            //shift devuelve el elemento eliminado(y elimina el PRIMER elemento)
+            alert("Shift elimina el primer elemento: Se ha eliminado: " + abcde.shift() +
+                "\ny ahora el array esta asi: " + abcde + "\nRespuesta: si modifica el array original");
+
+            //Push devuelve la longitud nueva y añade al FINAL
+            alert("Prueba: si añado con push() elementos dentro de un alert, se añaden realmente? \n" + "La nueva longitud es: " +
+                abcde.push("Equis", "ye") + " El array tiene estos elementos: " + abcde + "\nRespuesta: si, añadido al final");
+
+            //Antes se añaden Strings como elementos, pero, y si le mando un array?
+            alert("Prueba añadiendole un array porque si:\nLa nueva longitud es: " + abcde.push(['Lunes', 'Martes', 'Miercoles']) +
+                " y el array se ve asi: " + abcde + "\nRespuesta: Funciona pero no su longitud, se añade como 1");
+
+            //unshift() devuelve la longitud nueva y añade al PRINCIPIO
+            alert("Prueba: si añado con unshift() elementos dentro de un alert, se añaden realmente? \n" + "La nueva longitud es: " +
+                abcde.unshift("zeta", "zebra") + " El array tiene estos elementos: " + abcde + "\nRespuesta: si, añadido al principio");
+
+            //reverse
+            alert("Array con reverse: " + abcde.reverse());
+            alert("Pero se modifica el original? \n" + abcde + "\nRespuesta: si");
+        }
+
+        function arrays2() {
+            let a = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+            //CON 2 PARAMETROS: (POS_INICIAL, CUANTOS?) elimina cuantos desde pos y devuelve un array con los elementos eliminados
+            //CON 3+ PARAMETROS: (POS_INICIAL, CUANTOS?, CUALES?) elimina cuantos desde pos y añade cuales desde pos
+            //Si CUANTOS es cero añade cuales desde pos y devuelve un array vacio.
+
+            //Desde la posicion 1 elimina 3 splice(1,3). 
+
+            alert("Array inicial: " + a + "\nSe han eliminado los siguientes elementos:(pos1,cant3) \n"
+                + a.splice(1, 3) + "\nAhora el array luce asi: " + a);
+
+            //Si usamos 3 parametros podemos añadir (Desde la posicion 2 elimina 2 y desde la pos 2 añade "Lunes" y "Martes")
+            alert("Array inicial: " + a + "\nSe han eliminado los siguientes elementos:(pos2,cant2)\n"
+                + a.splice(2, 2, "lunes", "martes") + "\nAñadidos en la pos 2: ahora el array luce asi: " + a + "\nPd: se añaden en la pos 2 inicial");
+
+            //Si cuantos es 0 solo se añade, no se borra, y devuelve vacio
+            alert("Array inicial: " + a + "\nSe han eliminado los siguientes elementos:(pos2,cant0)(estará vacio)\n"
+                + a.splice(2, 0, "miercoles", "jueves") + "\nAñadidos en la pos2: Ahora el array luce asi: " + a);
+
+            //EN TODAS SE MODIFICA EL ARRAY ORIGINAL 
+            alert("Array final: " + a);
+        }
+
+        function numeros() {
+            let num = 0 / 0; //NaN: resultado de una operacion imposible de calcular
+            alert("0/0 =" + num);
+
+            let num1 = "S";
+            let num2 = 3;
+
+            if (isNaN(num1 / num2)) {
+                alert(num1 + "/" + num2 + ": No se puede hacer la division porque 'no es un numero'");
+            }
+
+            num1 = 10 / 0; //Infinity
+            alert("Resultado 10/0: " + num1); 
+
+            if (!isFinite(num1)) { //Lo mismo que decir Infinity. Si NaN entonces isFinite=false; 
+                alert("Error: " + num1);
+            }
+
+            //Redondear
+            let num4 = 3.141591;
+            alert("Fijado a 3 dec: " + num4.toFixed(3) + "\nEl valor es: " + num4 + "\nNo se modifica la variable en el alert")
+
+            num4 = num4.toFixed(2); //"3.14"
+            alert("Previamente fijado en variable, el valor ahora es: " + num4 + "\nAsí si se modifica"); 
+        }
+    </script>
+
+</head>
+
+<body>
+    <!-- Boton visible -->
+    <button id="botonPrincipal" onclick="utilidades()">&gt;UTILIDADES &lt;</button>
+    <button id="boton2" onclick="posiciones()">&gt;POSICIONES &lt;</button>
+    <button id="boton3" onclick="substrings()">&gt;SUBSTRINGS &lt;</button>
+    <button id="boton4" onclick="arrays()">&gt;ARRAYS &lt;</button>
+    <button id="boton5" onclick="arrays2()">&gt;ARRAYS2 SPLICE &lt;</button>
+    <button id="boton5" onclick="numeros()">&gt;SOBRE NUMEROS &lt;</button>
+   </body>
+</html>
