@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="practica de javascript">
+  <meta name="keywords" content="javascript">
+  <meta name="author" content="Jova Rojas">
+  <title>EVENTOS</title>
+  <script>
+    //Hay mas cosas en la ww3 pero no nos ha dado mucho mas, so...
+    /*NOTA: Es una práctica común declarar objetos con la palabra clave const (Obligatorio basicamente)
+    y se recomienda tambien para los arrays(no obligatorio, reserva espacio pero no asegura que no cambien sus valores
+    Veras de esto en otro documento). .*/
+    /*DATO: cuando usamos .innerHTML "como vamos a modificar el html" el salto de linea
+    se hace con <br> y no con \n*/
+
+    //Otra vez he creado una misma funcion para todo pero considerando que esto es todo pruebas...
+    /*En ejemplos reales cada function tendra una funcion mas especifica y podremos llamar 90 veces 
+    al window.addEventListener con cada una de ellas. En esto me ahorro tiempo*/
+
+    window.addEventListener("load",prueba); 
+    function prueba(){
+
+//CREAR UN OBJETO MUY SENCILLO:
+const car = {type:"Fiat", 
+             model:"500", 
+             color:"white"
+            };
+
+const person = {
+    firstName:"John", 
+    lastName:"Doe", 
+    age:50, 
+    eyeColor:"blue"
+};
+
+//crear un objeto y luego ponerle datos:
+const person2 = {};
+
+// Add Properties
+person2.firstName = "Jova";
+person2.lastName = "Rojas";
+person2.age = 26;
+person2.eyeColor = "brown"; 
+
+// Display Data from Object
+document.getElementById("demo3").innerHTML = "<b>EJEMPLO CON PROPIEDADES:</b><br>" +
+person2.firstName + "  " + person2.lastName + " " + " eyeColor: " + person2.eyeColor;
+
+// Display Data from the Object (aqui usamos el acceso a propiedades con "."):
+document.getElementById("demo").innerHTML = "<b>EJEMPLO SOLO COCHE:</b><br>" +
+"The car type is " + car.type;
+
+// Acceso a propiedades con []):
+document.getElementById("demo4").innerHTML = "<b>EJEMPLO SOLO COCHE CON CORCHETES:</b><br>" +
+"The car type is " + car["type"];
+
+document.getElementById("demo1").innerHTML = "<b>EJEMPLO PERSONA DIRECTAMENTE INICIALIZADA</b><br>" +
+person.firstName + " is " + person.age + " years old.";
+
+//probando a:
+
+let contenido = "<b>PROBANDO A USAR UNA VARIABLE PARA REUNIR CONTENIDO:</b><br>"
+contenido+= " The car type is " + car.type + "<br>";
+
+contenido += person.firstName + " is " + person.age + " years old.";
+
+document.getElementById("demo2").innerHTML = contenido; 
+
+//HACER "COPIA" DE UN OBJETO EN REALIDAD MODIFICA AL OBJETO ORIGINAL
+// intento de crear una copia
+const x = person;
+
+// esto cambiará la edad en person(que era 50) !!!
+x.age = 10;
+
+document.getElementById("demo5").innerHTML = "<b>INTENTANDO HACER UNA COPIA:</b><br>" +
+person.firstName + " is " + person.age + " years old.";
+
+
+/*EJM DE CREAR UNA FUNCION PARA UN VALOR
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  id: 5566,
+  fullName: function() { 
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+document.getElementById("demo").innerHTML = person.fullName();*/
+}
+</script>
+
+<!--PD: SE PUEDE USAR newObject() pero resulta innecesario.-->
+
+</head>
+<body>
+<h1>JavaScript Objects</h1>
+<h2>Creating an Object</h2>
+
+<p id="demo"></p>
+<hr>
+<p id="demo4"></p>
+<hr>
+<p id="demo1"></p>
+<hr>
+<p id="demo2"></p>
+<hr>
+<p id="demo3"></p>
+<hr>
+<p id="demo5"></p>
+</body>
+</html>

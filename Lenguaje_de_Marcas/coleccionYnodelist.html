@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="practica de javascript">
+  <meta name="keywords" content="javascript">
+  <meta name="author" content="Jova">
+  <title>HTMLCOLLECTION Y NODELIST </title>
+
+  <script>
+    //ESTO LO AÑADIMOS PARA QUE EL SCRIPT NO VAYA EN EL BODY
+    window.addEventListener("load", añadirElemento); 
+
+    //Esto basicamente demuestra que las HTMLCollection son dinamicas, se van actualizando segun tu actualices
+    //Las NodeList en principio no, no profundicé al respecto, por si nos sirve mas adelante. 
+    function añadirElemento() {
+      let htmlCollection = document.getElementById("lista").getElementsByTagName("li");
+      let nodeList = document.querySelectorAll("#lista li");
+
+      //He declarado directamente la funcion en el addEventListener pero si lo hago separado da lo mismo.
+      document.getElementById("boton").addEventListener("click", function () {
+        let nuevo = document.createElement("li");
+        nuevo.textContent = "Nuevo elemento";
+        document.getElementById("lista").appendChild(nuevo);
+
+        console.log("HTMLCollection:", htmlCollection.length); // Se actualiza solo
+        console.log("NodeList:", nodeList.length); // No cambia (sigue igual)
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <ul id="lista">
+    <p>Mirar funcionamiento en la consola</p>
+    <li>Elemento 1</li>
+    <li>Elemento 2</li>
+  </ul>
+
+  <button id="boton">Agregar elemento</button>
+</body>
+
+</html>

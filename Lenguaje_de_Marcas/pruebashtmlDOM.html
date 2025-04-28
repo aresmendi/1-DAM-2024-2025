@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="practica de javascript">
+    <meta name="keywords" content="javascript">
+    <meta name="author" content="Jova Rojas">
+    <title>Tema 4 DOM HTML </title>
+    <script>
+
+        /*  Antes que nada: 
+                En XML DOM todo es un nodo por lo que usamos childNodes. 
+                En HTML DOM tenemos propiedad amiga: children.
+        
+        childNodes incluye todos los nodos, incluidos los nodos de texto como espacios, saltos de línea o texto suelto.
+        children solo incluye elementos HTML, es decir, solo etiquetas válidas como <p>, <div>, etc.
+            ----------------------------------------------------------------------------------------*/
+
+        /*HTML DOM: document.getTalyCual
+            XML DOM: xmlDoc.getTalyCual (no es un nombre fijo, pero para el esquema que tenemos corresponde)
+            -------------------------------------------------------------------------------------*/
+
+
+        /*El addEventListener lo uso para evitar colocar el script en el body.
+        Esto asegura que la pagina se carga antes y no lanza nulo al buscar id06.
+        Y se coloca fuera de las funciones.
+        ----------------------------------------------------------------*/
+
+        window.addEventListener("load", cambiarParrafo);
+        window.addEventListener("load", cambiarTitulo);
+
+        function cambiarParrafo() {
+            //Esta linea cambia el parrafo con id06 que dice INNERHTML debajo del titulo h1
+            document.getElementById("id06").innerHTML = document.getElementById("id05").innerHTML;
+
+            //obtenemos el div
+            let element = document.getElementById("example");
+            //Los p dentro del div 
+            let adentro = element.getElementsByTagName("p");
+            //Creamos una variable para juntar cositas
+            let resultado = "Resultado con innerHTML:<br>";
+
+            /*innerText y textContent funcionan pero él solo nos ha dado innerHTML.
+            innerhtml lo muestra con etiquetas si lo pones al contenedor, pero si lo pones al padre 
+            directo que quieres con un id o algo lo muestra bien (LEER SOBRE ESTO AL FINAL QUE AQUI ES MUCHO TEXTO XD)*/
+            alert("El contenido del parrafo 0 de example es: " + adentro[0].innerHTML);//Esto se muestra 
+
+            //Este for recoge un resultado que luego ...
+            for (let i = 0; i < adentro.length; i++) {
+                resultado += "El contenido del hijo num " + i + " del example es: " + adentro[i].innerHTML + "<br>";
+            }
+            //Se introduce aqui, en el parrafo de id04
+            document.getElementById("id04").innerHTML = resultado;
+        }
+
+        function cambiarTitulo() {
+            //ACCESO A LOS DATOS DE LOS ELEMENTOS
+            //Aqui recuperamos el nombre de etiqueta y la pasamos a minuscula porque .tagName devuelve en mayusc
+            //Nota: .tagName no es lo mismo que getElementsByTagName
+
+            let clase = "Prueba de : getElementsByClassName<br>Con lower: ";
+            clase += document.getElementsByClassName("claseprueba")[0].tagName.toLowerCase();//con lower
+            clase += "<br>Ahora sin lower:"
+            clase += document.getElementsByClassName("claseprueba")[0].tagName;//sin lower
+
+            document.getElementById("id03").innerHTML = clase;
+            //---------------------------------------------------------------------------------------------------------------
+            let titulo = document.getElementsByTagName("h1")[0];
+            let antiguo = titulo.innerHTML; //innerHTML leer y escribir(Aqui leyendo)
+            let nuevo = titulo.innerHTML = "My new header";//aqui escribiendo
+
+            document.getElementById("id02").innerHTML = "innerHTML-Titulo antiguo: " + antiguo + "<br>Titulo nuevo: " + nuevo;
+            //---------------------------------------------------------------------------------------------------------------
+            //children: solo lectura 
+            let string1 = "Todas las etiquetas de body son: ";
+            for (let e of document.body.children) {
+                string1 += e.tagName.toLowerCase() + '<br>';
+            }
+
+            document.getElementById("id01").innerHTML = string1;
+        }
+        //-------------------------------------------------------------------------------------------------------------------
+        function prueba() {
+            //-----------------------------------------------------------------------------------------------------------
+            /*      CURIOSIDAD.. NO LO VEREMOS
+                        //Tipo 1 elemento, tipo 3 texto.
+                        for (let i = 0; i < bucle.childNodes.length; i++) {
+                            alert("Nodo " + i + ":\n" +
+                                "Tipo: " + bucle.childNodes[i].nodeType + "\n" +
+                                "Valor: '" + bucle.childNodes[i].nodeValue + "'");
+                        }*/
+
+            let bucle = document.getElementById("example");
+
+            //Recorrido como bucle + children
+            for (let i of bucle.children) {
+                alert("for of (children): " + i.innerHTML + "\n");
+            }
+
+            for (let i = 0; i < bucle.children.length; i++) {
+                alert("for clasico (children): " + bucle.children[i].innerHTML + "\n");
+            }
+        }
+
+        //-----------------------------------------------------------------------------------------------------------
+        /*Esto devuelve una nodeList, pero creo que más que entender como usar nodelist aqui, es mejor
+        usar los demas get's y el querySelector normal*/
+        let array4 =
+            document.querySelectorAll("input");
+
+        //----------------------------------------------------------------------------------------------------
+        //Cambiar contenido usando INNERHTML
+        function changeContent() {
+            let p1 = document.querySelector("body p:first-child"); //SELECCIONA EL P PRIMER HIJO DE BODY
+            p1.innerHTML = "TEXTO CAMBIADO";
+
+        }
+        //GET , SET ATTRIBUTE y .attribute
+            function atributos() {
+                //Obtener etiqueta a por su nombre
+                let a = document.getElementsByTagName("a")[0];
+
+                let newURL = "https://www.iesserpis.org";
+                //mostramos el atributo que tiene
+                alert("Valor de getAttribute: " + a.getAttribute("href"));
+                //modificamos el atributo href con la nueva url
+                a.setAttribute("href", newURL);
+                //Ahora miramos cual tiene, este acceso es un acceso directo al atributo. elemento.atributo
+                alert("Nuevo valor de getAttribute: " + a.href);
+
+                //Esto modifica el atributo id, podemos acceder directamente de la misma forma y modificar su valor
+                alert("el id actual es " + a.id)
+                a.id = "1stlink";
+                alert("el nuevo id es " + a.id);
+            }
+    </script>
+</head>
+
+<body>
+
+    <body>
+        <p>TEXTO</p>
+        <hr>
+        <div id="example">TEXTO1
+            <p>Hola Mundo</p>
+            <p>Hola Mundo2</p>
+            TEXTO2
+            <span>Otro texto</span>
+        </div>
+        <hr>
+        <div>
+            <p>USO DE document.write -> Para escribir en un html con document.write ponemos un script en el body</p>
+            <script>
+                document.write(Date());
+            </script>
+        </div>
+        <hr>
+        <button type="button" onclick="changeContent()">CAMBIAR P1</button>
+        <button type="button" onclick="prueba()">BUCLE CHILDREN</button>
+        <button type="button" onclick="atributos()">ATRIBUTOS</button>
+        <hr>
+        <h1 id="id05">INNER HTML</h1>
+        <p id="id06"></p>
+        <hr>
+        <p id="id04"></p>
+        <hr>
+        <input name="prueba" class="claseprueba" />
+        <hr>
+        <a href="#" id="x">PRESIONAR ENLACE ANTES Y DESPUES DE DARLE AL BOTON ATRIBUTOS</a>
+        <hr>
+        <p id="id03"></p>
+        <hr>
+        <p id="id02"></p>
+        <hr>
+        <p id="id01"></p>
+    </body>
+</body>
+<!--
+ESTA INFORMACION LA HE AÑADIDO COMO CURIOSIDAD PERO AUN NO LA HE PROBADO A FONDO 
+El textContent ahorra problemitas pero "no lo hemos visto"... so. 
+os diré algo sobre esto luego.
+Este ejemplo es el caso que más problemas podría darnos porque si no tiene negritas o algo de ese tipo
+podemos directamente llamar al <p>. 
+
+    En un mundo ideal sin los <b>:
+    Basicamente si usamos .textContent con el div, nos dira holaMundo,
+    y si lo usamos con el innerHTML nos dira: <p>Hola mundo</p>
+    Pero si ponemos directamente p con innerhtml nos dira hola mundo, entonces si seleccionas
+    la etiqueta correcta puedes usar innerhtml sin problemas.
+
+    Preguntaré sobre esto mas adelante y os aviso :)
+------------------------------------------------------------------------------------------
+textContent:
+→ Lee solo el texto, sin interpretar ni incluir etiquetas HTML.
+Ejemplo: si el elemento tiene <div><p><b>Hola</b> mundo<p></div>, textContent te devolverá Hola mundo.
+
+innerHTML:
+→ Lee el contenido HTML, incluyendo las etiquetas.
+Con el mismo ejemplo (<div><p><b>Hola</b> mundo</p></div>), innerHTML te devolverá <b>Hola</b> mundo.
+
+
+Resumen rápido:
+
+¿Solo quiero el texto? → textContent
+
+¿Quiero el texto + las etiquetas HTML? → innerHTML-->
+</html>
+

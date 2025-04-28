@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="practica de javascript">
+    <meta name="keywords" content="javascript">
+    <meta name="author" content="Jova Rojas">
+    <title>INSERTAR, REMOVER, CREAR, REEMPLAZAR</title>
+
+    <script>
+        //Como estas funciones se llaman todas al onclick no hace falta cargarlas con la pag(addEvent...)
+        
+        function crearInsertar() {
+            //Creamos un parrafo y lo guardamos
+            const parrafo = document.createElement("p");
+            //Creamos un nodo y lo guardamos
+            const nodo = document.createTextNode("This is new. Como es con appendChild se agrega como ultimo hijo del div");
+            //Agregamos el nodo como ultimo hijo de párrafo
+            parrafo.appendChild(nodo);
+            //Obtenemos el div y lo guardamos
+            const elemento = document.getElementById("div1");
+            //Metemos el parrafo en el div
+            elemento.appendChild(parrafo);
+
+            //En resumen, VOLVEMOS A LAS MATRIOSHKAS
+
+            //Esto se repite con respecto a arriba
+            const parrafo1 = document.createElement("p");
+            const nodo1 = document.createTextNode("This is 2 new.Como es con insertbefore, se inserta antes del parrafo 1, o lo que es lo mismo EN ESTE CASO, como primer hijo del div...");
+            parrafo1.appendChild(nodo1);
+            const element = document.getElementById("div1");
+
+            //Cambia aqui, guardamos el parafo1
+            const child = document.getElementById("p1");
+            //insertamos antes
+            element.insertBefore(parrafo1, child);
+
+        }
+        //El patron de esto no está fino pero demuestra el punto
+        function remover() {
+            document.getElementsByTagName("p")[0].remove();
+        }
+
+        function reemplazar() {
+            //contenedor
+            const padre = document.getElementById("div1");
+            //guardamos el parrafo2 original
+            const hijo = document.getElementById("p2");
+            //creamos otro parrafo2
+            const newparrafo2 = document.createElement("p");
+            //Creamos el texto que tendra
+            const nodo2 = document.createTextNode("Este reemplaza al parrafo2");
+
+            //Le añadimos al parrafo2 que acabamos de crear, el texto
+            newparrafo2.appendChild(nodo2);
+            //reemplazamos en el contenedor, pasandole el nuevo parrafo, y el hijo a sustituir
+            padre.replaceChild(newparrafo2, hijo);
+        }
+    </script>
+</head>
+
+<body>
+    <h2>JavaScript HTML DOM</h2>
+    <p>Add a new HTML Element.</p>
+
+    <div id="div1">
+        CONTENEDOR(DIV)
+        <p id="p1">PARRAFO 1</p>
+        <p id="p2">PARRAFO2</p>
+    </div>
+    <button onclick="crearInsertar()">Insertar Element</button>
+    <button onclick="remover()">Remove Element</button>
+    <button onclick="reemplazar()">Reemplazar p2</button>
+
+</body>
+
+</html>
