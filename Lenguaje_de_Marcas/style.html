@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demo con style</title>
+</head>
+<!--Este ejemplo es muy sencillo pero usa el style, el visibility que debemos usar(no display por ahora) y lo mas interesante:
+no tiene <script>, se hace todo desde el input...-->
+<body>
+    <p id="p1">
+        This is a text.
+        This is a text.
+        This is a text.
+        This is a text.
+    </p>
+
+    <input type="button" value="Hide text" onclick="document.getElementById('p1').style.visibility='hidden'">
+    <input type="button" value="Show text" onclick="document.getElementById('p1').style.visibility='visible'">
+</body>
+
+</html>

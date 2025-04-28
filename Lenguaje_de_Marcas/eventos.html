@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="practica de javascript">
+  <meta name="keywords" content="javascript">
+  <meta name="author" content="Jova Rojas">
+  <title>EVENTOS</title>
+    <style>
+        #myDiv1,
+        #myDiv2 {
+            background-color: coral;
+            padding: 50px;
+        }
+
+        #myP1,
+        #myP2 {
+            background-color: white;
+            font-size: 20px;
+            border: 1px solid;
+            padding: 20px;
+        }
+    </style>
+   
+
+    <script>
+        //ESTAS SON FUNCIONES QUE SE LLAMAN EN UN EVENTO "ON-CUALQUIERCOSA" DESDE EL HTML,
+        // por lo que ya la pag está cargada cuando se llama y no hace falta envolverlas
+        function changeText(id) {
+            id.innerHTML = "Ooops!";
+        }
+
+        function upperCase() {
+            const y = document.getElementById("fname");
+            y.value = y.value.toUpperCase();
+        }
+
+        function upperCase1() {
+            const x = document.getElementById("fname1");
+            x.value = x.value.toUpperCase();
+        }
+
+        function mOver(obj) {
+            obj.innerHTML = "Thank You"
+        }
+
+        function mOut(obj) {
+            obj.innerHTML = "Mouse Over Me"
+        }
+
+        function mDown(obj) {
+            obj.style.backgroundColor = "#1ec5e5";
+            obj.innerHTML = "Release Me";
+        }
+
+        function mUp(obj) {
+            obj.style.backgroundColor = "#D94A38";
+            obj.innerHTML = "Thank You";
+        }
+        //hay que cambiar las imagenes de aqui a una bombilla encendida y apagada
+        function lighton() {
+            document.getElementById('myimage').src = "bulbon.gif";
+        }
+        function lightoff() {
+            document.getElementById('myimage').src = "bulboff.gif";
+        }
+
+        /*cambiar color inputs*/
+        function myFunction3(x) {
+            x.style.background = "yellow";
+        }
+
+        
+            //ESTA PARTE DEL SCRIPT NECESITA QUE LOS ELEMENTOS EXISTAN PARA HACER COSAS 
+
+            /*ESTO SIGNIFICA QUE CUANDO UNA FUNCION HAGA "document.getElementById("demo").innerHTML" o getCualquiercosa
+            AL ESTAR EN EL HEAD TODAVIA EL BODY NO SE HABRÁ CREADO Y DEVOLVERA NULO, POR ESO HACEMOS LO DE 
+            ADDEVENTLISTENER*/
+
+            /*NOTA ADICIONAL: Dado que las variables locales solo se reconocen dentro de sus funciones, 
+            las variables con el mismo nombre se pueden usar en diferentes funciones.
+            PERO YO NO LO HICE PORQUE EL EJEMPLO USABA var(global), no let.
+            Luego es verdad que no es necesario usar var, de hecho es desaconsejable pero el ejemplo venía asi y lo probé*/
+
+//-----------------------------------------------------------------------------------------------------------
+/*He puesto TODO el codigo que necesita ser cargado en una sola funcion por no pasar mucho tiempo en esto, pero, en el documento 
+pruebashtmlDOM.html está mas organizadito. Mucho mejor separado*/
+
+// SINTAXIS: Enganchamos el evento a la ventana: window.addEventListener("eventoentrecomillas sin on", "funcion sin parentesis")
+        window.addEventListener("load", cargar);
+            function cargar(){
+            /*Agregar dos o mas eventos al mismo boton*/
+            var z = document.getElementById("myBtn");
+            z.addEventListener("click", myFunction4);
+            z.addEventListener("click", someOtherFunction);
+
+            function myFunction4() {
+                alert("Hello World!");
+            }
+
+            function someOtherFunction() {
+                alert("This function was also executed!");
+            }
+
+            /*Agregar diferentes eventos al mismo boton*/
+            var i = document.getElementById("myBtn1");
+            i.addEventListener("mouseover", myFirstFunction);
+            i.addEventListener("click", mySecondFunction);
+            i.addEventListener("mouseout", myThirdFunction);
+
+            function myFirstFunction() {
+                document.getElementById("demo").innerHTML += "Moused over!<br>";
+            }
+
+            function mySecondFunction() {
+                document.getElementById("demo").innerHTML += "Clicked!<br>";
+            }
+
+            function myThirdFunction() {
+                document.getElementById("demo").innerHTML += "Moused out!<br>";
+            }
+
+            /*Cambia el valor de PI al redimensionar la pantalla*/
+            window.addEventListener("resize", function () {
+                document.getElementById("demo1").innerHTML = Math.random();
+            });
+
+            /*BUBBLING
+            El valor predeterminado es falso, falso = propagación de burbujeo; 
+            verdadero = propagación de captura.
+            Al burbujear, se maneja primero el evento del elemento más interno y luego el externo: 
+            primero se maneja el evento de clic del elemento <p> y luego el evento de clic del elemento <div>.
+    
+            Al capturar, primero se maneja el evento del elemento más externo y luego el interno: 
+            primero se manejará el evento de clic del elemento <div> y luego el evento de clic del elemento <p>.*/
+
+            //false: bubbling-burbujeo, primero dentro, luego fuera
+            document.getElementById("myP1").addEventListener("click", function () {
+                alert("You clicked the white element!");
+            }, false);
+
+            document.getElementById("myDiv1").addEventListener("click", function () {
+                alert("You clicked the orange element!");
+            }, false);
+
+            //true: captura, primero fuera, luego dentro
+
+            document.getElementById("myP2").addEventListener("click", function () {
+                alert("You clicked the white element!");
+            }, true);
+
+            document.getElementById("myDiv2").addEventListener("click", function () {
+                alert("You clicked the orange element!");
+            }, true);
+
+            /*Pasar parametros*/
+            let p1 = 5;
+            let p2 = 7;
+            document.getElementById("myBtn2").addEventListener("click", function () {
+                myFunction1(p1, p2);
+            });
+
+            function myFunction1(a, b) {
+                document.getElementById("demo2").innerHTML = a * b;
+            }
+
+        }
+//--------------------------------------------------------------------------------------------------
+    </script>
+</head>
+
+<body>
+    <h1>JavaScript HTML Events</h1>
+    <h2>The onclick Attribute</h2>
+    <!--Uso del this, mirar this el resto del documento-->
+    <h2 onclick="this.innerHTML='Ooops!'">Click on this text!</h2>
+    <hr>
+    <!--Lo mismo pero con funcion-->
+    <h2 onclick="changeText(this)">Click on this text!</h1>
+        <hr>
+        <!--Evento de formulario en vivo, input-->
+        <h1>JavaScript HTML Events</h1>
+        <h2>The oninput Attribute</h2>
+
+        Enter your name: <input type="text" id="fname" oninput="upperCase()">
+        <p>When you write in the input field, a function is triggered to transform the input to upper case.</p>
+        <hr>
+        <!--Al dejar el formulario, no en vivo-->
+        <h1>JavaScript HTML Events</h1>
+        <h2>The onchange Attribute</h2>
+
+        Enter your name: <input type="text" id="fname1" onchange="upperCase1()">
+        <p>When you leave the input field, a function transforms the input to upper case.</p>
+        <hr>
+        <!--mouseover y mouseout-->
+        <h1>JavaScript HTML Events</h1>
+        <h2>The onmouseover Attribute</h2>
+
+        <!--De esta forma si podemos poner varias propiedades en style. Con el .style parece que no-->
+        <!--En mouseout especificamos lo que queremos que diga de normal y en mouseover el texto cambiado 
+        (como el :hover xd)-->
+        <div onmouseover="mOver(this)" onmouseout="mOut(this)"
+            style="background-color:#D94A38;width:120px;height:20px;padding:40px;">
+            Mouse Over Me</div>
+            <hr>
+        <!--Al presionar y soltar-->
+        <h1>JavaScript HTML Events</h1>
+        <h2>The onmousedown Attribute</h2>
+
+        <div onmousedown="mDown(this)" onmouseup="mUp(this)"
+            style="background-color:#D94A38;width:90px;height:20px;padding:40px;">
+            Click Me</div>
+            <hr>
+        <!--Ejemplo de bombilla q no funciona pq no tengo las imagenes, pero por sintaxis:-->
+        <h1>JavaScript HTML Events</h1>
+        <h2>The onmousedown Attribute</h2>
+
+        <img id="myimage" onmousedown="lighton()" onmouseup="lightoff()" src="bulboff.gif" width="100" height="180" />
+
+        <p>Click mouse and hold down!</p>
+        <hr>
+        <!--Cambiar inputs de color de fondo, focus-->
+        <h1>JavaScript HTML Events</h1>
+        <h2>The onfocus Attribute</h2>
+
+        Enter your name: <input type="text" onfocus="myFunction3(this)">
+
+        <p>When the input field gets focus, a function is triggered which changes the background-color.</p>
+        <hr>
+        <!--mouseover mouseout, es como el hover digo de nuevo xd-->
+        <h1>JavaScript HTML Events</h1>
+        <h2>The onmousover Attribute</h2>
+
+        <h1 onmouseover="style.color='red'" onmouseout="style.color='black'">
+            Mouse over this text</h1>
+            <hr>
+        <!--Agregar dos o mas eventos del mismo tipo al mismo boton-->
+        <h2>JavaScript addEventListener()</h2>
+
+        <p>This example uses the addEventListener() method to add two click events to the same button.</p>
+
+        <button id="myBtn">Try it</button>
+        <hr>
+        <!--Agregar varios eventos al mismo boton-->
+        <h2>JavaScript addEventListener()</h2>
+
+        <p>This example uses the addEventListener() method to add many events on the same button.</p>
+
+        <button id="myBtn1">Try it</button>
+
+        <p id="demo"></p>
+        <hr>
+        <!--RESIZE-->
+        <h2>JavaScript addEventListener()</h2>
+
+        <p>This example uses the addEventListener() method on the window object.</p>
+
+        <p>Try resizing this browser window to trigger the "resize" event handler.</p>
+
+        <p id="demo1"></p>
+        <hr>
+        <!--PASANDO PARAMETROS-->
+        <h2>JavaScript addEventListener()</h2>
+
+        <p>This example demonstrates how to pass parameter values when using the addEventListener() method.</p>
+
+        <p>Click the button to perform a calculation.</p>
+
+        <button id="myBtn2">Try it</button>
+
+        <p id="demo2"></p>
+        <hr>
+        <!--BUBBLING-->
+        <h2>JavaScript addEventListener()</h2>
+
+        <div id="myDiv1">
+            <h2>Bubbling:</h2>
+            <p id="myP1">Click me!</p>
+        </div><br>
+
+        <div id="myDiv2">
+            <h2>Capturing:</h2>
+            <p id="myP2">Click me!</p>
+        </div>
+</body>
+
+</html>
