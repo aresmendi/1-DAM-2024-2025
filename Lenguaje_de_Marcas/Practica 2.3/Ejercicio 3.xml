@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PanelInformativo>
+  <Eventos>
+    <Evento id="1">
+      <Tipo>Accidente</Tipo>
+      <PuntoKilometrico>42.200</PuntoKilometrico>
+      <NombreVia>A-49</NombreVia>
+      <Sentido>Huelva</Sentido>
+      <CorteVia>Corte de 1 carril</CorteVia>
+      <FechaHora>2024-09-27T09:00:00</FechaHora>
+      <Retencion>sí</Retencion>
+      <KilometrosRetencion>8</KilometrosRetencion>
+    </Evento>
+    
+    <Evento id="2">
+      <Tipo>Retención</Tipo>
+      <PuntoKilometrico>550</PuntoKilometrico>
+      <NombreVia>A-4</NombreVia>
+      <Sentido>Sevilla</Sentido>
+      <FechaHora>2024-09-28T10:00:00</FechaHora>
+      <Retencion>sí</Retencion>
+      <KilometrosRetencion>3</KilometrosRetencion>
+    </Evento>
+  </Eventos>
+</PanelInformativo>

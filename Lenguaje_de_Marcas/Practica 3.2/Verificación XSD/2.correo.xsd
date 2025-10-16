@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="mensaje">
+  <xs:complexType>
+   <xs:sequence>
+    <xs:element name="remitente" use="required" minOccurs="1" maxOccurs="1">
+	 <xs:complexType>
+	  <xs:sequence>
+	   <xs:element name="nombre" type="xs:string" minOccurs="0"maxOccurs="1"/>
+	   <xs:element name="email" minOccurs="1" maxOccurs="1">
+	    <xs:simpleType>
+		 <xs:restriction base="xs:string">
+		  <xs:pattern value=".+@.+\..+"/>
+		 </xs:restriction>
+		</xs:simpleType>
+	   </xs:element>
+	 </xs:sequence>
+	</xs:complexType>
+   </xs:element>
+   <xs:element name="destinatario" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+    <xs:complexType>
+	 <xs:sequence>
+	  <xs:element name="nombre" type="xs:string" minOccurs="0"maxOccurs="1"/>
+	  <xs:element name="email" minOccurs="1" maxOccurs="1">
+	    <xs:simpleType>
+		 <xs:restriction base="xs:string">
+		  <xs:pattern value=".+@.+\..+"/>
+		 </xs:restriction>
+		</xs:simpleType>
+	   </xs:element>
+	  </xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+	<xs:element name="asunto" type="xs:string" use="opcional"/>
+	<xs:element name="cuerpo" type="xs:string">
+	 <xs:complexType>
+	  <xs:sequence>
+	   <xs:element name="parrafo" type="xs:string"  minOccurs="0"maxOccurs="unbounded"/>
+	  </xs:sequence>
+	 </xs:complexType>
+	 <xs:key name="uniqueRemitenteEmail">
+      <xs:selector xpath="remitente/email"/>
+      <xs:field xpath="."/>
+     </xs:key>
+     <xs:key name="uniqueDestinatarioEmail">
+      <xs:selector xpath="destinatario/email"/>
+      <xs:field xpath="."/>
+     </xs:key>
+	</xs:element>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+</xs:schema>
+	   
+	  
+	  
+	  
+	   

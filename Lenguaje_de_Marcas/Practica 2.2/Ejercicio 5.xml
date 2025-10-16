@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura numero="999" fecha="12-01-2005" pedido="731" forma_de_pago="EFECTIVO">
+  <empresa nombre="Equipos Digitales, S.L."
+           direccion="Av. Valladolid, Madrid 28015"
+           nif="Q-9876543"
+           telefono="917776688"
+           email="billing@equiposdigitales.es"/>
+  
+  <cliente codigo="879"
+           nombre="Darío Bueno Gutiérrez"
+           direccion_de_envio="Av. Oporto nº7, 4ºD, Madrid 28043"/>
+  
+  <datos_factura>
+    <items>
+      <item referencia="MII93000F/8" descripcion="MICRO PENTIUM IV 300MHz FB800" cantidad="1" precio="230,00" iva="16,0" importe="266,80"/>
+      <item referencia="MB8QDIP4" descripcion="PLACA BASE QDI P4" cantidad="1" precio="180,00" iva="16,0" importe="208,80"/>
+      <item referencia="MEDD512M32" descripcion="DIMM DDR 512MB 3200" cantidad="2" precio="40,00" iva="16,0" importe="92,80"/>
+      <item referencia="HD250GSA7" descripcion="DISCO DURO 250GB SATA 7200" cantidad="4" precio="120,00" iva="16,0" importe="556,80"/>
+    </items>
+    <base_imponible>970,00 €</base_imponible>
+    <iva porcentaje="16,0" cuota="155,20 €"/>
+    <total>1125,20 €</total>
+  </datos_factura>
+</factura>
+
+   

@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<canciones>
+  <cancion duracion="248" año="1979">
+    <titulo>Video Killed the Radio Star</titulo>
+    <compositores>
+      <compositor>
+        <nombre>Geoff</nombre>
+        <apellidos>Downes</apellidos>
+      </compositor>
+      <compositor>
+        <nombre>Trevor</nombre>
+        <apellidos>Horn</apellidos>
+      </compositor>
+      <compositor>
+        <nombre>Bruce</nombre>
+        <apellidos>Woolley</apellidos>
+      </compositor>
+    </compositores>
+    <disco>The Age of Plastic</disco>
+    <sello>Island</sello>
+    <artistas>
+      <artista>Buggles</artista>
+    </artistas>
+  </cancion>
+  <cancion duracion="233" año="2014">
+    <titulo>Bang my head</titulo>
+    <compositores>
+      <compositor>
+        <nombre>David</nombre>
+        <apellidos>Guetta</apellidos>
+      </compositor>
+      <compositor>
+        <nombre>Giorgio</nombre>
+        <apellidos>Tuinfort</apellidos>
+      </compositor>
+      <compositor>
+        <nombre>Sia</nombre>
+        <apellidos>Furler</apellidos>
+      </compositor>
+            <compositor>
+        <nombre>Marcus</nombre>
+        <apellidos>van Wattum</apellidos>
+      </compositor>
+      <compositor>
+        <nombre>Nick</nombre>
+        <apellidos>Rotteveel</apellidos>
+      </compositor>
+      <compositor>
+        <nombre>Kristian</nombre>
+        <apellidos>Karlsson</apellidos>
+      </compositor>
+            <compositor>
+        <nombre>Vincent</nombre>
+        <apellidos>Pontare</apellidos>
+      </compositor>
+      <compositor>
+        <nombre>Magnus</nombre>
+        <apellidos>Lidehall</apellidos>
+      </compositor>
+    </compositores>
+    <disco>Listen</disco>
+    <sello>Warner</sello>
+    <artistas>
+      <artista>David Guetta</artista>
+      <artista>Sia</artista>
+    </artistas>
+  </cancion>
+</canciones>

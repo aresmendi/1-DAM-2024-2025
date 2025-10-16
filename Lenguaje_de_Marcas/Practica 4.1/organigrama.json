@@ -1,0 +1,29 @@
+{
+	"equipo_directivo":[
+	{
+		"direccion": "Mar Llorente"
+	},
+	{
+		"vicedireccion": "Virginia Pla"
+	},
+	{
+		"jefatura_de_estudios":[
+		{
+		"eso": "Remei Ibañez"	
+		},
+		{
+		"bachillerato": "Josep Martinez"	
+		},
+		{
+		"ciclos": "Eva Cutandia"	
+		}
+		]
+	},
+	{
+		"secretaria_de_direccion": [
+				"Javi Rodriguez",
+				"Ricardo Muñoz"
+			]
+		}
+	]
+}

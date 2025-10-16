@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name= "canciones">
+  <xs:complexType>
+    <xs:sequence>
+	  <xs:element name="cancion" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+	    <xs:complexType>
+		 <xs:all>
+		  <xs:element name="titulo" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		  <xs:element name="disco" type="xs:string" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="sello" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		  <xs:element name="compositores" minOccurs="1" maxOccurs="unbounded">
+	       <xs:complexType>
+	        <xs:sequence>
+	         <xs:element name="compositor" minOccurs="1" maxOccurs="unbounded">
+		      <xs:complexType>
+		       <xs:sequence>
+			    <xs:element name="nombre" type="xs:string" minOccurs="1"/>
+		        <xs:element name="apellidos" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			   </xs:sequence>
+			  </xs:complexType>
+			  <xs:key name="uniqueApellidos">
+		       <xs:selector xpath="."/>
+			   <xs:field xpath="apellidos"/>
+		      </xs:key>
+			 </xs:element>
+			</xs:sequence>
+		   </xs:complexType>
+		  </xs:element>
+		  <xs:element name="artistas" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+           <xs:complexType>
+            <xs:sequence>
+             <xs:element name="artista" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+           </xs:complexType>
+          </xs:element>
+         </xs:all>	
+		<xs:attribute name="duracion" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="año" use="required">
+          <xs:simpleType>
+            <xs:restriction base="xs:integer">
+              <xs:minInclusive value="1900"/>
+              <xs:maxInclusive value="2099"/>
+            </xs:restriction>
+          </xs:simpleType>
+         </xs:attribute>
+	    </xs:complexType>
+	   <xs:key name="uniqueTitulo">
+	    <xs:selector xpath="."/>
+	    <xs:field xpath="titulo"/>
+	   </xs:key>
+     </xs:element>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:element>
+</xs:schema>	   
+	
+		    
+
+	

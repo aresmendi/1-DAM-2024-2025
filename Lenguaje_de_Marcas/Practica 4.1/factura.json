@@ -1,0 +1,109 @@
+{
+	"factura":[
+	{
+	"numero_factura": 20200049	
+	},
+	{
+	"cliente":
+	{
+	"nombre":"Sociedad SL",
+	"NIF":"123456789P",
+	"direccion": "Calle Gran Via, 1",
+	"codigo_postal": 28013,
+	"ciudad": "Sevilla, España",
+	"telefono":955123456,
+	"email":"company@si.com"
+	}
+		
+	},
+	{
+	"fecha":"25/11/2020"	
+	},
+	{
+	"vencimiento":"25/12/2020"	
+	},
+	{
+	"concepto":[
+	{
+		"estudios_previos":
+		{
+		"unidades":1,
+		"base_ud":8750,
+		"base_total":8750,
+		"porcentaje_IVA":21,
+		"IVA":1837.50
+		}
+	},
+	{
+		"anteproyecto":
+		{
+		"unidades":1,
+		"base_ud":35000,
+		"base_total":35000,
+		"porcentaje_IVA":21,
+		"IVA":7350
+		}
+	},
+	{	
+		"proyecto_basico":
+		{
+		"unidades":1,
+		"base_ud":26250,
+		"base_total":26250,
+		"porcentaje_IVA":21,
+		"IVA":5512.50
+		}
+	},
+	{
+		"proyecto_de_ejecucion":
+		{
+		"unidades":1,
+		"base_ud":52500,
+		"base_total":52500,
+		"porcentaje_IVA":21,
+		"IVA":11025
+		}
+	},
+	{
+		"direccion_de_obra":
+		{
+		"unidades":1,
+		"base_ud":43750,
+		"base_total":43750,
+		"porcentaje_IVA":21,
+		"IVA":9187.50
+		}
+	},
+	{
+		"liquidacion_y_recepcion_del_edificio":
+		{
+		"unidades":1,
+		"base_ud":8750,
+		"base_total":8750,
+		"porcentaje_IVA":21,
+		"IVA":1837.50
+		}
+	   }
+	  ]
+	},
+
+	{
+		"base_imponible":175000
+	},
+	{
+		"tipo_impuesto":"IVA 21%"
+	},
+	{
+		"impuesto":36750
+	},
+	{
+		"totales":[
+		{
+		"total_B.I.":175000,
+		"total_I.V.A.":36750,
+		"total":211750
+		}
+	   ]
+	  }
+	]
+}

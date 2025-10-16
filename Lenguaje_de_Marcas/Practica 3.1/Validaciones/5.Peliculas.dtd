@@ -1,0 +1,23 @@
+<!ELEMENT cartelera (pelicula+,titulo,titulo_original?,pais,generos,clasificacion,sinopsis,
+direccion,reparto,web?,cartel?)>
+<!ELEMENT pelicula EMPTY>
+<!ATTLIST pelicula
+  codigo CDATA #REQUIRED
+  duracion CDATA #REQUIRED
+  año CDATA "2024" #IMPLIED>
+<!ELEMENT titulo (#PCDATA)>
+<!ELEMENT titulo_original (#PCDATA)>
+<!ELEMENT pais (#PCDATA)>
+<!ELEMENT generos (genero+)>
+<!ELEMENT genero (#PCDATA)>
+<!ELEMENT clasificacion EMPTY>
+<!ATTLIST clasificacion
+edad (p.c.|tp|7|12|16|18)>
+<!ELEMENT sinopsis (#PCDATA)>
+<!ELEMENT direccion (#PCDATA)>
+<!ELEMENT reparto (actor+,actriz+)>
+<!ELEMENT actor (#PCDATA)>
+<!ELEMENT actriz (#PCDATA)>
+<!ELEMENT web (#PCDATA)>
+<!ELEMENT cartel (#PCDATA)>
+  

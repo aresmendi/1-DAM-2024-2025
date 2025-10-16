@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Empresa>
+  <Personas>
+    <Persona id="P001">
+      <Nombre>Juan Pérez</Nombre>
+      <Área>Programación</Área>
+    </Persona>
+    <Persona id="P002">
+      <Nombre>María López</Nombre>
+      <Área>Diseño</Área>
+    </Persona>
+    <Persona id="P003">
+      <Nombre>Carlos García</Nombre>
+      <Área>Contenidos</Área>
+    </Persona>
+  </Personas>
+
+  <Proyectos>
+    <Proyecto estado="finalizado">
+      <Descripción>Sitio web para comercio electrónico</Descripción>
+      <FechaComienzo>2023-01-15</FechaComienzo>
+      <DuraciónEstimada>6 meses</DuraciónEstimada>
+      <Participantes>
+        <Persona id="P001" />
+        <Persona id="P002" />
+      </Participantes>
+      <CosteTotal>15000</CosteTotal>
+    </Proyecto>
+
+    <Proyecto estado="suspendido">
+      <Descripción>Rediseño del blog corporativo</Descripción>
+      <FechaComienzo>2023-06-01</FechaComienzo>
+      <DuraciónEstimada>3 meses</DuraciónEstimada>
+      <Participantes>
+        <Persona id="P002" />
+        <Persona id="P003" />
+      </Participantes>
+      <Presupuesto>5000</Presupuesto>
+    </Proyecto>
+
+    <Proyecto>
+      <Descripción>Desarrollo de una plataforma educativa en línea</Descripción>
+      <FechaComienzo>2024-02-01</FechaComienzo>
+      <DuraciónEstimada>12 meses</DuraciónEstimada>
+      <Participantes>
+        <Persona id="P001" />
+        <Persona id="P003" />
+      </Participantes>
+      <Presupuesto>30000</Presupuesto>
+    </Proyecto>
+
+    <Proyecto estado="finalizado">
+      <Descripción>Mantenimiento del sitio web corporativo</Descripción>
+      <FechaComienzo>2022-11-01</FechaComienzo>
+      <DuraciónEstimada>2 meses</DuraciónEstimada>
+      <Participantes>
+        <Persona id="P001" />
+      </Participantes>
+      <CosteTotal>2000</CosteTotal>
+    </Proyecto>
+  </Proyectos>
+</Empresa>

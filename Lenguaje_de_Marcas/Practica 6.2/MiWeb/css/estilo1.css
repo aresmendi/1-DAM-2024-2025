@@ -1,0 +1,40 @@
+@charset "utf-8"; /* Esto es un comentario */
+
+* { /*Selector Universal*/
+}
+
+header { /*Selector de Tipo*/
+    background-color: hsl(280, 60%, 11%); /* Esto es el color de fondo, en HSL */
+    color: Pink; /* Esto es el color del texto, por su alias */
+}
+
+
+body { /*Selector de Tipo*/
+    background-color: #210b2c; /* Esto es el color de fondo, en Hexadecimal */
+    color: #d8b4e2; /* Esto es el color del texto, en Hexadecimal */
+}
+nav { /*Selector de Tipo*/
+    background-color: #210b2c;
+    color: #d8b4e2;
+}
+aside { /*Selector de Tipo*/
+    background-color: rgb(86, 41, 112); /* Esto es el color de fondo, en RGB Decimal */
+    color: rgb(174, 117, 159);
+}
+footer { /*Selector de Tipo*/
+    background-color: rgb(86, 41, 112);
+    color: rgb(174, 117, 159);
+}
+
+article p { /*Selector de descendiente*/
+    background-color: hsl(278, 47%, 30%);
+    color: hsl(287, 44%, 80%);
+}
+.destacado { /*Selector de clase*/
+    background-color: hsl(280, 60%, 11%);
+    color: hsl(350, 100%, 88%);
+}
+h2 + h3 { /*Selector de Combinador de Hermano Adyacente*/
+    background-color: hsl(269, 62%, 75%);
+    color: hsl(278, 47%, 30%);
+}

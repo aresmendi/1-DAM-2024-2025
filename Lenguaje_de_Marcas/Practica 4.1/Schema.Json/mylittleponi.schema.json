@@ -1,0 +1,39 @@
+{
+	"type":"object",
+	"properties": {
+		"nombre": {
+			"type":"string"
+		},
+		"especie":{
+			"type":"string",
+			"enum": ["terrestre","pegaso","unicornio","alicornio"]
+		},
+		"sexo":{
+			"type":"string",
+			"enum":["hembra","macho"]
+		},
+		"color_pelaje":{
+			"type": "string"
+		},
+		"color_crin1":{
+			"type": "string"
+		},
+		"color_crin2":{
+			"type": "string"
+		},
+		"color_crin3":{
+			"type": "string"
+		},
+		"protagonismo":{
+			"type": "string"
+		},
+		"aparicion":{
+			"type": "integer",
+			"minimum":1,
+			"exclusiveMaximum":222
+		}
+	},
+	"required": ["nombre","especie","sexo","color_pelaje",
+	"color_crin1","color_crin2","protagonismo",
+	"aparicion"]
+}

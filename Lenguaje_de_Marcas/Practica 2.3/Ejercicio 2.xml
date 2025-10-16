@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Santander>
+  <Sucursal id="666">
+    <Cuenta_Corriente iban="1312243242534356">
+      <Titulares>
+        <Titular nif="12345678A" transferencias_internacionales="no">Benito González</Titular>
+        <Titular nif="87654321B" transferencias_internacionales="sí">José Jiménez</Titular>
+      </Titulares>
+      <Recibos_Domiciliados>
+        <Recibo nombre="FuerteGym" pago_mes="100€" titular="José Jiménez" />
+        <Recibo nombre="Netflix" pago_mes="20€" titular="José Jiménez" />
+      </Recibos_Domiciliados>
+    </Cuenta_Corriente>
+    <Clientes>
+      <Cliente nif="12345678A">
+        <Nombre>Benito González</Nombre>
+        <Cuentas>
+          <Cuenta iban="1312243242534356" permisos="todos" />
+        </Cuentas>
+      </Cliente>
+      <Cliente nif="87654321B">
+        <Nombre>José Jiménez</Nombre>
+        <Cuentas>
+          <Cuenta iban="1312243242534356" permisos="transferencias_internacionales_no" />
+        </Cuentas>
+        <Prestamos>
+          <Prestamo monto="5000€" estado="activo" />
+        </Prestamos>
+      </Cliente>
+    </Clientes>
+  </Sucursal>
+</Santander>

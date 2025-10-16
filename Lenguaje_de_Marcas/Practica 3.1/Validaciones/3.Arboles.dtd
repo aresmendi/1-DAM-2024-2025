@@ -1,0 +1,28 @@
+<!ELEMENT arboles (Acer_monspessulanum, Olea_europea, Platanus_orientalis)>
+<!ELEMENT Acer_monspessulanum EMPTY>
+<!ELEMENT Olea_europea EMPTY>
+<!ELEMENT Platanus_orientalis EMPTY>
+
+<!ATTLIST Acer_monspessulanum 
+ nombre_comun CDATA #REQUIRED
+  vegetacion CDATA #REQUIRED
+  forma_y_estructura CDATA #REQUIRED
+  color_en_primavera CDATA #REQUIRED
+  resistencia_a_las_heladas CDATA #REQUIRED>
+
+<!ATTLIST Olea_europea
+ nombre_comun CDATA #REQUIRED
+  vegetacion CDATA #REQUIRED
+  altura CDATA #REQUIRED
+  forma_y_estructura CDATA #REQUIRED
+  color_en_primavera CDATA #REQUIRED
+  resistencia_a_las_heladas CDATA #REQUIRED>
+
+<!ATTLIST Platanus_orientalis
+ nombre_comun CDATA #REQUIRED
+  vegetacion CDATA #REQUIRED
+  altura CDATA #REQUIRED
+  forma_y_estructura CDATA #REQUIRED
+  color_en_primavera CDATA #REQUIRED
+  color_en_otoño CDATA #IMPLIED
+  resistencia_a_las_heladas CDATA #REQUIRED>

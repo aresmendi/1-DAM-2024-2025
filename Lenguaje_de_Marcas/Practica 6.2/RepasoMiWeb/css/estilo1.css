@@ -1,0 +1,32 @@
+@charset "utf-8"; /* Esto es un comentario */
+
+* {
+}
+
+body {
+    /*notacion RGB hexadecimal*/
+    background-color: #7c6c77;
+    color: #ffe787;
+}
+body > nav{
+    /*notacion RGB hexadecimal*/
+    background-color:#d1d0a3;
+    color: #7C6C77;
+
+}
+.alLado {
+    /*RGBdecimal*/
+    background-color: rgb(170, 166, 148);
+    color: rgb(235, 248, 184);
+}
+section + footer {
+    /*RGBdecimal*/
+    background-color: rgb(170, 166, 148);
+    color: rgb(235, 248, 184);
+}
+header{
+    color:coral;
+    /*notacion Hsl*/
+    background-color:hsl(59, 33%, 73%);
+
+}

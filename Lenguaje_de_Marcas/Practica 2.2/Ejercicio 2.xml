@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mensaje>
+  <remitente
+    nombre="Will Smith"
+	email="will@overbrookent.com"/>
+  <destinatario
+    nombre="Chris Rock"
+	email="chrissy@chrisrock.com"/>
+  
+  <asunto> Hola Chris </asunto>
+  <cuerpo>
+    <parrafo> Hola ¿que tal? </parrafo>
+	<parrafo> Oye, que no me contestas los guasaps. A ver si me llamas y quedamos </parrafo>
+	<parrafo> Un saludo </parrafo>
+  </cuerpo>
+</mensaje>
