@@ -1,0 +1,97 @@
+<html>
+<head>
+    <script>
+        let alto, ancho, primero, segundo;
+        window.addEventListener("load", function () {
+            let ctx;
+            let canvas = document.querySelector("canvas");
+            if (canvas.getContext) {
+                ctx = canvas.getContext("2d");
+            }
+
+            let boton = document.getElementById("iniciar");
+            boton.addEventListener("click", function () {
+                alto = document.getElementById("input1").value;
+                ancho = document.getElementById("input2").value;
+                primero = document.getElementById("input3").value;
+                segundo = document.getElementById("input4").value;
+
+                dibujarGuia(ctx, ancho, alto);
+                dibujarCuadrado(ctx, primero, segundo);
+            });
+        })
+
+        function dibujarGuia(ctx, ancho, alto) {
+            console.log("Ancho" + ancho + "Largo" + alto);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "#ddd";
+            for (let x = 0; x <= ancho; x += 50) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, alto);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= alto; y += 50) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(ancho, y);
+                ctx.stroke();
+            }
+        }
+        function dibujarCuadrado(ctx, primero, segundo) {
+            ctx.clearRect(0, 0, 1000, 1000);//Esto borra la guia también! De hecho hace que ni aparezca ahora mismo
+            let digitosHorizontal = segundo.split("");
+            let digitosvertical = primero.split("");
+            let longitudHorizontal = segundo.length;
+            let longitudVertical = primero.length;
+            let x = 50;
+            let y = 50;
+
+            //Cuadrado grande 1*1
+            for (let i = 0; i < longitudHorizontal; i++) {
+                for (let i = 0; i < longitudVertical; i++) {
+                    ctx.strokeStyle = "black";
+                    ctx.beginPath();
+                    ctx.strokeRect(x, y, 100, 100);
+                    ctx.moveTo(x, y + 100);
+                    ctx.lineTo(x + 100, y);
+                    ctx.stroke();
+                    x += 110;
+                    console.log(x);
+                }
+                ctx.stroke();
+                x = 50;
+                y += 110;
+                console.log(y);
+            }
+            x = 50;
+            y = 50;
+            for (let i = 0; i < longitudVertical; i++) {
+                ctx.font = "Verdana 40px";
+                ctx.fillText(digitosvertical[i], x + 50, y - 10);
+                x += 110;
+            }
+            for (let i = 0; i < longitudHorizontal; i++) {
+                ctx.fillText(digitosHorizontal[i], x + 10, y + 50);
+                ctx.stroke();
+                y += 110;
+            }
+        }
+
+
+    </script>
+</head>
+
+<body>
+    alto
+    <input type="number" id="input1" min="10" max="9999">
+    ancho <input type="number" id="input2" min="10" max="9999">
+    <button id="iniciar"
+            style="background-color: black; color: white; border: groove 2px lightblue;">
+        INICIAR
+    </button><br><br>
+    <canvas id="canvas" width="1000" height="1000" style="border: black solid 1px;"></canvas><br>
+    primero<input type="number" id="input3" min="10" max="9999">
+    segundo<input type="number" id="input4" min="10" max="9999">
+</body>
+</html>

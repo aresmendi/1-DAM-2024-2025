@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Dynamic table</title>
+	<style>
+		table, td {
+			border: 1px solid black;			
+		}
+		button, table {
+			margin: 5px;
+		}
+		td {
+			padding: 2px 5px;
+		}
+		button[onclick="insertCell()"], button[onclick="removeRow()"] {
+			visibility: hidden;
+		}
+	</style>
+	<script>
+		const ERROR_ROW_NUMBER="Incorrect row number";
+		
+		//reads the "Rows" input text box
+		function readRowsInput(){
+			return document.getElementsByName("rows")[0].value;
+		}
+		
+		//reads the "Columns" input text box
+		function readColsInput(){
+			return document.getElementsByName("cols")[0].value;
+		}
+		
+		//fills the table
+		function generateTable(){
+			//put the table in a variable and empty it
+			let myTable=document.getElementById("t1");
+			myTable.innerHTML="";
+			
+			//leer inputs
+			let rows=readRowsInput();
+			let cols=readColsInput();
+			
+			//auxiliary variables and constant used in the loop
+			let newRow, newCell;
+			const cellContent = "cell";
+			
+			for (let r=0; r<rows; r++) {
+				//create row element
+				newRow=document.createElement("tr");
+				for (let c=0; c<cols; c++) {
+					//create cell element, fill it with text content and append to row
+					newCell=document.createElement("td");
+					newCell.appendChild(document.createTextNode(cellContent));
+					newRow.appendChild(newCell);
+				}
+				//append row to table
+				myTable.appendChild(newRow);
+			}
+			
+			//turn table modification buttons visible
+			//for-in cannot be used to iterate through a NodeList; use for or for-of instead
+			for (let item of document.getElementsByClassName("hidden")) {
+				item.style.visibility="visible";
+			}
+		}
+		
+		//inserts one cell at the beginning of one row
+		function insertCell(){
+			//read input
+			let rowInput=readRowsInput();
+			
+			//put all rows in a variable
+			let tableRows=document.getElementsByTagName("tr");
+			
+			if (rowInput> tableRows.length) {
+				alert(ERROR_ROW_NUMBER);
+			} else {
+				//put desired row in a variable
+				let row=tableRows[rowInput-1];
+				//create cell element, fill it with text content and insert it before the first cell of the row
+				let newCell=document.createElement("td");
+				newCell.appendChild(document.createTextNode("new"));
+				row.insertBefore(newCell,row.children[0]);	
+			}	
+		}
+		
+		//removes one row
+		function removeRow() {
+			//read input 
+			let rowInput=readRowsInput();
+			
+			//put all rows in a variable
+			let tableRows=document.getElementsByTagName("tr");
+			
+			if (rowInput> tableRows.length) {
+				alert(ERROR_ROW_NUMBER);
+			} else {
+				//put desired row in a variable and remove it
+				let row=tableRows[rowInput-1];
+				row.remove();
+				if (tableRows.length<1){
+					//turn table modification buttons hidden
+					//for-in cannot be used to iterate through a NodeList; use for or for-of instead
+					for (let item of document.getElementsByClassName("hidden")) {
+						item.style.visibility="hidden";
+					}
+				}
+			}
+		}
+		
+		//toggles page main title between <h1> and <h2>
+		function replaceH(){
+			//put main title in a variable
+			let title=document.querySelectorAll("h1, h2")[0];
+			
+			//put current title text content in a variable
+			let text=title.innerHTML;
+			
+			switch (title.tagName.toLowerCase()) {
+				case "h1":
+					//create <h2> element, fill it with text content and replace existing <h1> with it
+					let h2Title=document.createElement("h2");
+					h2Title.innerHTML=text;
+					document.body.replaceChild(h2Title, title);
+					break;
+				case "h2":
+					//create <h1> element, fill it with text content and replace existing <h2> with it
+					let h1Title=document.createElement("h1");
+					h1Title.innerHTML=text;
+					document.body.replaceChild(h1Title, title);
+					break;					
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>Dynamic table creation</h1>
+	<button type=button onclick=replaceH()>Toggle title size</button>
+	<h4>Please specify the number of rows and columns. Then click the button to generate.</h4>
+	<div>Rows: <input type=number name=rows min=1 max=10 style="width:5ch" maxlength=2 value=1></div>
+	<div>Columns: <input type=number name=cols min=1 max=10 style="width:5ch" maxlength=2 value=1></div>
+	<button type=button onclick=generateTable()>Generate</button>
+	<button class=hidden type=button onclick=insertCell()>Insert Cell</button>
+	<button class=hidden type=button onclick=removeRow()>Remove Row</button>
+
+	<hr>
+	The table will be shown under this line.<br>
+	<table id=t1>
+	</table>
+</body>
+</html>

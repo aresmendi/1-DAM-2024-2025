@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <script>
+    let newLi;
+	
+	//creates and returns a new <li> element with the input text
+    function createLi(text){
+	  let e=document.createElement("li");
+	  let content=document.createTextNode(text);
+	  e.appendChild(content);
+	  return e;
+    }
+	
+	//adds a <li> element after the last one
+    function liAfter(){
+	  newLi=createLi("Inserted after the sample");
+	  document.getElementById("u1").appendChild(newLi);
+    }
+	
+	//adds a <li> element before the first one
+    function liBefore(){
+	  newLi=createLi("Inserted before the sample");
+      let sample=document.getElementById("li1");
+      document.getElementById("u1").insertBefore(newLi, sample);
+    }
+	
+	//miscellaneous function; alerts body's children and changes some CSS
+	//try the commented instructions for removing and replacing if you feel like it
+	function aux(){
+		let string1="";
+		for (let item of document.body.children){
+			string1+=item.tagName.toLowerCase() + '\n';
+		}
+		alert(string1);
+		/*let b = document.getElementsByTagName("ul")[0].children[1];
+		b.remove();*/
+		/*let h1 = document.getElementsByTagName("h1")[0];
+		let h2 = document.createElement("h2");
+		h2.innerHTML="Replaced";
+		document.body.replaceChild(h2, h1);*/
+		document.body.style.backgroundColor="lightgrey";
+		document.getElementsByTagName("h1")[0].style.fontFamily="verdana";
+	}
+  </script>
+</head>
+<body>
+<h1>I AM A TITLE</h1>
+<p>texto</p>
+  <ul id=u1>
+    <li id=li1>Sample item</li>
+  </ul>
+  <button type=button onclick=liAfter() style="background-color:purple">After</button>
+  <button type=button onclick=liBefore()>Before</button>
+  <button type=button onclick=aux()> body.children </button>
+<body>
+</html>

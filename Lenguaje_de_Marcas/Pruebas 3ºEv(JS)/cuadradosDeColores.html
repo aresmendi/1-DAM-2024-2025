@@ -1,0 +1,190 @@
+<html>
+
+<head>
+    <script>
+        let canvas, ctx, botonDibujar, botonPaso, input, valor, guiaCuadrados = [], control = 0, colores = [], control1 = 0;
+        window.addEventListener("load", base);
+
+        function base() {
+            canvas = document.getElementsByTagName("canvas")[0];
+            if (canvas.getContext) {
+                ctx = canvas.getContext("2d");
+            }
+            dibujarGuia(ctx, canvas.width, canvas.height);
+            input = document.querySelector("[type=number]");
+
+            botonDibujar = document.getElementsByName("dibujar")[0];
+            botonPaso = document.getElementsByTagName("button")[1];
+            botonReset = document.getElementsByTagName("button")[2];
+
+            botonReset.addEventListener("click", reset);
+            //al darle al boton todo esto
+
+            botonDibujar.addEventListener("click", function () {
+                valor = input.value;
+                if (valor >= 1 && valor <= 3 && valor % 1 == 0) {
+                    let l = 100;
+                    let pasos = valor;
+                    for (let i = 0; i < pasos; i++) {
+                        //A ver, en caso de poner 3,la primera iteracion dira 9 veces, de lado 100
+                        //la segunda dira 4 veces de lado 200
+                        //la tercera 1 vez de lado 300... ok
+                        guiaCuadrados.push({ veces: Math.pow(valor, 2), lado: l });
+                        l += 100;
+                        valor--;
+                    }
+                    dibujar(ctx);
+                } else {
+                    alert("El valor debe estar entre 1 y 3 y ser entero");
+                    input.value = "";
+                }
+            })
+        }
+        function reset() {
+            //Regresar el color a los botones
+            botonDibujar.style.opacity = "1";
+            botonPaso.style.opacity = "1";
+            //reactivar botones
+            botonDibujar.disabled = false;
+            botonPaso.disabled = false;
+            //Remover eventos por los residuos, esto hay que hacerlo cuando quieres asociar el mismo evento(click) al mismo boton/elemento...
+            botonPaso.removeEventListener("click", caso1);
+            botonPaso.removeEventListener("click", caso2);
+            botonDibujar.removeEventListener("click", caso1);
+
+            //vaciar valores
+            input.value = "";
+            control = 0;
+            control1 = 0;
+            guiaCuadrados = [];
+            dibujarGuia(ctx, canvas.width, canvas.height);
+            x = 100;
+            y = 100;
+        }
+
+        function dibujar(ctx) {
+            let x = 100, y = 100;
+            botonDibujar.disabled = true;
+            botonDibujar.style.opacity = "50%";
+            ctx.lineWidth = 4;
+            colores = ["red", "blue", "pink", "orange", "red", "blue", "pink", "orange", "red", "blue", "pink", "orange"];
+            let longitud = guiaCuadrados.length - 1;
+
+            switch (longitud) {
+                case 0:
+                    //un unico cuadrado, lo pinto y au, con cuadrados de 0
+                    ctx.strokeStyle = colores[0]; //aqui pude haber puesto directamente rojo y ahorrarme el array pero por probar
+                    ctx.strokeRect(x + 100, y + 100, guiaCuadrados[0].lado, guiaCuadrados[0].lado);
+                    botonPaso.disabled = true;
+                    botonPaso.style.opacity = "50%";
+                    break;
+                case 1:
+                    //5 cuadrados totales
+                    //limpio
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    dibujarGuia(ctx, canvas.width, canvas.height);
+                    ctx.lineWidth = 4;
+                    ctx.strokeStyle = "black";
+
+                    //FORMA MANUAL:
+                    //Dibujo el cuadrado empezando en el mismo x y y, con la info de cuadrados de 1
+                    //ctx.strokeRect(x, y, guiaCuadrados[1].lado, guiaCuadrados[1].lado);
+                    
+                    //REMOVER LOS EVENTOS ANTES DE AÑADIR OTRA VEZ porque quiero asociarle el mismo evento (click); 
+                    botonPaso.removeEventListener("click", caso1);
+                    botonPaso.removeEventListener("click", caso2);
+                    cuadradosPorLado(300, 0);
+                    control1++;
+                    botonPaso.addEventListener("click", caso1); //tengo que definir funciones para poder hacer los remove
+
+                    break;
+                case 2:
+                    //14 totales.
+                    botonPaso.disable = false;
+                    //primero los 9
+                    cuadradosPorLado(400, 0);
+                    //Same. Remover eventos
+                    botonPaso.removeEventListener("click", caso1);
+                    botonPaso.removeEventListener("click", caso2);
+                    botonPaso.addEventListener("click", caso2);
+                    break;
+            }
+        }
+
+        function cuadradosPorLado(valorX, indice) {
+            colores = ["red", "blue", "pink", "orange", "red", "blue", "pink", "orange", "red", "blue", "pink", "orange"];
+            x = 100, y = 100;
+
+            for (let j = 0; j < guiaCuadrados[indice].veces; j++) {
+                if (x == valorX) {
+                    y += 100;
+                    x = 100;
+                }
+                ctx.strokeStyle = colores[j];
+                ctx.lineWidth = 4;
+                ctx.strokeRect(x, y, guiaCuadrados[indice].lado, guiaCuadrados[indice].lado);
+                x += 100;
+            }
+        }
+
+
+        function caso1() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            dibujarGuia(ctx, canvas.width, canvas.height);
+            cuadradosPorLado(300, 1);
+            botonPaso.disabled = true;
+            botonPaso.style.opacity = "50%";
+        }
+
+        function caso2() {
+            control++;
+            if (control == 1) {
+                //limpio
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                dibujarGuia(ctx, canvas.width, canvas.height);
+                cuadradosPorLado(300, 1);
+            }
+            //sirve un else...
+            if (control == 2) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                dibujarGuia(ctx, canvas.width, canvas.height);
+                ctx.strokeStyle = "black";
+                //ctx.strokeRect(x, y, guiaCuadrados[2].lado, guiaCuadrados[2].lado);
+                cuadradosPorLado(300, 2);
+                botonPaso.disabled = true;
+                botonPaso.style.opacity = "50%";
+            }
+        }
+
+        //Mi funcion base amiga...
+        function dibujarGuia(ctx, ancho, alto) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "#ddd";
+            for (let x = 0; x <= ancho; x += 100) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, alto);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= alto; y += 100) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(ancho, y);
+                ctx.stroke();
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <input type="number" name="inputNumber" min="1" max="3" title="numeros del 1 al 3">
+    <button name="dibujar" style="background-color: blue; color: white;">DIBUJAR</button>
+    <button name="paso" style="background-color: lightblue;">SIGUIENTE</button>
+    <button name="reset" style="background-color: black; color: white;">RESET</button>
+    <br>
+    <canvas width="500" height="500" style="border: 1px solid black"></canvas>
+</body>
+
+</html>

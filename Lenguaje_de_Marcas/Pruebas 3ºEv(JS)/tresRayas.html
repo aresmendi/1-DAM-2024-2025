@@ -1,0 +1,195 @@
+<html>
+    <head>
+        <script>
+            //Podríamos hacerlo metiendo algo en el body, pero hoy ya estoy locuelo
+            //Variables
+            let body, table, tbody, trs = [], tds = [], lsCanvas = [], h1, h3, botonEmp,turno,jugador1,jugador2, ctx, jugadorActual;
+            window.addEventListener("load", function () {
+                //Asignamos las variables, creando los elementos del html
+                body = document.getElementsByTagName("body")[0];
+                table = document.createElement("table");
+                tbody = document.createElement("tbody");
+                botonEmp = document.createElement("button");
+                h1 = document.createElement("h1");
+                h3 = document.createElement("h3");
+                //Eventos
+                botonEmp.addEventListener("click", jugar);
+
+                //Hacemos el titulo
+                h1.textContent = "3 Rayas";
+
+                //Hacemos el botón
+                botonEmp.id = "empezar";
+                botonEmp.textContent = "EMPEZAR";
+
+                body.appendChild(h1);
+                body.appendChild(botonEmp);
+                body.appendChild(h3);
+                body.appendChild(table);
+                table.appendChild(tbody);
+                //Creamos los trs y los tds, y los almacenamos en los arrays. Les creamos además un canva a cada uno, que tendrá un id asociado
+                for (let i = 0; i < 3; i++) {
+                    let tr = document.createElement("tr")
+                    tr.id = "tr" + i;
+                    tbody.appendChild(tr);
+                    trs.push(tr);
+                    for (let j = 0; j < 3; j++) {
+                        let td = document.createElement("td");
+                        //Realmente, se me ocurre una forma superSimple usando backgroundColor, pero
+                        //hemos venido a jugar
+                        td.id = tr.id + "td" + j;
+                        td.style.border = "2px solid black";
+                        td.width = 100;
+                        td.height = 100;
+                        tr.appendChild(td);
+                        //Creamos e insertamos los canvas, y les metemos un EventListener, pa que estén al loro (a los tds, no a los canvas)
+                        let canvas = document.createElement("canvas");
+                        canvas.width = 100;
+                        canvas.height = 100;
+                        td.appendChild(canvas);
+                        lsCanvas.push(canvas);
+                        td.addEventListener("click", jugar);
+                        tds.push(td);
+                        //console.log(td);esto está para ver que se crean bien los tds
+                    }
+                }
+                console.log(tds);//esto para ver  por donde acceder a cada uno
+
+
+                // Esto lo hago así para asignar la misma función al
+                //botón empezar, y a los tds. Podría haber hecho otra función, pero
+                //hoy voy a full
+                function jugar(event) {
+                    const bt = event.currentTarget; //He utilizado esto por que si no
+                    //seleccionaba el canvas en vez del td. Me parece cojonudo, por
+                    // que me mantiene la estructura que quería.
+                    //PD:Cada vez veo más claro que no necesitaré los arrays declarados xD
+                    if (bt.id === "empezar") {
+                        turno = 1;
+                        jugador1 = prompt("Inserte nombre jugador1");
+                        jugador2 = prompt("Inserte nombre jugador2");
+                        h3.textContent = jugador1;
+                        bt.style.opacity = 0.5;
+                        bt.disabled = true;
+                    } else {
+                        turno++;
+                        if (turno % 2 !== 0) {
+                            h3.textContent = jugador1;
+                            
+                            //Cambiamos el id del td, que nos servirá para hacer magia
+                            //en la función ganar
+                            bt.id = 1;
+                            //Accedemos al canva del td que hemos presionado
+                            let canva = bt.firstChild;
+                            console.log(turno);
+                            if (canva.getContext) {
+                                ctx = canva.getContext("2d");
+                                console.log("Ctx es:" + ctx);
+                                //Jugador 1 hace X
+                                ctx.beginPath();
+                                ctx.moveTo(0, 0);
+                                ctx.lineTo(100, 100);
+                                ctx.moveTo(100, 0);
+                                ctx.lineTo(0, 100);
+                                ctx.stroke();
+                                ctx.closePath();
+                                jugadorActual = jugador2;//Esto es contraintuitivo, pero me ha parecido la forma más facil de solventar un pequeño problema. 
+                                //SI ALGUIEN SE LE OCURRE OTRA COSA, POR FAVOR DIGAMELÓN xD
+                            }
+                            ganar()
+                        } else {
+                            h3.textContent = jugador2;
+                            
+                            bt.id = 2;
+                            let canva = bt.firstChild;
+                            console.log(turno);
+                            if (canva.getContext) {
+                                ctx = canva.getContext("2d");
+                                //Jugador 2 hace O
+                                ctx.beginPath();
+                                ctx.arc(50, 50,40, 0, Math.PI * 2, true);
+                                ctx.stroke();
+                                ctx.closePath();
+                                jugadorActual = jugador1;
+                            }
+                            ganar();
+                        }
+                    }
+                }
+                //Un poco de hardCode
+                function ganar() {
+                    //1ºFila
+                    if (tds[0].id === tds[1].id && tds[1].id === tds[2].id) {
+                        alert(jugadorActual + " ha ganado la Copa del Meado!!");
+                        reiniciar();
+                    }
+                    //1ºVertical
+                    if (tds[0].id === tds[3].id && tds[3].id === tds[6].id) {
+                        alert(jugadorActual + " ha ganado la Copa del Meado!!");
+                        reiniciar();
+                    }
+                    //2ºFila
+                    if (tds[3].id === tds[4].id && tds[4].id === tds[5].id) {
+                        alert(jugadorActual + " ha ganado la Copa del Meado!!");
+                        reiniciar();
+                    }
+                    //2ºVertical
+                    if (tds[1].id === tds[4].id && tds[4].id === tds[7].id) {
+                        alert(jugadorActual + " ha ganado la Copa del Meado!!");
+                        reiniciar();
+                    }
+                    //3ºFila
+                    if (tds[6].id === tds[7].id && tds[7].id === tds[8].id) {
+                        alert(jugadorActual + " ha ganado la Copa del Meado!!");
+                        reiniciar();
+                    }
+                    //3ºVertical
+                    if (tds[2].id === tds[5].id && tds[5].id === tds[8].id) {
+                        alert(jugadorActual + " ha ganado la Copa del Meado!!");
+                        reiniciar();
+                    }
+                    //1ºDiagonal
+                    if (tds[0].id === tds[4].id && tds[4].id === tds[8].id) {
+                        alert(jugadorActual + " ha ganado la Copa del Meado!!");
+                        reiniciar();
+                    }
+                    //2ºDiagonal
+                    if (tds[2].id === tds[4].id && tds[4].id === tds[6].id) {
+                        alert(jugadorActual + " ha ganado la Copa del Meado!!");
+                        reiniciar();
+                    }
+                    //Tablas
+                    if (turno === 10) {
+                        alert("Habeis quedao en tablas, parguelas!")
+                        reiniciar();
+                    }
+                }
+                function reiniciar() {
+                    h3.textContent = "";
+                    botonEmp.style.opacity = 1;
+                    botonEmp.disabled = false;
+                    turno = 1;
+                    jugadorActual = "";
+                    //Cambiamos los ids de todos los tds
+                    for (tabrow of trs) {
+                        let celdas = tabrow.getElementsByTagName("td");
+                        for (let j = 0; j < celdas.length; j++) {
+                            let td = celdas[j];
+                            td.id = tabrow.id + "td" + j;
+                        }
+                    }
+                    //Recorremos todos los canvas para limpiarlos 
+                    for (let cv of lsCanvas) {
+                        if (cv.getContext) {
+                            ctx = cv.getContext("2d");
+                            ctx.clearRect(0, 0, cv.width, cv.height);
+                        }
+                    }
+                }
+            })
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

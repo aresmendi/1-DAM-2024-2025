@@ -1,0 +1,56 @@
+<html>
+<head>
+    <script>
+        window.addEventListener("load", function () {
+            let ctx;
+            let canvas = document.querySelector("canvas");
+            if (canvas.getContext) {
+                ctx = canvas.getContext("2d");
+            }
+            let boton = document.getElementById("iniciar");
+            boton.addEventListener("click", function () {
+                let alto = document.getElementById("input1").value;
+                let ancho = document.getElementById("input2").value;
+                console.log(alto);
+                console.log(ancho);
+                dibujarGuia(ctx, ancho, alto);
+            });
+
+            function dibujarGuia(ctx, ancho, alto) {
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "#ddd";
+                for (let x = 0; x <= ancho; x += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, alto);
+                    ctx.stroke();
+                }
+                for (let y = 0; y <= alto; y += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(ancho, y);
+                    ctx.stroke();
+                }
+            }
+            function dibujarCuadrado(ctx, primero, segundo) {
+                ctx.strokeStyle = "black";
+                ctx.beginPath();
+                ctx.strokeRect(50, 50, 400, 400);
+                ctx.stroke();
+            }
+        });
+    </script>
+</head>
+<body>
+    alto
+    <input type="number" id="input1" min="10" max="9999">
+    ancho <input type="number" id="input2" min="10" max="9999">
+    <button id="iniciar"
+            style="background-color: black; color: white; border: groove 2px lightblue;">
+        INICIAR
+    </button><br><br>
+    <canvas id="canvas" width="500" height="500" style="border: black solid 1px;"></canvas>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+@charset "utf-8";
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+ol {
+    list-style-type: decimal;
+    padding-left: 40px;
+}
+
+li {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+    li img {
+        display: block;
+        max-width: 200px;
+        height: auto;
+        margin-top: 10px;
+        border-radius: 8px;
+    }
+
+em {
+    color: #555;
+}
+
+strong {
+    color: #222;
+    font-size: 1.1em;
+}

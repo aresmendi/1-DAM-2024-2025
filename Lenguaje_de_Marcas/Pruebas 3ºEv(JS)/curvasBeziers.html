@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <script>
+            let canvas, ctx;
+            window.addEventListener("load", function () {
+                canvas = document.getElementById("canvas");
+                if (canvas.getContext) {
+                    ctx = canvas.getContext("2d");
+                }
+                //Pez
+                ctx.beginPath();
+                //Esto es el cuerpo
+                ctx.moveTo(100, 300);
+                ctx.quadraticCurveTo(200, 250, 300, 300);
+                ctx.quadraticCurveTo(200, 350, 100, 300);
+                //Esto para la cola
+                ctx.moveTo(100, 300);
+                ctx.lineTo(60, 270);
+                ctx.lineTo(60, 330);
+                ctx.moveTo(100, 300);
+                ctx.lineTo(60, 330);
+                ctx.fillStyle = "blue";
+                ctx.fill();
+                ctx.closePath();
+                //Pez Gordo
+                ctx.beginPath();
+                //Cuerpo
+                ctx.moveTo(380, 280);
+                ctx.bezierCurveTo(480, 200, 580, 400, 480, 370);
+                ctx.bezierCurveTo(460, 370, 360, 370, 380, 280);
+                ctx.stroke();
+                //Cola
+                ctx.moveTo(500, 370);
+                ctx.lineTo(560, 400);
+                ctx.lineTo(560, 370);
+                ctx.lineTo(520, 330);
+                ctx.stroke();
+                ctx.fillStyle = "lightgrey"
+                ctx.fill();
+                ctx.closePath();
+                //Ojo
+                ctx.beginPath();
+                //Parte de fuera
+                ctx.moveTo(620, 280);
+                ctx.quadraticCurveTo(720, 230, 820, 280);
+                ctx.quadraticCurveTo(720, 330, 620, 280);
+                ctx.stroke();
+                ctx.closePath();
+                //Parte de dentro
+                ctx.beginPath();
+                ctx.moveTo(720, 280);
+                ctx.fillStyle = "black";
+                ctx.arc(720, 280, 20, 0, Math.PI * 2, false);
+                ctx.fill();
+                ctx.closePath();
+                //llama
+                ctx.beginPath();
+                ctx.moveTo(100, 500);
+                //lado izquierdo (hacia arriba)
+                ctx.bezierCurveTo(40, 460, 60, 380, 100, 330);
+                //lado derecho(hacia abajo)
+                ctx.bezierCurveTo(140, 380, 160, 460, 150, 500);
+                ctx.bezierCurveTo(140, 500, 140, 520, 140, 550);
+                ctx.fillStyle = "orange";
+                ctx.fill();
+                //llama interior
+                ctx.beginPath();
+                ctx.moveTo(100, 470);
+                //lado izq
+                ctx.bezierCurveTo(80, 440, 90, 400, 100, 370);
+                //lado der
+                ctx.bezierCurveTo(110, 400, 120, 440, 100, 470);
+                ctx.fillStyle = "red";
+                ctx.fill();
+                
+            })
+
+        </script>
+    </head>
+    <body>
+        <canvas id="canvas" width="1000" height="1000" style="border: black solid 2px"></canvas>
+    </body>
+</html>

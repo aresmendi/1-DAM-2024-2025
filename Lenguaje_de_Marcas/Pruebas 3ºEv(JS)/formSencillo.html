@@ -1,0 +1,238 @@
+<html>
+
+<head>
+    <style>
+        table {
+            border: maroon 3px solid;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        input{
+            line-height: 150%;
+            margin: 4px;
+        }
+
+    </style>
+    <script>
+        //PARA MOVIDAS CON THIS Y EV.TARGET MIRAR TAMBIEN EL METODO MARCARFAVORITO EN MIX.
+
+        /*El nombre no puede estar vacio ni tener menos de 3 letras
+        la edad debe ser un entero positivo
+        El email debe cumplir este patron: \S{6,}
+        El telefono debe empezar por +34, empezar del 6 al 9 y contener 12 digitos[0-9] en total
+        las contraseñas deben ser iguales
+        los terminos y condiciones deben estar tildados
+        
+        me falta mirarme un textarea
+        */
+
+        //Declarar variables aqui arriba te ahorra un tremendo drama
+        let inputNombre, inputEdad, inputEmail, inputTelefono, inputContraseña1, inputContraseña2; 
+        let parrafosDelDocumento;
+        let terminos, privacidad, form;
+        
+        window.addEventListener("load", base); 
+        //En principio oculto todos los parrafos
+        function base(){
+        parrafosDelDocumento = document.getElementsByTagName("p"); 
+
+        for (let i = 0; i< parrafosDelDocumento.length; i++){
+            parrafosDelDocumento[i].style.display="none";
+            parrafosDelDocumento[i].style.color="red";
+        }
+
+        //capturo el boton para cambiarle el color 
+        //PORQUE EL EVENTO ENVIAR EN UN FORM VA ASOCIADO AL FORM Y NO AL BOTON (inserte cara de payaso)
+    
+        let boton = document.getElementsByName("botonEnviar")[0]; 
+        boton.style.backgroundColor="green"; 
+        boton.style.color="white";
+
+        //recojo el form
+        form = document.getElementsByTagName("form")[0]; 
+
+        //recoger inputs con name y queryselector para variar cosas
+        inputNombre= document.getElementsByName("nombre")[0]; 
+        inputEdad= document.getElementsByName("edad")[0]; 
+        inputEmail=document.querySelector("[type=email]"); 
+        inputTelefono = document.querySelector("[type=tel");
+        inputContraseña1 = document.querySelectorAll("[type=password]")[0]; 
+        inputContraseña2 = document.querySelectorAll("[type=password]")[1]; 
+        terminos = document.getElementsByName("terminosYCondiciones")[0]; 
+        privacidad = document.getElementsByName("Privacidad")[0];
+
+        //Asociacion de todos los eventos-validaciones
+        //VIENE BIEN MIRAR QUE LOS EVENTOS ASOCIADOS SON DIFERENTES.
+        inputNombre.addEventListener("input", validarNombre);//input:se produce cuando el valor de elemento cambia, incluso durante la edición
+        inputEdad.addEventListener("change", validarEdad);//change:se produce cuando el valor de un elemento cambia (por ejemplo, la selección de un select)
+        inputEmail.addEventListener("blur", validarEmail); //blur: se produce cuando un elemento pierde el foco
+        inputTelefono.addEventListener("change", validarTelefono);
+        inputContraseña1.addEventListener("input", validarContraseñas);
+        inputContraseña2.addEventListener("input", validarContraseñas);
+        //EL SUBMIT VA ASOCIADO AL FORMULARIO!!
+        form.addEventListener("submit", validarCheckboxs);
+    }
+
+   
+    function validarNombre(){
+        //he usado this pero pude haber usado e.target tambien. En realidad
+        // e.target es mejor porque es mas certero. This al parecer en funciones flecha causa problemas.
+        //Lo que pasa es que this es muy comodo porque sabes que en como lo trabajamos nosotros
+        //siempre sera el nombre antes del addEventListener (ejem form.addE... inputX.addEvent...)
+        if(this.value.length < 3 || this.value == ""){
+            inputNombre.style.border="2px solid red";
+            parrafosDelDocumento[0].style.display="block"; //muestra el parrafo de error
+        } else {
+            inputNombre.style.border="2px solid green";
+            parrafosDelDocumento[0].style.display="none";
+        }
+    }
+
+    function validarEdad(){
+        //si no es un entero o es menor que 1
+        if(this.value % 1 != 0 || this.value < 1){
+            inputEdad.style.border="2px solid red";
+            parrafosDelDocumento[1].style.display="block";
+        } else {
+            inputEdad.style.border="2px solid green";
+            parrafosDelDocumento[1].style.display="none";
+        }
+    }
+
+    function validarEmail(ev){
+        let control = ev.target;
+        /*Aqui capturo el campo email mas no su valor.
+         Igual pude haber usado this pero es mas organizado con control*/
+        if(control.validity.patternMismatch || control.validity.typeMismatch || control.value==""){
+            inputEmail.style.border="2px solid red";
+            parrafosDelDocumento[2].style.display="block";
+        } else{
+            inputEmail.style.border="2px solid green";
+            parrafosDelDocumento[2].style.display="none";
+        }  
+    }
+
+    function validarTelefono(){
+        //console.log(this.validity); permite ver todos los eventos asociados al input Telefono
+        console.log("Eventos input telefono:" + this.validity);
+        if (this.validity.patternMismatch || this.value == "") {
+            inputTelefono.style.border="2px solid red";
+            alert(parrafosDelDocumento[3].innerHTML); 
+        } else{
+            inputTelefono.style.border="2px solid green";
+        }  
+    }
+
+    function validarContraseñas(e){
+        let control = e.target; 
+        if (inputContraseña1.value !== inputContraseña2.value && inputContraseña1.value!=="" && inputContraseña2.value !== ""){
+            //comparo el input que he capturado con el inputcontraseña1 por poder diferenciar donde está el error y mostrar el msj
+            if(control == inputContraseña1){
+                parrafosDelDocumento[4].style.display="block";
+            } else{
+                parrafosDelDocumento[5].style.display="block";
+            }
+        } else{
+            parrafosDelDocumento[4].style.display="none";
+            parrafosDelDocumento[5].style.display="none";
+        }
+    }
+    function validarCheckboxs(e){
+        //Recuerdos de JAVA
+        let valido = true; 
+
+        //En todos los casos prevengo el envio porque yo no quiero enviar nada
+        //Quiero mostrar un mensaje despues de "enviar";
+            e.preventDefault(); 
+
+            if(!terminos.checked){
+            valido = false;
+            parrafosDelDocumento[6].style.display="block";
+            //Uso un parentNode porque pretendo pintar el label (<label><input></label>)
+            //Y al no haber espacios vacios entre <label> y <input> el padreNodo sera label. 
+                //Ojo espacios...
+            terminos.parentNode.style.backgroundColor = "red";
+            }else{
+            parrafosDelDocumento[6].style.display="none";
+            terminos.parentNode.style.backgroundColor = "transparent"; 
+            }
+
+            if(!privacidad.checked){
+            valido = false;
+            parrafosDelDocumento[7].style.display="block";
+            privacidad.parentNode.style.backgroundColor = "red";
+            }else{
+            parrafosDelDocumento[7].style.display="none";
+            privacidad.parentNode.style.backgroundColor = "transparent";
+            }
+        
+            if(valido){
+            parrafosDelDocumento[parrafosDelDocumento.length-1].style.color="green";
+            parrafosDelDocumento[parrafosDelDocumento.length-1].style.display="block";
+            //para reiniciar el formulario, vaciar sus casillas.
+            form.reset();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>VALIDACION FORM</h1>
+    <form name="form1">
+        <table>
+            <tr>
+                <td>Nombre: <label><input type="text" name="nombre" placeholder="Jova"></label><br>
+                    <p> El nombre no puede estar vacio ni tener menos de 3 letras </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Edad: <label><input type="number" name="edad" placeholder="26"></label><br>
+                    <p> La edad debe ser un numero entero positivo </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email: <label><input type="email" name="email" placeholder="usuario@ejemplo.es" pattern="\S{6,}"></label><br>
+                    <p> El email no puede contener espacios o estar vacío</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Telefono: <label><input type="tel" name="telefono" placeholder="+34600000000" pattern="\+34[6-9][0-9]{8}"></label>
+                    <p> El telefono debe tener el formato +34600000000</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Contraseña: <label><input type="password" name="contraseña1"></label>
+                    <p> Las contraseñas deben ser iguales</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Repite la contraseña: <label><input type="password" name="contraseña2"></label>
+                    <p> Las contraseñas deben ser iguales</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Acepto los terminos y condiciones: <label><input type="checkbox"
+                            name="terminosYCondiciones"></label>
+                    <p>Acepta las condiciones para continuar</p>
+                    <br>
+                    Acepto la politica de privacidad: <label><input type="checkbox" name="Privacidad"></label>
+                    <p>Acepta la politica para continuar</p>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" name="botonEnviar" value="ENVIAR FORM">
+                    <p>Formulario enviado con exito</p>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

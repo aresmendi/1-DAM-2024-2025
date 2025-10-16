@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Practicar con JavaScript y Canvas jugando con las Torres de Zhanoi.">
+    <meta name="keywords" content="javascript, html, css, mislata, funciones, objetos, async-await, canvas, logo">
+    <meta name="author" content="Ares Caballero Rey">
+    <title>
+        UNIDAD 7.5 CANVAS Torre
+    </title>
+    <script src="js/torre.js">
+    </script>
+</head>
+<body>
+    <div id="div1">
+        NºDiscos <input id="nDiscos" name="nDiscos" type="number" min="1" value="3" onkeydown="return false" />
+        <br>
+        <br>
+        Origen <select id="origen" name="origen">
+            <option id="EligeO" value="Elige" selected>Elige</option>
+            <option id="AO" value="A">A</option>
+            <option id="BO" value="B">B</option>
+            <option id="CO" value="C">C</option>
+        </select>
+        <br>
+        <br>
+        Destino <select id="destino" name="destino">
+            <option id="EligeD" value="Elige" selected>Elige</option>
+            <option id="AD" value="A">A</option>
+            <option id="BD" value="B">B</option>
+            <option id="CD" value="C">C</option>
+        </select>
+        <br>
+        <br>
+        <button id="resolver" style="background-color:green; color:white">RESOLVER</button>
+        <button id="reset" style="background-color:red; color:white">RESET</button>
+    </div>
+    <div id="movimientos">
+
+    </div>
+    <canvas id="canvas" width="300" height="150" style="border:1px solid black; margin:20px"/>
+    
+    
+</body>
+</html>

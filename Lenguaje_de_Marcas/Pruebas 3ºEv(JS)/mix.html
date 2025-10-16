@@ -1,0 +1,443 @@
+<html>
+
+<head>
+    <style>
+        #contenedorTablas {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #info {
+            margin-left: 30px;
+            height: 300px;
+        }
+
+        table,
+        td {
+            border: 2px solid black;
+        }
+
+        thead {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+    <script>
+        //hacer un array
+        let miArray = [{ nombre: "Valverde", numero: 8, foto: "https://assets.laliga.com/squad/2024/t186/p223255/1024x1113/p223255_t186_2024_1_001_000.png" },
+        { nombre: "Camavinga", numero: 6, foto: "https://img.uefa.com/imgml/TP/players/1/2025/cutoff/250128270.webp" },
+        { nombre: "Modric", numero: 10, foto: "https://assets.analiticafantasy.com/jugadores/754.png?width=192&height=190&version=2" },
+        { nombre: "Vinicius", numero: 7, foto: "https://assets.laliga.com/squad/2024/t186/p246333/2048x2225/p246333_t186_2024_1_001_000.png" },
+        { nombre: "Courtois", numero: 1, foto: "https://assets.laliga.com/squad/2024/t186/p60772/1024x1113/p60772_t186_2024_1_001_000.png" },
+        { nombre: "Rudiger", numero: 22, foto: "https://assets.sorare.com/playerpicture/f75ac5d7-3bee-4fac-9c38-212b933c638b/picture/squared-db79277d7578081d9b0f4a50409ca754.png" },
+        { nombre: "Lunin", numero: 13, foto: "https://assets.laliga.com/squad/2024/t186/p224965/256x278/p224965_t186_2024_1_001_000.png" },
+        { nombre: "Rodrygo", numero: 11, foto: "https://assets.laliga.com/squad/2024/t186/p440077/2048x2225/p440077_t186_2024_1_001_000.png" },
+        { nombre: "Arda", numero: 15, foto: "https://static.sky.it/images/skysport/it/calcio/serie-a/probabili-formazioni/superscudetto/512/520250.png" }]
+
+        let tdsDelDocumento = document.getElementsByTagName("td");
+        let tablaPanel;
+        let tdsInfo;
+        let tituloInfo;
+        let tdsPanel;
+        let contenedorInfo;
+
+        //PARA MOVIDAS CON THIS Y EV.TARGET MIRAR TAMBIEN EL FORMULARIO!!.
+
+
+        /*ESTO ES PORQUE LE ASIGNO INDICE A AMBAS COSAS.
+        Aunque ambos (td.indice y img.indice) apuntan al mismo jugador, son necesarios por separado porque:
+Cuando haces clic derecho (contextmenu), el evento se dispara en el <td>, por eso td.indice.
+Cuando pasas el mouse (mouseenter), el evento se dispara en la <img>, por eso img.indice.*/
+
+//EL CODIGO QUE ESTE COMO COMENTARIO SERAN PRUEBAS QUE HICE QUE AL FINAL NO ME GUSTARON PERO QUE ME VIENEN BIEN PARA REPASAR.
+
+        window.addEventListener("load", function () {
+            document.body.style.backgroundImage = "url(https://wallpapers.com/images/hd/real-madrid-logo-in-gold-2acgvx8lxdghab0w.jpg)";
+            //document.body.style.backgroundImage = "url('https://preview.redd.it/new-wallpaper-in-the-colors-of-the-kits-we-have-this-season-v0-anmplljvoyeb1.png?width=2560&format=png&auto=webp&s=185e86561510144d067aa1c920b26e7435bda832')";
+            //document.body.style.backgroundRepeat = "no-repeat";
+            // document.body.style.backgroundImage = "linear-gradient(grey,white,grey)";
+            //document.body.style.background = "url('https://i.pinimg.com/736x/36/ef/a1/36efa18a4d23af3ab486a0cc843d146a.jpg') no-repeat";
+
+             //tabla panel  y contenedor oculta
+            tablaPanel = document.querySelector("#panel");
+            tablaPanel.style.display = "none";
+            contenedorInfo = document.querySelector("#info");
+            contenedorInfo.style.display = "none";
+
+            //titulo
+            let titulo = document.getElementsByTagName("h1")[0];
+            let nombre = prompt("¿Como te llamas? ", '');
+            titulo.innerHTML = "Bienvenido, " + nombre + "!";
+            titulo.style.fontSize = "15em";
+            titulo.style.color = "white";
+
+            //cambiar imagen grande de la tabla del principio
+            let imagenGrande = document.querySelector("img");
+            imagenGrande.src = "https://img.asmedia.epimg.net/resizer/v2/5ZZCBOPDQNJE5OV6ABRY2YEC2M.jpg?auth=458d6673456ac320be309083af131e1eaf0d05887ca34a7043cbc23c4f434b57&width=1472&height=828&smart=true";
+
+            //movidas con la segunda tabla
+            let tablaTarjeta = document.getElementById("card"); //id
+            //el tagname anidado, el culpable de nuestro suspenso.
+            let columnaNombre = tablaTarjeta.getElementsByTagName("tr")[0].getElementsByTagName("td")[1];
+            columnaNombre.textContent = "EDUARDO CAMAVINGA"; //textContent o innerHTML
+            //Cosas con style
+            columnaNombre.style.fontFamily = "cursive";
+            columnaNombre.style.fontSize = "2em";
+            columnaNombre.style.color = "blue";
+
+            //crear un boton
+            let boton = document.createElement("button");
+            let texto = document.createTextNode("CAMBIAR COLOR FONDO"); //texto del boton
+            //añadir el texto
+            boton.appendChild(texto);
+            boton.style.display = "block";
+            //añadir el boton a la columna
+            columnaNombre.appendChild(boton);
+            //Crear un salto de linea
+            let saltodeLinea = document.createElement("br");
+            //insertar antes..
+            columnaNombre.insertBefore(saltodeLinea, boton);
+
+            //cambiar estilo del boton
+            boton.style.backgroundColor = "green";
+            boton.style.fontSize = "22px";
+            boton.style.color = "white";
+
+            //crear un input color
+            let inputColor = document.createElement("input");
+            columnaNombre.appendChild(inputColor);
+            //ponerle su tipo
+            inputColor.type = "color";
+
+
+            boton.addEventListener("click", function () {
+                //pilla el color del input con seleccionador de atributo y lo usa para cambiar
+                let color = document.querySelector("[type=color]").value;
+                columnaNombre.style.backgroundColor = color;
+            })
+
+            //columna Descripcion
+            let todosLosTd = tablaTarjeta.getElementsByTagName("td");
+            console.log(todosLosTd); //sirve para ojear en el navegador
+            let todosLosTr = tablaTarjeta.getElementsByTagName("tr");
+            let casilla = todosLosTr[todosLosTr.length - 1];
+
+            let descripcion = todosLosTd[todosLosTd.length - 1];
+            console.log(casilla);//sirve para ojear en el navegador
+
+            descripcion.innerHTML = "6";
+
+            //construccion del input range
+            //crear el elemento
+            let inputRange = document.createElement("input");
+            inputRange.type = "range"; //asignarle propiedades
+            inputRange.value = "30";
+            inputRange.min = "0";
+            inputRange.max = "60";
+            inputRange.step = "1";
+
+            //Le añadi un salto de linea desde js porque si, porque esto es asi de fumao
+            descripcion.appendChild(saltodeLinea);
+            //luego añado el range como ultimo hijo
+            descripcion.appendChild(inputRange);
+
+            inputRange.addEventListener("change", function () {
+                let valor = inputRange.value; //pillo el valor del range
+                //manera correcta de usar el valor (Añadiendole px como string, lo del *4 es cosa mia)
+                descripcion.style.fontSize = valor * 4 + "px";
+            })
+
+            descripcion.addEventListener("click", function () {
+                //un gradiente por variar.
+                descripcion.style.backgroundImage = "linear-gradient(black, blue, black)";
+                descripcion.style.color = "white";
+            })
+
+            //AL HACER CLICK EN LA IMAGEN GRANDE SE DESTAPA LA TABLA
+            imagenGrande.addEventListener("click", function () {
+                let tituloh2 = document.getElementsByTagName("h2")[0];
+                tituloh2.innerHTML = "JUGADORES REAL MADRID 2025";
+                tablaPanel.style.display = "block";
+                //PARA LA TABLA CREAMOS ELEMENTOS Y CARGAMOS TODA LA INFO
+                //CONDICION MENOR A 9 PORQUE NO SE, PORQUE CREO QUE SE DESPEROLA SI NO. NO LO HE PROBADO.
+                //no se desperola, aresmendi tested!
+                for (let i = 0; i < tdsDelDocumento.length; i++) {
+                    let imagen = document.createElement("img");
+                    imagen.src = miArray[i].foto;
+                    imagen.style.width = "300px";
+                    imagen.style.height = "300px";
+                    imagen.indice = i; // para saber de qué jugador se trata
+                    imagen.addEventListener("mouseenter", mostrarInfoJugador); //Evento del mouse al entrar, que no es igual que el mouseover
+                    //El mouseover tiene bubbling y entonces hace que a los hijos de ese elemento tambien se le aplique el evento
+                    //En este caso no tiene relevancia pero antes le habia asociado el evento al td y el mouseover me hacia daño, ademas
+                    //la lia mucho para capturar el evento dentro de mostrarInfo. MOUSEENTER ES MAS ESPECIFICO.. 
+
+                    let tituloh3 = document.createElement("h3");
+                    tituloh3.innerHTML = miArray[i].nombre;
+                    let parrafo = document.createElement("p");
+                    parrafo.innerHTML = miArray[i].numero;
+                    parrafo.style.fontSize = "2em";
+                    parrafo.style.color = "blue";
+
+                    //vacias el td porque si tiene ya una imagen o tiene algo en el html te jodes y se acumula
+                    tdsDelDocumento[i].innerHTML = "";
+                    tdsDelDocumento[i].appendChild(imagen);
+                    tdsDelDocumento[i].appendChild(tituloh3);
+                    tdsDelDocumento[i].appendChild(parrafo);
+                }
+            })
+
+            //Insertar un jugador nuevo
+            //primero el boton
+            let botonInsertar = document.createElement("button");
+            let textoBoton = document.createTextNode("INSERTAR");
+            botonInsertar.appendChild(textoBoton);
+            botonInsertar.style.fontSize = "25px";
+
+            //recoger el formulario y ponerle el boton
+            let form = document.getElementsByName("form1")[0];
+            form.appendChild(botonInsertar);
+
+            //EL BOTON POR DEFECTO ES TIPO SUBMIT
+            botonInsertar.addEventListener("click", insertarJugador);
+
+            //TAMBIEN PODIA PONERLE AL BOTON UN boton.TYPE = BUTTON 
+            //Y ME AHORRO DRAMAS PERO LO DEJE ASI PARA USAR EL E.PREVENTDEFAULT() DENTRO DE INSERTARJUGADOR
+            //botonInsertar.type = "button";
+
+            //Esto lo capture asi por probar cosas pero nada como un buen id...
+            tdsPanel = document.querySelectorAll("#panel tbody tr td");
+            tdsInfo = document.querySelectorAll("#info tbody tr td");
+            tituloInfo = document.querySelector("#info thead th h2");
+
+            //Asocia a todos los tds del panel el click derecho
+            for (let k = 0; k < tdsPanel.length; k++) {
+                tdsPanel[k].addEventListener("contextmenu", marcarFavorito); //click derecho
+                tdsPanel[k].indice = k; // <- ASOCIAR UN INDICE
+            }
+          
+            for (let p = 0; p < tdsDelDocumento.length; p++) {
+                tdsDelDocumento[p].style.backgroundColor = "lightgrey";
+                //Esto pude haberlo hecho directamente en css pero por seguir en js...
+            }
+        });
+
+        //Queria probar lo del evento, entonces esto lo que hace es evitar que el boton cumpla su funcion de envio
+        //que es su funcion default al estar dentro de un form, y hace todas las movidas de despues.
+        function insertarJugador(ev) {
+            ev.preventDefault();
+            let inputsFormulario = document.querySelectorAll("form input");
+            //RECOGEMOS LOS DATOS DE LAS CASILLAS
+            let nom = inputsFormulario[0].value;
+            let num = parseInt(inputsFormulario[1].value);//Lo dejo por si lo necesito pero odio el parse
+            let enlace = inputsFormulario[2].value;
+
+            // validar numero
+            if (num < 1 || num > 25) {
+                inputsFormulario[1].style.backgroundColor = "red";
+                inputsFormulario[1].setCustomValidity("El numero debe estar entre 1 y 25");
+            } else {
+                inputsFormulario[1].setCustomValidity("");
+                inputsFormulario[1].style.backgroundColor = "white";
+
+                //lo cargo al array
+                miArray.push({ nombre: nom, numero: num, foto: enlace });
+
+
+                //obtengo el tbody
+                let tbody = tablaPanel.getElementsByTagName("tbody")[0];
+                //filas
+                let filas = tbody.getElementsByTagName("tr");
+
+                let ultimaFila = filas[filas.length - 1];
+
+                //crear un nuevo tr
+                let tr;
+
+                //si no existe la ultima fila o si los hijos de la ultima fila son mayores o igual a 3. 
+                //PRIMERA VEZ QUE USO CHILDREN T_T PRENDAMOS UNA VELA
+                if (!ultimaFila || ultimaFila.children.length >= 3) {
+                    tr = document.createElement("tr");
+                    tbody.appendChild(tr);
+                } else {
+                    tr = ultimaFila;
+                }
+
+                //ASOCIAR EL MARCAR COMO FAVORITO
+                let td = document.createElement("td");
+                td.indice = miArray.length - 1;
+                td.style.backgroundColor = "lightgrey";
+                td.addEventListener("contextmenu", marcarFavorito);
+
+                //ESTO LO HICIMOS ARRIBA PERO CON LOS 9 ORIGINALES, ENTONCES AQUI SE CREA EL NUEVO Y SE LE ASOCIA EL EVENTO
+                let imagen = document.createElement("img");
+                imagen.src = enlace;
+                imagen.style.width = "300px";
+                imagen.style.height = "300px";
+
+
+                let tituloh3 = document.createElement("h3");
+                tituloh3.innerHTML = nom;
+
+                let parrafo = document.createElement("p");
+                parrafo.innerHTML = num;
+                parrafo.style.fontSize = "2em";
+                parrafo.style.color = "blue";
+
+                //agregar al td
+                td.appendChild(imagen);
+                imagen.indice = miArray.length - 1; // para saber de qué jugador se trata
+                //ASOCIAR EL EVENTO A LA IMAGEN!!! AQUI TAMBIEN HACE FALTA PORQUE SINO SE ASOCIA SOLO A LOS PRIMEROS 9
+                imagen.addEventListener("mouseenter", mostrarInfoJugador);
+                td.appendChild(tituloh3);
+                td.appendChild(parrafo);
+
+                //añadir a la fila adecuada
+                tr.appendChild(td);
+
+                //vaciar los inputs
+                for (let j = 0; j < inputsFormulario.length; j++) {
+                    inputsFormulario[j].value = "";
+                }
+            }
+        }
+
+        let tdActual;
+        function marcarFavorito(e) {
+            /*He usado 'this' porque hace referencia al elemento al que se le asignó el evento (el <td>),
+    mientras que 'e.target' puede referirse al elemento interno donde se hizo clic (como una imagen o un párrafo),
+    lo que provocaría que el fondo se aplicara al hijo en lugar del <td>.
+    */
+            if (this.style.backgroundColor == "yellow") {
+                this.style.backgroundColor = "transparent";
+                alert("Has desmarcado a " + miArray[this.indice].nombre + " de favorito");
+            } else {
+                this.style.backgroundColor = "yellow";
+                alert("Has marcado a " + miArray[this.indice].nombre + " como favorito");
+            }
+        }
+
+        function mostrarInfoJugador(ev) {
+            contenedorInfo.style.display = "block";
+
+            //INVESTIGUE CURRENTTARGET y mola pero bueno aprendi a usar el q tenemos que usar... que es e.target
+            // let casilla = ev.currentTarget;
+            let casilla = ev.target;
+            //console.log(casilla);
+            let posicion = casilla.indice;
+
+            let jugador = miArray[posicion];
+
+            //ESTO ES PARA LA TARJETA INFORMATIVA Q SOLO SE MUESTRA AL PASAR EL MOUSE
+            let imagen = document.createElement("img");
+            imagen.src = jugador.foto;
+            imagen.style.width = "300px";
+            imagen.style.height = "300px";
+            tituloInfo.innerHTML = jugador.nombre;
+            tdsInfo[0].innerHTML = "";
+            tdsInfo[0].appendChild(imagen);
+            tdsInfo[1].innerHTML = jugador.numero;
+            tdsInfo[1].style.fontSize = "100px";
+            tdsInfo[1].style.fontStyle = "italic";
+        }
+
+        /*funcion diagnostico
+        function mostrarInfoJugador(ev) {
+    let casilla = ev.currentTarget;
+    let posicion = casilla.indice;
+
+    console.log("Posición clicada:", posicion);
+    console.log("miArray.length:", miArray.length);
+    console.log("Jugador:", miArray[posicion]);
+
+    let imagen = document.createElement("img");
+    imagen.src = miArray[posicion].foto; // <- aquí revienta si posicion no es válido
+    ...
+}*/
+    </script>
+</head>
+
+<body>
+    <!-- <div>
+        <label><input type=radio name=lang value=es checked>🇪🇸</label>
+        <label><input type=radio name=lang value=it>🇮🇹</label>
+    </div>-->
+    <h1>SCEGLI LA TUA BEVANDA</h1>
+    <div id="contenedorTablas">
+        <table id=panel>
+            <thead>
+                <tr>
+                    <th colspan=3>
+                        <h2>SCEGLI LA TUA BEVANDA</h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span>1</span></td>
+                    <td><span>2</span></td>
+                    <td><span>3</span></td>
+                </tr>
+
+                <tr>
+                    <td><span>4</span></td>
+                    <td><span>5</span></td>
+                    <td><span>6</span></td>
+                </tr>
+
+                <tr>
+                    <td><span>7</span></td>
+                    <td><span>8</span></td>
+                    <td><span>9</span></td>
+                </tr>
+                <!-- <tr> 
+                    <td>
+                        0 <input type=range name=rngAz min=0 max=4 value=2> 4
+                        <br>
+                        <span>--><!--rótulo azúcar aquí--><!--</span>
+                    </td>
+                    <td class=hueco></td>
+                    <td>
+                        <label><input type=checkbox name=chkDesc
+                                value=desc><span>--><!--rótulo descafeinado aquí--><!--</span></label>
+                    </td>
+                </tr> -->
+            </tbody>
+        </table>
+
+        <table id="info">
+            <thead>
+                <tr>
+                    <th colspan=3>
+                        <h2>SCEGLI LA TUA BEVANDA</h2>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2"><span>1</span></td>
+                    <td><span>2</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <form name="form1">
+        <input type="text" id="nombre" maxlength="20">
+        <input type="number" id="numero"> <!--validar el num en js-->
+        <input type="URL" id="enlace">
+    </form>
+
+
+    <table id=card>
+        <tr>
+            <td rowspan=3><img src=""></td>
+            <td id=nombre>NOMBRE
+            </td>
+        </tr>
+        <tr>
+            <td id=descrip>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+        </tr>
+    </table>
+</body>
+
+</html>

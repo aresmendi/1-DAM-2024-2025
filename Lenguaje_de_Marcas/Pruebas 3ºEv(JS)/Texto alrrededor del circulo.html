@@ -1,0 +1,132 @@
+<html>
+
+<head>
+    <script>
+        window.addEventListener("load", imagenCargada);
+        window.addEventListener("load", imagenDibujada);
+        window.addEventListener("load", dibujarGuia);
+        window.addEventListener("load", dibujarTextoCircular);
+        function imagenCargada() {
+            let canva1 = document.getElementById("canva1");
+            if (canva1.getContext) {
+                let ctx1 = canva1.getContext("2d");
+                let foto = new Image();
+                foto.src = "img/logomislata.jpg";
+                foto.onload = dibujarFoto;
+
+                function dibujarFoto() {
+                    ctx1.drawImage(foto, 0, 0, 300, 300);
+                }
+            }
+        }
+        function imagenDibujada() {
+            let canva2 = document.getElementById("canva2");
+            if (canva2.getContext) {
+                let ctx1 = canva2.getContext("2d");
+                ctx1.lineWidth=2;
+                //circulo exterior
+                ctx1.strokeStyle="grey";
+                ctx1.beginPath();
+                ctx1.arc(150,150,75,0,Math.PI*2); 
+                ctx1.stroke();
+                //circulo interior
+                ctx1.beginPath();
+                ctx1.arc(150,150,85,0,Math.PI*2); 
+                ctx1.stroke();
+                // Linea vertical
+                ctx1.beginPath();
+                ctx1.moveTo(150,65);
+                ctx1.lineTo(150,235);
+                ctx1.stroke();
+                //linea horicozntal
+                ctx1.beginPath();
+                ctx1.moveTo(50, 150);
+                ctx1.lineTo(250, 150);
+                ctx1.stroke();
+                //diagonal larga
+                ctx1.beginPath();
+                ctx1.moveTo(60, 65);
+                ctx1.lineTo(240, 235);
+                ctx1.stroke();
+                //diagonal corta
+                ctx1.beginPath();
+                ctx1.moveTo(150, 150);
+                ctx1.lineTo(65, 245);
+                ctx1.stroke();
+                //Poligono gris
+                ctx1.fillStyle="grey";
+                ctx1.beginPath();
+                ctx1.moveTo(115, 190);
+                ctx1.lineTo(154, 180);
+                ctx1.lineTo(135, 167);
+                ctx1.lineTo(120, 146);
+                ctx1.fill();
+                //Poligono azul
+                ctx1.fillStyle="darkblue";
+                ctx1.beginPath();
+                ctx1.moveTo(142, 159);
+                ctx1.lineTo(214, 211);
+                ctx1.lineTo (178, 150);
+                ctx1.lineTo (213, 80);
+                ctx1.lineTo (150, 122);
+                ctx1.lineTo (87, 91);
+                ctx1.fill();
+
+            }
+        }
+        function dibujarTextoCircular() {
+        let canva2 = document.getElementById("canva2");
+        if (canva2.getContext) {
+        let ctx1 = canva2.getContext("2d");
+        let texto = "Texto alrededor del círculo ";
+        let radio = 95; // Radio del círculo exterior
+        let centroX = 150;
+        let centroY = 150;
+        let anguloInicio = -Math.PI / 2; // Comenzamos en la parte superior del círculo
+        
+        ctx1.font = "16px Arial";
+        ctx1.fillStyle = "black";
+
+        for (let i = 0; i < texto.length; i++) {
+            let angulo = anguloInicio + (i * (Math.PI * 2 / texto.length));
+            let x = centroX + Math.cos(angulo) * radio;
+            let y = centroY + Math.sin(angulo) * radio;
+
+            ctx1.save();
+            ctx1.translate(x, y);
+            ctx1.rotate(angulo + Math.PI / 2); // Ajustamos la rotación para que quede legible
+            ctx1.fillText(texto[i], 0, 0);
+            ctx1.restore();
+        }
+    }
+}
+        function dibujarGuia() {
+            let canva2 = document.getElementById("canva2");
+            if (canva2.getContext) {
+                ctx = canva2.getContext("2d");
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "#ddd";
+                for (let x = 0; x <= 300; x += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, 300);
+                    ctx.stroke();
+                }
+                for (let y = 0; y <= 300; y += 50) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(300, y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+    <canvas id="canva1" width="300px" height="300px"></canvas>
+    <canvas id="canva2" width="300px" height="300px"></canvas>
+</body>
+
+</html>
