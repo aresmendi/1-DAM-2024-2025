@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "productos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "codigoBarras",
+          "denominacion",
+          "origen",
+          "peso",
+          "ingredientes",
+          "contieneAlergenos",
+          "informacionNutricional",
+          "nutriScore"
+        ],
+        "properties": {
+          "codigoBarras": {
+            "type": "string",
+            "pattern": "^\\d{13}$"
+          },
+          "denominacion": { "type": "string" },
+          "origen": { "type": "string" },
+          "peso": {
+            "type": "object",
+            "required": [ "neto" ],
+            "properties": {
+              "neto": { "type": "integer" },
+              "escurrido": { "type": "integer" }
+            }
+          },
+          "ingredientes": {
+            "type": "array",
+            "maxItems": 15,
+            "items": { "type": "string" }
+          },
+          "contieneAlergenos": { "type": "boolean" },
+          "alergenos": {
+            "type": "array",
+            "maxItems": 5,
+            "items": { "type": "string" }
+          },
+          "informacionNutricional": {
+            "type": "object",
+            "required": [
+              "valorEnergetico",
+              "grasas",
+              "hidratos",
+              "proteinas",
+              "sal"
+            ],
+            "properties": {
+              "valorEnergetico": { "type": "integer" },
+              "grasas": {
+                "type": "number",
+                "maximum": 100,
+                "multipleOf": 0.1
+              },
+              "hidratos": {
+                "type": "number",
+                "maximum": 100,
+                "multipleOf": 0.1
+              },
+              "fibra": {
+                "type": "number",
+                "multipleOf": 0.1
+              },
+              "proteinas": {
+                "type": "number",
+                "multipleOf": 0.1
+              },
+              "sal": {
+                "type": "number",
+                "maximum": 5,
+                "multipleOf": 0.01
+              }
+            }
+          },
+          "nutriScore": {
+            "type": "string",
+            "enum": [ "A", "B", "C", "D", "E" ]
+          }
+        }
+      }
+    }
+  },
+  "required": [ "productos" ]
+}

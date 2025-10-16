@@ -1,0 +1,44 @@
+*{
+    background-color:aqua;
+}
+table caption{
+    background-color:black;
+    color:white;
+    padding:10px
+}
+table caption span{
+    background-color:grey;
+}
+
+table{
+    border:solid 1px black;
+}
+table td{
+    border:solid 1px black;
+}
+table img[alt*="koala"]{
+    width:350px;
+}
+table img[alt*="conejo"] {
+    
+    height: 450px;
+}
+table img[alt*="flecha"]{
+    height:65px;
+}
+ol > li:first-of-type{
+    list-style:upper-roman;
+}
+ol > li:last-of-type{
+    list-style: none;
+}
+.disco :nth-child(n+8){
+    list-style-type:disc;
+}
+
+.columnaCentral * {
+    background-color:aquamarine;
+}
+#tituloForm{
+    font-style:italic
+}

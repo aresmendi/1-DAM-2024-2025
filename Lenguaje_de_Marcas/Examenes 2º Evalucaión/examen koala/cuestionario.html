@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Formulario Examen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="description" content="Librer�a familiar en calle Huertas">
+    <meta name="keywords" content="librer�a, libros, novelas, literatura, autores, poes�a, venta de libros, librer�a online, ficci�n, no ficci�n, cuentos, libros de texto, librer�a local">
+    <meta name="author" content="Ares Caballero Rey">
+    <link rel="stylesheet" href="css/estilo2.css">
+    <link rel="shortcut icon" href="images/favicon.gif">
+</head>
+<body>
+    <header><h1>EL SERVICIO WEB</h1></header>
+    <a href="examen.html"><img src="images/l_arrow.png" alt="flecha"></a>
+    <form method="post" enctype="text/plain" action="mailto:examen6_1@lmsgi.net">
+        <p>
+            <label for="nombre">Nombre:<input type="text" name="nombre" id="nombre" size="60"> </label>
+            <br>
+            <br>
+            <br>
+            <div>
+                <p><h4 id="tituloForm">Completa el siguiente cuestionario con las respuestas correctas. Pulsa el botón "Enviar" cuando termines.</h4>
+                <p>
+                    Los servicios web son una realidad gracias al protocolo <label for="protocolo"><input type="text" name="protocolo" id="protocolo" size="4" maxlength="4"></label>,
+                    cuya versión segura se llama <label for="vs"><input type="text" name="vs" id="vs" size="5" maxlength="5"></label>
+                <p>
+                    Ambos usan el protocolo de nivel de transporte <label for="pt">
+                        <select name="pt" id="pt">
+                            <option value="" selected disabled>-Elige-</option>
+                            <option value="tcp">TCP</option>
+                            <option value="udp">UDP</option>
+                        </select>
+                    </label>
+                <p>
+                    Los puertos de escucha en el servidor para estos protocolo suelen ser <label for="pe1"><input type="number" name="pe1" id="pe1" min="10" max="1023" title="El valor se encuentra entre 10 y 1023, ambos inclusives"></label>
+                    y <label for="pe2"><input type="number" name="pe2" id="pe2" min="10" max="1023" title="El valor se encuentra entre 10 y 1023, ambos inclusives"></label>
+                <p>El servido responde a los mensajes de peticion del cliente con un código de estado (número + texto)...
+                <p>
+                    <label for="nunca"><input type="radio" name="nunca" id="nunca">Nunca</label>
+                    <label for="si todo fue bien"><input type="radio" name="si todo fue bien" id="si todo fue bien">Si todo fue bien</label>
+                    <label for="si algo fue mal"><input type="radio" name="si algo fue mal" id="si algo fue mal">Si algo fue mal</label>
+                    <label for="siempre"><input type="radio" name="siempre" id="siempre">Siempre</label>
+                <p>
+                    <figure id="contenedor">
+                        <img src="images/page.png" alt="imagenForm">
+                        <figcaption>Figura 1</figcaption>
+                    </figure>
+                
+                <p>La página de la figura 1 tiene la hoja de estilos en un fichero CSS externo. ¿Cuántas peticiones realiza el navegador web del cliente para poder cargarla completamente?
+                <p id="contenedor2">
+                    <label for="procesos"><input type="range" name="procesos" id="procesos" min="1" max="10" value="3"></label>
+                    <hr>
+                <p>Adjunta tu certificado en formato PDF:  <label for="archivo"><input type="file" name="archivo" id="archivo" value="Elegir archivo"></label>
+                <p>
+                    Escribe aquí la contraseña proporcionada al comienzo: <label for="contraseña"><input type="password" size="30"></label>
+                    <br>
+                    <br>
+                    <label for="enviar"><input type="submit" id="enviar" name="enviar" value="Enviar"></label>
+            </div>
+    </form>
+</body>
+</html>

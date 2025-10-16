@@ -1,0 +1,133 @@
+{
+  "productos": [
+    {
+      "codigoBarras": "8480000152206",
+      "denominacion": "Piña en rodajas en su jugo",
+      "origen": "Indonesia",
+      "peso": {
+        "neto": 822,
+        "escurrido": 490
+      },
+      "ingredientes": [ "piña", "zumo de piña" ],
+      "contieneAlergenos": false,
+      "informacionNutricional": {
+        "valorEnergetico": 56,
+        "grasas": 0.5,
+        "hidratos": 13,
+        "fibra": 1,
+        "proteinas": 0.5,
+        "sal": 0.01
+      },
+      "nutriScore": "A"
+    },
+    {
+      "codigoBarras": "8414807551535",
+      "denominacion": "Almendra piel cruda",
+      "origen": "Estados Unidos",
+      "peso": {
+        "neto": 200
+      },
+      "ingredientes": [ "almendras con piel" ],
+      "contieneAlergenos": true,
+      "alergenos": [ "Almendras" ],
+      "informacionNutricional": {
+        "valorEnergetico": 579,
+        "grasas": 50,
+        "hidratos": 21.5,
+        "fibra": 12.5,
+        "proteinas": 21.3,
+        "sal": 0.01
+      },
+      "nutriScore": "A"
+    },
+    {
+      "codigoBarras": "4056489774747",
+      "denominacion": "Jarabe de arce",
+      "origen": "Canadá",
+      "peso": {
+        "neto": 330
+      },
+      "ingredientes": [ "jarabe de arce" ],
+      "contieneAlergenos": false,
+      "informacionNutricional": {
+        "valorEnergetico": 348,
+        "grasas": 0,
+        "hidratos": 87,
+        "proteinas": 0,
+        "sal": 0.01
+      },
+      "nutriScore": "E"
+    },
+    {
+      "codigoBarras": "8480000823243",
+      "denominacion": "Pan de molde",
+      "origen": "España",
+      "peso": {
+        "neto": 820
+      },
+      "ingredientes": [
+        "harina de trigo",
+        "agua",
+        "levadura",
+        "aceite de girasol",
+        "gluten de trigo",
+        "sal",
+        "harina de habas",
+        "conservadores",
+        "fibra de trigo",
+        "emulgentes",
+        "vinagre de vino",
+        "agente de tratamiento de la harina"
+      ],
+      "contieneAlergenos": true,
+      "alergenos": [ "Trigo" ],
+      "informacionNutricional": {
+        "valorEnergetico": 240,
+        "grasas": 2.6,
+        "hidratos": 43,
+        "fibra": 3.7,
+        "proteinas": 9.4,
+        "sal": 0.95
+      },
+      "nutriScore": "C"
+    },
+    {
+      "codigoBarras": "8402001001581",
+      "denominacion": "Aceitunas sin hueso",
+      "origen": "España",
+      "peso": {
+        "neto": 810,
+        "escurrido": 400
+      },
+      "ingredientes": [ "aceitunas", "agua", "sal", "acidulantes", "antioxidante" ],
+      "contieneAlergenos": false,
+      "informacionNutricional": {
+        "valorEnergetico": 172,
+        "grasas": 18,
+        "hidratos": 0,
+        "proteinas": 1,
+        "sal": 4.0
+      },
+      "nutriScore": "E"
+    },
+    {
+      "codigoBarras": "4008713713411",
+      "denominacion": "Copos laminados de avena integral",
+      "origen": "Alemania",
+      "peso": {
+        "neto": 800
+      },
+      "ingredientes": [ "copos de avena" ],
+      "contieneAlergenos": false,
+      "informacionNutricional": {
+        "valorEnergetico": 375,
+        "grasas": 7,
+        "hidratos": 59,
+        "fibra": 10,
+        "proteinas": 14,
+        "sal": 0.02
+      },
+      "nutriScore": "A"
+    }
+  ]
+}

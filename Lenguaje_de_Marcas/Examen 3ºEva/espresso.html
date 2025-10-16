@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang=es>
+
+<head>
+	<style>
+		body {
+			background-image: url(imagenes/bg.png);
+			font-family: sans-serif;
+		}
+
+		div {
+			padding: 10px;
+			margin: 20px auto;
+			width: 100px;
+			font-size: 1.5em;
+		}
+
+		#panel,
+		#panel td:not(.hueco) {
+			margin: 30px auto;
+			background-color: #333300;
+			border: 1px solid #ffffcc;
+			min-width: 120px;
+			text-align: center;
+			color: #ffffcc;
+			position: relative;
+		}
+
+		#panel span {
+			position: absolute;
+			bottom: 15px;
+			left: 10px;
+			text-shadow: 1px 1px #333300;
+		}
+
+		#panel tr:nth-child(4) span {
+			position: static;
+			text-align: center;
+		}
+
+		#card {
+			margin: 20px auto;
+			color: #ffffcc;
+			background-color: black;
+		}
+
+		#card tr:first-child td:last-child {
+			text-align: center;
+			font-weight: bold;
+		}
+
+		#card tr:nth-child(even) td {
+			max-width: 250px;
+			font-size: 0.9em;
+			font-style: italic;
+			padding: 0 10px;
+		}
+
+		img {
+			height: 200px;
+		}
+
+		[type="range"] {
+			width: 120px;
+		}
+
+		button {
+			font-size: 40pt;
+			margin: 10px auto;
+			background-color: #ffffcc;
+		}
+	</style>
+	<script>
+		//Variables
+		let xmlhttp;
+		let xmlDoc;
+		let bebidasEsp, bebidasIta, pics;
+		let nombre, descrip, ingre, pic, enlace, radioE;
+		let nombreI, descripI, ingreI, picI, enlaceI, radioI;
+		let tdsPanel, h1, az, desc;
+		const h1_it = "SCEGLI LA TUA BEVANDA";
+		const h1_es = "ELIGE TU BEBIDA";
+		const az_es = "Azúcar";
+		const az_it = "Zucchero";
+		const desc_es = "Descafeinado";
+		const desc_it = "Deccaffeinato";
+		let tabla, infoImg, infoNombre, infoDesc;
+
+		window.addEventListener("load", function () {
+			xmlhttp = new XMLHttpRequest();
+			xmlhttp.open("GET", "xml/cafe.xml", false);
+			xmlhttp.send();
+			xmlDoc = xmlhttp.responseXML;
+
+			bebidasEsp = xmlDoc.getElementsByTagName("bebidas")[0].getElementsByTagName("bebida");
+			console.log(bebidasEsp);
+			bebidasIta = xmlDoc.getElementsByTagName("bebidas")[1].getElementsByTagName("bebida");
+			pics = xmlDoc.getElementsByTagName("pic_src");
+			tdsPanel = document.querySelectorAll("#panel tbody tr td");
+			enEspañol();
+
+			radioE = document.getElementsByTagName("input")[0];
+			radioI = document.getElementsByTagName("input")[1];
+
+			radioE.addEventListener("change", enEspañol);
+			radioI.addEventListener("change", enItaliano);
+
+			//Recorrer las bebidas 
+			function enEspañol() {
+				h1 = document.getElementsByTagName("h1")[0];
+				h1.innerHTML = h1_es;
+				az = document.getElementsByTagName("br")[0].nextElementSibling;
+				az.innerHTML = az_es;
+				desc = document.getElementsByName("chkDesc")[0].nextElementSibling;
+				desc.innerHTML = desc_es;
+				tdsPanel.innerHTML = "";
+				for (let i = 0; i < bebidasEsp.length; i++) {
+					let bebida = bebidasEsp[i];
+					nombre = bebida.getElementsByTagName("nombre")[0].innerHTML;
+					descrip = bebida.getElementsByTagName("descrip")[0].innerHTML;
+					ingre = bebida.getElementsByTagName("ingre")[0].innerHTML;
+					pic = bebida.getElementsByTagName("pic")[0].innerHTML;
+					for (let j = 0; j < pics.length; j++) {
+						let atributo = pics[j].getAttribute("id");
+						if (atributo == pic) {
+							enlace = pics[j].innerHTML;
+						}
+					}
+					tdsPanel[i].innerHTML = "<img src='" + enlace + "' alt='" + i + "'><span>" + nombre + "</span> <p>" + descrip + "</p>";
+					let p = document.getElementsByTagName("p")[i].style.display = "none";
+					tdsPanel[i].addEventListener("mouseenter", mostrarInfo);
+					tdsPanel[i].addEventListener("click", mostrarAler);
+				}
+			}
+
+			function enItaliano() {
+				h1 = document.getElementsByTagName("h1")[0];
+				h1.innerHTML = h1_it;
+				az = document.getElementsByTagName("br")[0].nextElementSibling;
+				az.innerHTML = az_it;
+				desc = document.getElementsByName("chkDesc")[0].nextElementSibling;
+				desc.innerHTML = desc_it;
+				tdsPanel.innerHTML = "";
+				for (let i = 0; i < bebidasIta.length; i++) {
+					let bebida = bebidasIta[i];
+					nombreI = bebida.getElementsByTagName("nombre")[0].innerHTML;
+					descripI = bebida.getElementsByTagName("descrip")[0].innerHTML;
+					ingreI = bebida.getElementsByTagName("ingre")[0].innerHTML;
+					picI = bebida.getElementsByTagName("pic")[0].innerHTML;
+					for (let j = 0; j < pics.length; j++) {
+						let atributo = pics[j].getAttribute("id");
+						if (atributo == picI) {
+							enlaceI = pics[j].innerHTML;
+						}
+					}
+					tdsPanel[i].innerHTML = "<img src='" + enlaceI + "' alt='" + i + "'><span>" + nombreI + "</span> <p>" + descripI + "</p>";
+					let p = document.getElementsByTagName("p")[i].style.display = "none";
+					tdsPanel[i].addEventListener("mouseenter", mostrarInfo);
+					tdsPanel[i].addEventListener("click", mostrarAler);
+				}
+			}
+
+			tabla = document.getElementById("card");
+			tabla.style.display = "none";
+
+
+			function mostrarInfo(event) {
+				//Imagen
+				tabla.style.display = "table";
+				console.log(tabla);
+				let objetivo = event.target;
+				console.log(objetivo);
+				infoImg = document.getElementById("nombre").previousElementSibling.children[0];
+				console.log(infoImg);
+				let masFino = objetivo.children[0].getAttribute("src");
+				infoImg.setAttribute("src", masFino);
+				//nombre
+				let muchoMasFino = objetivo.children[1].innerHTML;
+				infoNombre = document.getElementById("nombre");
+				infoNombre.innerHTML = muchoMasFino;
+				//Descripcion
+				let inFinisimo = objetivo.children[2].innerHTML;
+				infoDesc = document.getElementById("descrip");
+				infoDesc.innerHTML = inFinisimo;
+
+			}
+			function mostrarAler(event){
+				let objetivo2 = event.target.parentNode;
+				console.log("Valor de objetivo2");
+                console.log(objetivo2);
+				let nom = objetivo2.children[1].innerHTML;
+				console.log(objetivo2);
+				console.log(nom);
+				let azucar = document.getElementsByName("rngAz")[0].value;
+				let descafeinado = document.getElementsByName("chkDesc")[0].checked;
+				let infoDescafeinado ="";
+				if (descafeinado){
+					infoDescafeinado = "y descafeinado";
+				}else {
+					infoDescafeinado = "";
+				}
+				alert("Has elegido un "+nom+" con "+azucar+" de azúcar "+infoDescafeinado+".");
+			}
+		});
+
+	</script>
+</head>
+
+<body>
+	<div>
+		<label><input type=radio name=lang value=es checked>🇪🇸</label>
+		<label><input type=radio name=lang value=it>🇮🇹</label>
+	</div>
+	<table id=panel>
+		<thead>
+			<tr>
+				<th colspan=3>
+					<h1>SCEGLI LA TUA BEVANDA</h1>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><span>1</span></td>
+				<td><span>2</span></td>
+				<td><span>3</span></td>
+			</tr>
+
+			<tr>
+				<td><span>4</span></td>
+				<td><span>5</span></td>
+				<td><span>6</span></td>
+			</tr>
+
+			<tr>
+				<td><span>7</span></td>
+				<td><span>8</span></td>
+				<td><span>9</span></td>
+			</tr>
+			<tr>
+				<td>
+					0 <input type=range name=rngAz min=0 max=4 value=2> 4
+					<br>
+					<span><!--rótulo azúcar aquí--></span>
+				</td>
+				<td class=hueco></td>
+				<td>
+					<label><input type=checkbox name=chkDesc
+							value=desc><span><!--rótulo descafeinado aquí--></span></label>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table id=card>
+		<tr>
+			<td rowspan=3><img src="imagenes/4.png"></td>
+			<td id=nombre>NOMBRE</td>
+		</tr>
+		<tr>
+			<td id=descrip>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+		</tr>
+	</table>
+</body>
+
+</html>
