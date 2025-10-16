@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='utf-8'?>
+<videojuegos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XSD\juegos.xsd">
+	<juego codigo="MG007715">
+		<titulo>Metal Gear Solid 2: Substance</titulo>
+		<desarrollo>
+			<estudio>Konami CEJ</estudio>
+			<direccion>
+				<director>Hideo Kojima</director>
+			</direccion>
+			<produccion>
+				<productor>Hideo Kojima</productor>
+			</produccion>
+			<guion>
+				<guionista>Hideo Kojima</guionista>
+			</guion>
+		</desarrollo>
+		<publicacion>2002-11-05</publicacion>
+		<genero>Accion</genero>
+		<gameplays>
+			<gameplay>Shooter</gameplay>
+			<gameplay>Stealth</gameplay>
+		</gameplays>
+		<plataformas>
+			<plataforma nombre="Xbox" />
+			<plataforma nombre="PlayStation 2"/>
+			<plataforma nombre="Windows"/>
+			<plataforma nombre="PlayStation 3"/>
+			<plataforma nombre="PlayStation Vita"/>
+		</plataformas>
+		<pegi>16</pegi>
+		<metacritic>87</metacritic>
+		<paisOrigen>Japon</paisOrigen>
+	</juego>
+	<juego codigo="MG053072">
+		<titulo>The Binding of Isac</titulo>
+		<desarrollo>
+			<estudio/>
+			<direccion>
+				<director>Edmund McMilen</director>
+				<director>Florian Himsl</director>
+			</direccion>
+			<produccion>
+				<productor>Edmund McMillen</productor>
+				<productor>Florian Himsl</productor>
+			</produccion>
+			<guion>
+				<guionista> Edmund McMillen</guionista>
+				<guionista>Florian Himsl</guionista>
+			</guion>
+		</desarrollo>
+		<publicacion>2011-09-28</publicacion>
+		<genero>Accion</genero>
+		<gameplays>
+			<gameplay>Roguelike</gameplay>
+			<gameplay>Shooter</gameplay>
+		</gameplays>
+		<plataformas>
+			<plataforma nombre="Windows"/>
+			<plataforma nombre="Macintosh"/>
+		</plataformas>
+		<pegi>16</pegi>
+		<metacritic>84</metacritic>
+		<paisOrigen>Estados Unidos</paisOrigen>
+	</juego>
+	<juego codigo="MG049724">
+		<titulo>Castlevania: Lors of Shadow</titulo>
+		<desarrollo>
+			<estudio>MercurySteam</estudio>
+			<direccion>
+				<director>Enric Alvarez</director> 
+			</direccion>
+			<produccion>
+				<productor>Jose Raluy</productor> 
+				<productor>Dave Cox</productor>
+				<productor>Hideo Kojima</productor>
+			</produccion>
+			<guion>
+				<guionista>Enric Alvarez</guionista> 
+				<guionista>Dave Cox</guionista>
+				<guionista>Eddie Deighton</guionista>
+			</guion>
+		</desarrollo>
+		<publicacion>2010-10-05</publicacion>
+		<genero>Accion</genero>
+		<gameplays>
+			<gameplay> Hack and slash</gameplay>
+			<gameplay>Puzzle</gameplay>
+		</gameplays>
+		<plataformas>
+			<plataforma nombre="Xbox 360"/>
+			<plataforma nombre="PlayStation 3"/>
+		</plataformas>
+		<pegi>16</pegi>
+		<metacritic>83</metacritic>
+		<paisOrigen>España</paisOrigen>
+	</juego>
+	<juego codigo="MG087551">
+		<titulo>Mario Kart 8 Deluxe</titulo>
+		<desarrollo>
+			<estudio>Nintendo EAD</estudio>
+			<direccion>
+				<director>Yusuke Shiraiwa</director> 
+			</direccion>
+			<produccion>
+				<productor>Hideki Konno</productor>
+				<productor>Kosuke Yabuki</productor>
+			</produccion>
+			<guion/>
+		</desarrollo>
+		<publicacion>2017-04-28</publicacion>
+		<genero>Conduccion</genero>
+		<gameplays>
+			<gameplay>Arcade</gameplay>
+		</gameplays>
+		<plataformas>
+			<plataforma nombre="Switch" />
+		</plataformas>
+		<pegi>3</pegi>
+		<metacritic>92</metacritic>
+		<paisOrigen>Japon</paisOrigen>
+	</juego>
+	<juego codigo="MG191783">
+		<titulo>Return to Monkey Island</titulo>
+		<desarrollo>
+			<estudio>Terrible Toybox</estudio>
+			<direccion>
+				<director>Ron Gilbert</director>
+				<director>Dave Grossman</director>
+			</direccion>
+			<produccion>
+				<productor>Jenn Sandercock</productor> 
+			</produccion>
+			<guion>
+				<guionista>Dave Grossman</guionista>
+				<guionista>Ron Gilbert</guionista>
+			</guion>
+		</desarrollo>
+		<publicacion>2022-09-19</publicacion>
+		<genero>Aventura</genero>
+		<gameplays>
+			<gameplay>Graphic Adventure</gameplay>
+			<gameplay>Puzzle</gameplay>
+		</gameplays>
+		<plataformas>
+			<plataforma nombre="Windows"/>
+			<plataforma nombre="Macintosh"/>
+			<plataforma nombre="Linux"/>
+			<plataforma nombre="Switch"/>
+			<plataforma nombre="PlayStation 5"/>
+			<plataforma nombre="Xbox Series"/>
+		</plataformas>
+		<pegi>12</pegi>
+		<mobyscore>8.4</mobyscore>
+		<paisOrigen>Estados Unidos</paisOrigen>
+	</juego>
+</videojuegos>

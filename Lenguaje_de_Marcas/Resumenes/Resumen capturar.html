@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de Selección DOM con JavaScript</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #1a237e;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        h1 { font-size: 2.2em; text-align: center; }
+        h2 { font-size: 1.6em; margin-top: 40px; }
+        h3 { font-size: 1.2em; margin-top: 30px; border: none; font-weight: bold; }
+        p, li { font-size: 1.05em; }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            white-space: pre-wrap;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #eef;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guía Completa de Selección DOM con JavaScript</h1>
+    
+    <h2>HTML de Ejemplo</h2>
+    <p>Usaremos este código como base para todos los ejemplos.</p>
+    <pre><code id="html-ejemplo"></code></pre>
+
+    <h2>1. Métodos Clásicos</h2>
+    <h3>a) getElementById()</h3>
+    <p>Selecciona por el atributo <code>id</code>. Devuelve <strong>un solo elemento</strong>.</p>
+    <pre><code>const titulo = document.getElementById('titulo-principal');</code></pre>
+
+    <h3>b) getElementsByTagName()</h3>
+    <p>Selecciona por nombre de etiqueta (tag). Devuelve una <code>HTMLCollection</code> con <strong>todos</strong> los elementos que coinciden.</p>
+    <pre><code>const todosLosParrafos = document.getElementsByTagName('p');</code></pre>
+
+    <h3>c) getElementsByClassName()</h3>
+    <p>Selecciona por el atributo <code>class</code>. Devuelve una <code>HTMLCollection</code>.</p>
+    <pre><code>const items = document.getElementsByClassName('item');</code></pre>
+
+    <h3>d) getElementsByName()</h3>
+    <p>Selecciona por el atributo <code>name</code>, común en formularios. Devuelve una <code>NodeList</code>.</p>
+    <pre><code>const campoUsuario = document.getElementsByName('usuario');</code></pre>
+
+    <h2>2. Métodos Modernos (¡Los más recomendados!)</h2>
+    <h3>a) querySelector()</h3>
+    <p>Usa selectores de CSS para encontrar el <strong>primer</strong> elemento que coincida.</p>
+    <pre><code>// Selección por ID
+const tituloConQuery = document.querySelector('#titulo-principal');
+
+// Selección compleja combinando clase y etiqueta
+const itemImportante = document.querySelector('li.importante');</code></pre>
+
+    <h3>b) querySelectorAll()</h3>
+    <p>Usa selectores de CSS para encontrar <strong>todos</strong> los elementos que coincidan. Devuelve una <code>NodeList</code>.</p>
+    <pre><code>// Seleccionar todos los <li> dentro del elemento con id="lista-items"
+const todosLosItems = document.querySelectorAll('#lista-items li');</code></pre>
+
+    <h2>3. Navegando por el Árbol DOM</h2>
+    <p>Una vez que tienes un elemento, puedes moverte a sus "familiares". Partimos de esta selección:</p>
+    <pre><code>const segundoItem = document.querySelector('.importante');</code></pre>
+    
+    <h3>a) Padre: <code>.parentElement</code></h3>
+    <p>Selecciona el elemento padre directo.</p>
+    <pre><code>const listaPadre = segundoItem.parentElement; // El elemento <ul></code></pre>
+
+    <h3>b) Hermanos: <code>.nextElementSibling</code> y <code>.previousElementSibling</code></h3>
+    <p>Selecciona los elementos hermanos que están al mismo nivel.</p>
+    <pre><code>const hermanoAnterior = segundoItem.previousElementSibling; // El primer <li>
+const hermanoSiguiente = segundoItem.nextElementSibling; // El tercer <li></code></pre>
+    
+    <h3>c) Hijos: <code>.children</code>, <code>.firstElementChild</code>, <code>.lastElementChild</code></h3>
+    <p>Selecciona los elementos hijos directos.</p>
+    <pre><code>const lista = document.querySelector('#lista-items');
+const todosLosHijos = lista.children; // Los tres <li>
+const primerHijo = lista.firstElementChild;
+const ultimoHijo = lista.lastElementChild;</code></pre>
+
+    <h2>Chuleta Rápida (Resumen Final)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>¿Qué selecciona?</th>
+                <th>¿Qué devuelve?</th>
+                <th>Ideal para...</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>getElementById('id')</code></td><td>🎯 Un solo elemento por su ID.</td><td><code>Element</code></td><td>Seleccionar un elemento único y conocido.</td></tr>
+            <tr><td><code>getElementsByTagName('tag')</code></td><td>📦 Todos los elementos con esa etiqueta.</td><td><code>HTMLCollection</code></td><td>Coger todos los <code><p></code>, <code><li></code>, etc.</td></tr>
+            <tr><td><code>getElementsByClassName('clase')</code></td><td>📦 Todos los elementos con esa clase.</td><td><code>HTMLCollection</code></td><td>Coger elementos que comparten un estilo/función.</td></tr>
+            <tr><td><code>querySelector('selector-css')</code></td><td>🎯 <strong>El primer</strong> elemento que coincida.</td><td><code>Element</code></td><td><strong>El más versátil para un solo elemento.</strong></td></tr>
+            <tr><td><code>querySelectorAll('selector-css')</code></td><td>📦 <strong>Todos</strong> los elementos que coincidan.</td><td><code>NodeList</code></td><td><strong>El más versátil para múltiples elementos.</strong></td></tr>
+            <tr><td><code>.parentElement</code></td><td>👨‍👧‍👦 El padre directo de un elemento.</td><td><code>Element</code></td><td>Subir un nivel en el DOM.</td></tr>
+            <tr><td><code>.children</code></td><td>👨‍👧‍👦 Los hijos directos de un elemento.</td><td><code>HTMLCollection</code></td><td>Bajar un nivel y obtener los hijos.</td></tr>
+            <tr><td><code>.nextElementSibling</code></td><td>🚶‍♂️ El siguiente hermano.</td><td><code>Element</code></td><td>Moverse lateralmente al siguiente elemento.</td></tr>
+            <tr><td><code>.previousElementSibling</code></td><td>🚶‍♂️ El hermano anterior.</td><td><code>Element</code></td><td>Moverse lateralmente al elemento anterior.</td></tr>
+        </tbody>
+    </table>
+
+    <script>
+        const codigoHTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Ejemplo de Selección</title>
+</head>
+<body>
+
+    <h1 id="titulo-principal">Guía de Selección DOM</h1>
+
+    <div class="contenedor">
+        <p>Este es el primer párrafo.</p>
+        
+        <ul id="lista-items">
+            <li class="item">Primer item</li>
+            <li class="item importante">Segundo item</li>
+            <li class="item">Tercer item</li>
+        </ul>
+
+        <p>Este es el último párrafo.</p>
+    </div>
+
+    <form name="miFormulario">
+        <input type="text" name="usuario" placeholder="Nombre de usuario">
+    </form>
+
+</body>
+</html>`;
+        
+        // Usamos textContent para insertar el código como texto plano
+        document.getElementById('html-ejemplo').textContent = codigoHTML;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<!--RAIZ-->
+	<xs:element name="videojuegos">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="juego" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- RESTRICCIONES -->
+	<xs:simpleType name="codigo">
+		<xs:restriction base="xs:ID">
+			<xs:pattern value="MG[0-9]{6}"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="persona">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="genero">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Accion"/>
+			<xs:enumeration value="Aventura"/>
+			<xs:enumeration value="Azar"/>
+			<xs:enumeration value="Conduccion"/>
+			<xs:enumeration value="Deportes"/>
+			<xs:enumeration value="Educativo"/>
+			<xs:enumeration value="Estrategia"/>
+			<xs:enumeration value="Puzzle"/>
+			<xs:enumeration value="RPG"/>
+			<xs:enumeration value="Simulacion"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="gameplay">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="plataforma">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PlayStation 4"/>
+			<xs:enumeration value="Xbox One"/>
+			<xs:enumeration value="Xbox"/>
+			<xs:enumeration value="PlayStation 2"/>
+			<xs:enumeration value="Windows"/>
+			<xs:enumeration value="PlayStation 3"/>
+			<xs:enumeration value="PlayStation Vita"/>
+			<xs:enumeration value="Macintosh"/>
+			<xs:enumeration value="Xbox 360"/>
+			<xs:enumeration value="Switch"/>
+			<xs:enumeration value="Linux"/>
+			<xs:enumeration value="PlayStation 5"/>
+			<xs:enumeration value="Xbox Series"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="pegi">
+		<xs:restriction base="xs:integer">
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="7"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="18"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="metacritic">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="mobyScore">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="10"/>
+			<xs:fractionDigits value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<!-- ELEMENTO juego -->
+
+	<xs:element name="juego">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="titulo" type="xs:string"/>
+				<xs:element name="desarrollo">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="estudio" type="xs:string" minOccurs="0"/>
+							<xs:element name="direccion">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="director" type="persona" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+
+							<xs:element name="produccion">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="productor" type="persona" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="guion" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="guionista" type="persona" maxOccurs="unbounded" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="publicacion" type="xs:date"/>
+				<xs:element name="genero" type="genero"/>
+				<xs:element name="gameplays">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="gameplay" type="gameplay" maxOccurs="3"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="plataformas">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="plataforma" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="nombre" type="plataforma" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="pegi" type="pegi"/>
+				<xs:choice>
+					<xs:element name="metacritic" type="metacritic"/>
+					<xs:element name="mobyscore" type="mobyScore"/>
+				</xs:choice>
+				<xs:element name="paisOrigen" type="xs:string"/>
+			</xs:sequence>
+			<xs:attribute name="codigo" type="codigo" use="required"/>
+		</xs:complexType>
+	</xs:element>
+
+
+
+</xs:schema>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de Manipulación del DOM con JavaScript</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #6a1b9a; /* Tono púrpura para manipulación/acción */
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        h1 { font-size: 2.2em; text-align: center; }
+        h2 { font-size: 1.6em; margin-top: 40px; }
+        h3 { font-size: 1.2em; margin-top: 30px; border: none; font-weight: bold; }
+        p, li { font-size: 1.05em; }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f3e5f5;
+            color: #4a148c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        pre code { white-space: pre-wrap; background: transparent; padding: 0; color: #f8f8f2; }
+        .example-box {
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #ce93d8;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        .example-box button { margin-right: 10px; margin-bottom: 10px; }
+        .highlight {
+            background-color: #fff176;
+            padding: 3px;
+            border-radius: 3px;
+            transition: background-color 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guía de Manipulación del DOM con JavaScript</h1>
+
+    <h2>La Zona de Pruebas</h2>
+    <p>Todos los ejemplos de esta guía actuarán sobre los elementos que se encuentran dentro de esta caja.</p>
+    
+    <div class="example-box">
+        <button id="toggleButton">Ocultar/Mostrar Título</button>
+        <button id="changeTextButton">Cambiar Texto del Párrafo</button>
+        <button id="changeStyleButton">Añadir/Quitar Estilo</button>
+        <button id="addElementButton">Añadir Elemento a la Lista</button>
+        <button id="removeElementButton">Eliminar Último Elemento</button>
+        
+        <h3 id="tituloPrincipal">Este es el título principal</h3>
+        <p id="parrafoPrincipal">Este es un párrafo inicial. Haz clic en los botones para ver cómo cambia.</p>
+        
+        <h4>Lista de Elementos:</h4>
+        <ul id="listaElementos">
+            <li>Primer elemento</li>
+        </ul>
+    </div>
+    
+    <h2>1. Ocultar y Mostrar Elementos</h2>
+    <p>La forma más común de hacer desaparecer un elemento es cambiar su propiedad CSS <code>display</code> a <code>'none'</code>. Para que vuelva a aparecer, se le devuelve su valor original (como <code>'block'</code>, <code>'flex'</code>, etc.).</p>
+    <pre><code>const titulo = document.getElementById('tituloPrincipal');
+
+// Función para alternar la visibilidad
+function toggleVisibilidad() {
+    if (titulo.style.display === 'none') {
+        titulo.style.display = 'block'; // O el valor que tuviera por defecto
+    } else {
+        titulo.style.display = 'none';
+    }
+}
+
+document.getElementById('toggleButton').addEventListener('click', toggleVisibilidad);
+</code></pre>
+
+    <h2>2. Crear y Añadir Nuevos Elementos</h2>
+    <p>Crear un elemento desde cero es un proceso de 3 pasos:</p>
+    <ol>
+        <li><strong>Crear el elemento:</strong> Con <code>document.createElement('tag')</code>.</li>
+        <li><strong>Configurar el elemento:</strong> Añadirle texto, clases, atributos, etc.</li>
+        <li><strong>Añadirlo al DOM:</strong> Con <code>parentElement.appendChild(newElement)</code>.</li>
+    </ol>
+    <pre><code>const lista = document.getElementById('listaElementos');
+let contador = 2; // Para que cada elemento nuevo sea único
+
+function anadirElemento() {
+    // 1. Crear el elemento <li> en memoria
+    const nuevoLi = document.createElement('li');
+    
+    // 2. Configurar el elemento
+    nuevoLi.textContent = 'Elemento número ' + contador;
+    
+    // 3. Añadirlo como hijo del <ul>
+    lista.appendChild(nuevoLi);
+    
+    contador++; // Incrementamos para la próxima vez
+}
+
+document.getElementById('addElementButton').addEventListener('click', anadirElemento);
+</code></pre>
+
+    <h2>3. Modificar Elementos Existentes</h2>
+    
+    <h3>a) Modificar Contenido de Texto</h3>
+    <p>La propiedad <code>textContent</code> es la forma más segura de cambiar solo el texto de un elemento, ya que ignora cualquier HTML.</p>
+    <pre><code>const parrafo = document.getElementById('parrafoPrincipal');
+
+function cambiarTexto() {
+    parrafo.textContent = '¡El texto ha sido modificado con JavaScript! La hora es: ' + new Date().toLocaleTimeString();
+}
+
+document.getElementById('changeTextButton').addEventListener('click', cambiarTexto);
+</code></pre>
+    <p><strong>Alternativa:</strong> <code>innerHTML</code> permite insertar HTML, pero úsalo con cuidado, ya que puede ser un riesgo de seguridad si insertas contenido de un usuario sin sanearlo.</p>
+
+    <h3>b) Modificar Clases y Estilos</h3>
+    <p>El objeto <code>classList</code> es la mejor herramienta para gestionar clases de CSS. Permite añadir, quitar y alternar clases fácilmente.</p>
+    <pre><code>const parrafo = document.getElementById('parrafoPrincipal');
+
+function cambiarEstilo() {
+    // toggle: si la clase existe, la quita; si no, la añade.
+    parrafo.classList.toggle('highlight');
+}
+
+document.getElementById('changeStyleButton').addEventListener('click', cambiarEstilo);
+</code></pre>
+
+    <h2>4. Eliminar Elementos del DOM</h2>
+    <p>La forma moderna y sencilla de eliminar un elemento es llamar a su método <code>.remove()</code>.</p>
+    <pre><code>const lista = document.getElementById('listaElementos');
+
+function eliminarUltimoElemento() {
+    // Seleccionamos el último elemento hijo de la lista
+    const ultimoElemento = lista.lastElementChild;
+    
+    // Si existe un último elemento, lo eliminamos
+    if (ultimoElemento) {
+        ultimoElemento.remove();
+    } else {
+        alert('¡La lista ya está vacía!');
+    }
+}
+
+document.getElementById('removeElementButton').addEventListener('click', eliminarUltimoElemento);
+</code></pre>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- SELECCIÓN DE ELEMENTOS ---
+        const toggleButton = document.getElementById('toggleButton');
+        const changeTextButton = document.getElementById('changeTextButton');
+        const changeStyleButton = document.getElementById('changeStyleButton');
+        const addElementButton = document.getElementById('addElementButton');
+        const removeElementButton = document.getElementById('removeElementButton');
+        
+        const titulo = document.getElementById('tituloPrincipal');
+        const parrafo = document.getElementById('parrafoPrincipal');
+        const lista = document.getElementById('listaElementos');
+        
+        let contadorElementos = 2;
+
+        // --- 1. FUNCIÓN PARA OCULTAR/MOSTRAR ---
+        function toggleVisibilidad() {
+            if (titulo.style.display === 'none') {
+                titulo.style.display = 'block';
+            } else {
+                titulo.style.display = 'none';
+            }
+        }
+
+        // --- 2. FUNCIÓN PARA AÑADIR ELEMENTOS ---
+        function anadirElemento() {
+            const nuevoLi = document.createElement('li');
+            nuevoLi.textContent = 'Elemento número ' + contadorElementos;
+            lista.appendChild(nuevoLi);
+            contadorElementos++;
+        }
+
+        // --- 3. FUNCIONES PARA MODIFICAR ELEMENTOS ---
+        function cambiarTexto() {
+            parrafo.textContent = '¡El texto ha sido modificado! La hora es: ' + new Date().toLocaleTimeString();
+        }
+
+        function cambiarEstilo() {
+            parrafo.classList.toggle('highlight');
+        }
+
+        // --- 4. FUNCIÓN PARA ELIMINAR ELEMENTOS ---
+        function eliminarUltimoElemento() {
+            const ultimoElemento = lista.lastElementChild;
+            if (ultimoElemento) {
+                ultimoElemento.remove();
+            } else {
+                alert('¡La lista ya está vacía!');
+            }
+        }
+
+        // --- ASIGNACIÓN DE EVENTOS A LOS BOTONES ---
+        toggleButton.addEventListener('click', toggleVisibilidad);
+        addElementButton.addEventListener('click', anadirElemento);
+        changeTextButton.addEventListener('click', cambiarTexto);
+        changeStyleButton.addEventListener('click', cambiarEstilo);
+        removeElementButton.addEventListener('click', eliminarUltimoElemento);
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Avanzada de Validación de Formularios (Versión Clásica)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #c62828;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        h1 { font-size: 2.2em; text-align: center; }
+        h2 { font-size: 1.6em; margin-top: 40px; }
+        h3 { font-size: 1.2em; margin-top: 30px; border: none; font-weight: bold; }
+        p, li { font-size: 1.05em; }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #ffcdd2;
+            color: #b71c1c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        pre code { white-space: pre-wrap; background: transparent; padding: 0; color: #f8f8f2; }
+        form { background-color: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="password"], .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; transition: border-color 0.3s;
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group input[type="checkbox"] { width: auto; margin-right: 10px; }
+        .error-message { color: #c62828; font-size: 0.9em; margin-top: 5px; display: none; }
+        .input-error { border-color: #c62828 !important; background-color: #ffebee; }
+        .input-success { border-color: #2e7d32 !important; }
+        button[type="submit"] {
+            width: 100%; padding: 12px; background-color: #1976d2; color: white; border: none; border-radius: 4px; font-size: 1.1em; cursor: pointer; transition: background-color 0.3s, opacity 0.3s;
+        }
+        button[type="submit"]:disabled { background-color: #9e9e9e; opacity: 0.7; cursor: not-allowed; }
+        #form-feedback {
+            padding: 15px; border-radius: 4px; text-align: center; margin-top: 20px; display: none;
+        }
+        #form-feedback.success { color: #1b5e20; background-color: #c8e6c9; }
+        #form-feedback.error { color: #b71c1c; background-color: #ffcdd2; }
+    </style>
+</head>
+<body>
+
+    <h1>Guía Avanzada de Validación de Formularios</h1>
+    <p style="text-align:center; font-style:italic;">(Con sintaxis de JavaScript tradicional)</p>
+
+    <h2>El Formulario Extendido</h2>
+    <p>Vamos a validar un formulario de registro más completo y realista, explicando cada parte.</p>
+    <div id="form-container">
+        <!-- El formulario se renderizará aquí mediante JS para que puedas copiar todo el bloque -->
+    </div>
+    
+    <h2>1. Estructura y Estrategia Mejoradas</h2>
+    <h3>Mejoras de Accesibilidad (a11y)</h3>
+    <p>Usamos el atributo <code>aria-describedby</code> para enlazar cada campo con su mensaje de error. Cuando un campo sea inválido, añadiremos <code>aria-invalid="true"</code>, informando a los lectores de pantalla sobre el estado del campo.</p>
+    
+    <h3>Una Estructura de Código Sólida</h3>
+    <p>Para gestionar el estado global del formulario, usamos un objeto que guarda si cada campo es válido o no. Esto simplifica mucho la lógica.</p>
+    <pre><code>const estadoValidacion = {
+    username: false,
+    email: false,
+    password: false,
+    passwordConfirm: false,
+    pais: false,
+    terminos: false
+};
+</code></pre>
+
+    <h2>2. Lógica de Validación Detallada</h2>
+    <p>Cada campo tendrá su propia función de validación que actualizará el objeto <code>estadoValidacion</code> y el estado del botón de envío.</p>
+
+    <h3>Validar Contraseñas Coincidentes</h3>
+    <p>La validación de "Confirmar Contraseña" depende del valor del campo "Contraseña". Si el usuario cambia la contraseña original, debemos re-validar la confirmación.</p>
+    <pre><code>function validarPasswordConfirm() {
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('password-confirm');
+    
+    if (passwordInput.value !== confirmInput.value) {
+        mostrarError(confirmInput, 'Las contraseñas no coinciden.');
+        return false;
+    }
+    limpiarError(confirmInput);
+    return true;
+}
+
+// Escuchador adicional: si cambia la contraseña, revalidamos la confirmación
+document.getElementById('password').addEventListener('input', validarPasswordConfirm);
+</code></pre>
+    
+    <h3>Validar Checkbox y Select</h3>
+    <p>Usamos la propiedad <code>.checked</code> para el checkbox y comprobamos que el valor del <code>select</code> no sea el valor por defecto (vacío).</p>
+    <pre><code>function validarTerminos() {
+    const terminosCheckbox = document.getElementById('terminos');
+    if (!terminosCheckbox.checked) {
+        mostrarError(terminosCheckbox, 'Debes aceptar los términos.');
+        return false;
+    }
+    limpiarError(terminosCheckbox);
+    return true;
+}
+</code></pre>
+
+    <h2>3. UX: Deshabilitar el Botón de Envío</h2>
+    <p>El botón de envío estará deshabilitado hasta que todos los campos sean válidos. Una función se encarga de comprobar el estado global después de cada validación.</p>
+    <pre><code>function actualizarEstadoBoton() {
+    const submitButton = document.getElementById('submit-button');
+    const esFormularioValido = Object.values(estadoValidacion).every(function(estado) {
+        return estado === true;
+    });
+    
+    submitButton.disabled = !esFormularioValido;
+}
+</code></pre>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- RENDERIZAR EL FORMULARIO PARA LA GUÍA ---
+        const formHTML = `
+        <form id="registroAvanzadoForm" novalidate>
+            <div class="form-group">
+                <label for="username">Nombre de Usuario:</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="15" aria-describedby="error-username">
+                <div class="error-message" id="error-username"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required aria-describedby="error-email">
+                <div class="error-message" id="error-email"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required minlength="8" aria-describedby="error-password">
+                <div class="error-message" id="error-password"></div>
+            </div>
+            <div class="form-group">
+                <label for="password-confirm">Confirmar Contraseña:</label>
+                <input type="password" id="password-confirm" name="password_confirm" required aria-describedby="error-password-confirm">
+                <div class="error-message" id="error-password-confirm"></div>
+            </div>
+            <div class="form-group">
+                <label for="pais">País:</label>
+                <select id="pais" name="pais" required aria-describedby="error-pais">
+                    <option value="">-- Por favor, selecciona un país --</option>
+                    <option value="es">España</option>
+                    <option value="mx">México</option>
+                    <option value="ar">Argentina</option>
+                </select>
+                <div class="error-message" id="error-pais"></div>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="terminos" name="terminos" required aria-describedby="error-terminos">
+                    Acepto los términos y condiciones
+                </label>
+                <div class="error-message" id="error-terminos"></div>
+            </div>
+            <button type="submit" id="submit-button" disabled>Crear Cuenta</button>
+        </form>
+        <div id="form-feedback"></div>
+        `;
+        document.getElementById('form-container').innerHTML = formHTML;
+
+        // --- INICIO DEL SCRIPT DE VALIDACIÓN ---
+        // --- SELECCIÓN DE ELEMENTOS ---
+        const form = document.getElementById('registroAvanzadoForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const passwordConfirmInput = document.getElementById('password-confirm');
+        const paisSelect = document.getElementById('pais');
+        const terminosCheckbox = document.getElementById('terminos');
+        const submitButton = document.getElementById('submit-button');
+        const formFeedback = document.getElementById('form-feedback');
+
+        // --- ESTADO DE VALIDACIÓN ---
+        const estadoValidacion = {
+            username: false,
+            email: false,
+            password: false,
+            passwordConfirm: false,
+            pais: false,
+            terminos: false
+        };
+
+        // --- FUNCIONES DE FEEDBACK (UI) ---
+        function mostrarError(input, mensaje) {
+            // El feedback para el checkbox es especial, se maneja en su validador
+            const formGroup = input.closest('.form-group');
+            if (!formGroup) return;
+
+            const errorDiv = formGroup.querySelector('.error-message');
+            input.classList.add('input-error');
+            input.classList.remove('input-success');
+            input.setAttribute('aria-invalid', 'true');
+            errorDiv.textContent = mensaje;
+            errorDiv.style.display = 'block';
+        }
+
+        function limpiarError(input) {
+            const formGroup = input.closest('.form-group');
+             if (!formGroup) return;
+
+            const errorDiv = formGroup.querySelector('.error-message');
+            input.classList.remove('input-error');
+            input.classList.add('input-success');
+            input.setAttribute('aria-invalid', 'false');
+            errorDiv.style.display = 'none';
+        }
+
+        // --- LÓGICA DE VALIDACIÓN (Sintaxis Clásica) ---
+        const validadores = {
+            username: function() {
+                const valor = usernameInput.value.trim();
+                if (valor.length < 3) {
+                    mostrarError(usernameInput, 'Debe tener al menos 3 caracteres.');
+                    return false;
+                }
+                limpiarError(usernameInput);
+                return true;
+            },
+            email: function() {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!regex.test(emailInput.value.trim())) {
+                    mostrarError(emailInput, 'Formato de correo inválido.');
+                    return false;
+                }
+                limpiarError(emailInput);
+                return true;
+            },
+            password: function() {
+                if (passwordInput.value.length < 8) {
+                    mostrarError(passwordInput, 'Debe tener al menos 8 caracteres.');
+                    return false;
+                }
+                limpiarError(passwordInput);
+                validadores.passwordConfirm(); // Revalidar la confirmación si la contraseña principal cambia
+                return true;
+            },
+            passwordConfirm: function() {
+                if (passwordInput.value !== passwordConfirmInput.value || passwordConfirmInput.value === '') {
+                    mostrarError(passwordConfirmInput, 'Las contraseñas no coinciden.');
+                    return false;
+                }
+                limpiarError(passwordConfirmInput);
+                return true;
+            },
+            pais: function() {
+                if (paisSelect.value === '') {
+                    mostrarError(paisSelect, 'Debes seleccionar un país.');
+                    return false;
+                }
+                limpiarError(paisSelect);
+                return true;
+            },
+            terminos: function() {
+                const errorDiv = document.getElementById('error-terminos');
+                if (!terminosCheckbox.checked) {
+                    errorDiv.textContent = 'Debes aceptar los términos.';
+                    errorDiv.style.display = 'block';
+                    terminosCheckbox.setAttribute('aria-invalid', 'true');
+                    return false;
+                }
+                errorDiv.style.display = 'none';
+                terminosCheckbox.setAttribute('aria-invalid', 'false');
+                return true;
+            }
+        };
+
+        // --- ACTUALIZAR ESTADO DEL BOTÓN ---
+        function actualizarEstadoBoton() {
+            const esFormularioValido = Object.values(estadoValidacion).every(function(estado) {
+                return estado === true;
+            });
+            submitButton.disabled = !esFormularioValido;
+        }
+        
+        // --- ASIGNAR EVENTOS ---
+        Object.keys(validadores).forEach(function(campo) {
+            const input = document.getElementById(campo.replace('Confirm', '-confirm')); // Ajuste para el id
+            const evento = (input.type === 'checkbox' || input.tagName === 'SELECT') ? 'change' : 'input';
+            
+            input.addEventListener(evento, function() {
+                estadoValidacion[campo] = validadores[campo]();
+                actualizarEstadoBoton();
+            });
+        });
+
+        // --- MANEJO DEL ENVÍO DEL FORMULARIO ---
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            formFeedback.style.display = 'none';
+            let esValido = true;
+            Object.keys(validadores).forEach(function(campo) {
+                if (!validadores[campo]()) {
+                    esValido = false;
+                }
+            });
+
+            if (esValido) {
+                formFeedback.textContent = '¡Cuenta creada con éxito! Redirigiendo...';
+                formFeedback.className = 'success';
+                formFeedback.style.display = 'block';
+                console.log('Enviando datos...', {
+                    username: usernameInput.value,
+                    email: emailInput.value,
+                    pais: paisSelect.value
+                });
+            } else {
+                formFeedback.textContent = 'Por favor, corrige los errores en el formulario.';
+                formFeedback.className = 'error';
+                formFeedback.style.display = 'block';
+            }
+        });
+    });
+    </script>
+</body>
+</html>

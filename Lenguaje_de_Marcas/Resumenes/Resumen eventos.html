@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de Eventos en JavaScript</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #d32f2f; /* Tono rojizo para eventos */
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        h1 { font-size: 2.2em; text-align: center; }
+        h2 { font-size: 1.6em; margin-top: 40px; }
+        h3 { font-size: 1.2em; margin-top: 30px; border: none; font-weight: bold; }
+        p, li { font-size: 1.05em; }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #fbe9e7;
+            color: #bf360c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #f8f8f2;
+            white-space: pre-wrap;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #ffcdd2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .warning {
+            background-color: #fff9c4;
+            border-left: 5px solid #fbc02d;
+            padding: 10px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guía Completa de Eventos en JavaScript</h1>
+    
+    <h2>HTML de Ejemplo</h2>
+    <p>Usaremos este HTML para todos los ejemplos de eventos.</p>
+    <pre><code id="html-ejemplo"></code></pre>
+
+    <h2>1. ¿Cómo Escuchar Eventos? El Método Principal</h2>
+    <h3>addEventListener()</h3>
+    <p>Es la forma moderna, recomendada y más potente de asignar un "escuchador" de eventos a un elemento.</p>
+    <p>Su sintaxis es: <code>elemento.addEventListener('tipo_de_evento', funcion_a_ejecutar);</code></p>
+    <pre><code>// 1. Seleccionamos el botón
+const miBoton = document.getElementById('miBoton');
+
+// 2. Definimos la función que se ejecutará al hacer click
+function alHacerClick() {
+    console.log('¡El botón fue presionado!');
+    document.body.style.backgroundColor = '#f0f0f0';
+}
+
+// 3. Asignamos el escuchador de evento 'click'
+miBoton.addEventListener('click', alHacerClick);
+</code></pre>
+    <div class="warning">
+        <strong>Nota:</strong> Existen formas antiguas como <code>onclick</code> en el HTML o <code>elemento.onclick = ...</code> en JS, pero <code>addEventListener</code> es superior porque permite añadir múltiples escuchadores al mismo evento sin sobrescribir los anteriores.
+    </div>
+
+    <h2>2. El Objeto `event`</h2>
+    <p>Cuando un evento ocurre, la función que lo maneja recibe automáticamente un parámetro especial: el objeto <strong>event</strong>. Este objeto contiene toda la información sobre lo que acaba de suceder.</p>
+    <pre><code>miBoton.addEventListener('click', function(event) {
+    console.log(event); // Muestra un objeto con muchos detalles
+    console.log(event.target); // Muestra el elemento exacto donde se originó el evento (el botón)
+    console.log(event.type); // Muestra el tipo de evento ('click')
+});
+</code></pre>
+    
+    <h2>3. Controlando el Comportamiento de los Eventos</h2>
+    <p>El objeto <code>event</code> nos da métodos para cambiar el flujo normal de un evento.</p>
+    
+    <h3>a) Detener la acción por defecto: `event.preventDefault()`</h3>
+    <p>Evita que el navegador realice su acción predeterminada. Esencial para manejar formularios con JavaScript o prevenir que un enlace navegue.</p>
+    <pre><code>const miFormulario = document.getElementById('miFormulario');
+
+miFormulario.addEventListener('submit', function(event) {
+    // Evita que el formulario se envíe y la página se recargue
+    event.preventDefault(); 
+    
+    const input = document.querySelector('#miFormulario input');
+    console.log('Formulario interceptado. Valor del campo:', input.value);
+});
+</code></pre>
+
+    <h3>b) Detener la propagación: `event.stopPropagation()`</h3>
+    <p>Los eventos "burbujean" (<em>bubble up</em>) desde el elemento más interno hacia sus padres. <code>stopPropagation()</code> detiene este burbujeo.</p>
+    <pre><code>const divPadre = document.getElementById('padre');
+const divHijo = document.getElementById('hijo');
+
+divPadre.addEventListener('click', function() {
+    console.log('Se ha hecho click en el DIV PADRE');
+});
+
+divHijo.addEventListener('click', function(event) {
+    // Sin esta línea, el click en el hijo también activaría el click del padre.
+    event.stopPropagation(); 
+    
+    console.log('Se ha hecho click en el DIV HIJO (y la propagación se ha detenido)');
+});
+</code></pre>
+
+    <h2>4. Tipos de Eventos Comunes</h2>
+    <p>Aquí tienes una lista de los eventos más utilizados, agrupados por categoría.</p>
+    
+    <h3>Eventos de Ratón (Mouse)</h3>
+    <ul>
+        <li><code>click</code>: Un solo clic.</li>
+        <li><code>dblclick</code>: Doble clic.</li>
+        <li><code>mousedown</code>: Se presiona un botón del ratón sobre el elemento.</li>
+        <li><code>mouseup</code>: Se suelta un botón del ratón sobre el elemento.</li>
+        <li><code>mousemove</code>: El puntero se mueve sobre el elemento.</li>
+        <li><code>mouseover</code> / <code>mouseout</code>: El puntero entra o sale del área de un elemento.</li>
+    </ul>
+
+    <h3>Eventos de Teclado (Keyboard)</h3>
+    <ul>
+        <li><code>keydown</code>: Se presiona una tecla (se dispara repetidamente si se mantiene presionada).</li>
+        <li><code>keyup</code>: Se suelta una tecla.</li>
+    </ul>
+    <pre><code>const campoTexto = document.getElementById('campoTexto');
+campoTexto.addEventListener('keyup', function(event) {
+    console.log(`Tecla soltada: ${event.key}, Código: ${event.code}`);
+});
+</code></pre>
+
+    <h3>Eventos de Formulario (Form)</h3>
+    <ul>
+        <li><code>submit</code>: Se intenta enviar un formulario.</li>
+        <li><code>input</code>: El valor de un <code><input></code>, <code><select></code>, o <code><textarea></code> cambia. Se dispara instantáneamente.</li>
+        <li><code>change</code>: Similar a <code>input</code>, pero generalmente se dispara cuando el elemento pierde el foco.</li>
+        <li><code>focus</code>: Un elemento de formulario recibe el foco.</li>
+        <li><code>blur</code>: Un elemento de formulario pierde el foco.</li>
+    </ul>
+
+    <h3>Eventos de Ventana y Documento (Window & Document)</h3>
+    <ul>
+        <li><code>load</code>: La página y todos sus recursos (imágenes, CSS) han terminado de cargar. Se usa en <code>window</code>.</li>
+        <li><code>DOMContentLoaded</code>: El HTML de la página ha sido cargado y parseado, pero no necesariamente las imágenes y otros recursos. Es más rápido que <code>load</code> y a menudo más útil.</li>
+        <li><code>scroll</code>: El usuario se desplaza por la página.</li>
+        <li><code>resize</code>: El tamaño de la ventana del navegador cambia.</li>
+    </ul>
+    <pre><code>window.addEventListener('scroll', function() {
+    console.log(`Posición de scroll vertical: ${window.scrollY}px`);
+});
+</code></pre>
+
+    <h2>5. Técnicas Avanzadas</h2>
+    <h3>Delegación de Eventos</h3>
+    <p>Una técnica muy eficiente: en lugar de añadir un escuchador a cada uno de los 100 items de una lista, añade <strong>un solo escuchador</strong> al contenedor padre (<code><ul></code>). Luego, usa <code>event.target</code> para saber en qué hijo específico se hizo clic.</p>
+    <pre><code>const lista = document.getElementById('listaDelegacion');
+
+lista.addEventListener('click', function(event) {
+    // Comprobamos si el elemento clickeado es un LI
+    if (event.target.tagName === 'LI') {
+        event.target.style.textDecoration = 'line-through';
+        console.log(`Has hecho click en: ${event.target.textContent}`);
+    }
+});
+</code></pre>
+
+    <script>
+        const codigoHTML = `<!-- Botón para eventos de click -->
+<button id="miBoton">Haz Click Aquí</button>
+
+<!-- Formulario para preventDefault y submit -->
+<form id="miFormulario">
+    <input type="text" id="campoTexto" placeholder="Escribe algo aquí...">
+    <button type="submit">Enviar</button>
+</form>
+
+<!-- Contenedores anidados para stopPropagation -->
+<div id="padre" style="padding: 20px; background: lightblue;">
+    PADRE
+    <div id="hijo" style="padding: 20px; background: lightgreen;">
+        HIJO (Haz click aquí)
+    </div>
+</div>
+
+<!-- Lista para delegación de eventos -->
+<ul id="listaDelegacion">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>`;
+        
+        document.getElementById('html-ejemplo').textContent = codigoHTML;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Rápida para Manejar XML con JavaScript</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #00695c; /* Tono verde/azulado para datos */
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        h1 { font-size: 2.2em; text-align: center; }
+        h2 { font-size: 1.6em; margin-top: 40px; }
+        h3 { font-size: 1.2em; margin-top: 30px; border: none; font-weight: bold; }
+        p, li { font-size: 1.05em; }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #e0f2f1;
+            color: #004d40;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #f8f8f2;
+            white-space: pre-wrap;
+        }
+        .info-box {
+            background-color: #eef;
+            border-left: 5px solid #1a237e;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #b2dfdb;
+            background-color: #f7f7f7;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guía Rápida para Manejar XML con JavaScript</h1>
+    
+    <div class="info-box">
+        <p><strong>Nota:</strong> Aunque JSON es más común hoy en día, XML sigue siendo importante para muchas APIs (especialmente SOAP), archivos de configuración y sistemas heredados. El proceso para manejarlo es muy similar al de manejar HTML.</p>
+    </div>
+
+    <h2>XML de Ejemplo</h2>
+    <p>Imaginemos que tenemos este archivo <code>libros.xml</code> que queremos procesar.</p>
+    <pre><code id="xml-ejemplo"></code></pre>
+
+    <h2>El Proceso en 3 Pasos Clave</h2>
+    <p>Para trabajar con XML en JavaScript, seguimos estos tres pasos:</p>
+
+    <h3>Paso 1: Obtener el archivo XML</h3>
+    <p>Usamos la API <code>fetch</code> para solicitar el archivo. Como el XML es texto, usamos el método <code>.text()</code> para obtener su contenido como una cadena (string).</p>
+    <pre><code>// Usamos async/await para un código más limpio
+async function obtenerXML() {
+    const response = await fetch('ruta/a/tu/archivo.xml');
+    const xmlTexto = await response.text();
+    // Ahora 'xmlTexto' contiene el XML como un string gigante.
+}
+</code></pre>
+
+    <h3>Paso 2: "Parsear" el XML a un Documento DOM</h3>
+    <p>Un string no es útil para navegar. Necesitamos convertirlo en un objeto de tipo Documento, similar al DOM de HTML. Para esto, usamos <code>DOMParser</code>.</p>
+    <pre><code>const parser = new DOMParser();
+const xmlDoc = parser.parseFromString(xmlTexto, 'application/xml');
+// ¡'xmlDoc' es ahora un documento con el que podemos trabajar!
+</code></pre>
+
+    <h3>Paso 3: Navegar y Extraer Datos (¡Igual que en HTML!)</h3>
+    <p>Una vez parseado, puedes usar los mismos métodos que ya conoces de la guía de selección de elementos: <code>querySelector</code>, <code>querySelectorAll</code>, <code>getElementsByTagName</code>, etc.</p>
+    <pre><code>// Seleccionar todos los elementos <libro>
+const libros = xmlDoc.querySelectorAll('libro');
+
+// Recorrer cada libro para extraer su información
+libros.forEach(libro => {
+    // Obtener el atributo 'id'
+    const id = libro.getAttribute('id');
+    
+    // Obtener el texto del elemento <titulo>
+    const titulo = libro.querySelector('titulo').textContent;
+    
+    // Obtener el texto del elemento <autor>
+    const autor = libro.querySelector('autor').textContent;
+    
+    console.log(`ID: ${id}, Título: ${titulo}, Autor: ${autor}`);
+});
+</code></pre>
+
+    <h2>Ejemplo Completo y Funcional</h2>
+    <p>A continuación, un ejemplo que une todo. Al pulsar el botón, se simulará la carga y procesamiento del XML, y se mostrarán los resultados en la página.</p>
+    
+    <button id="cargarXmlBtn">Cargar y Procesar XML</button>
+    
+    <div id="resultado">
+        <p>Los resultados aparecerán aquí...</p>
+    </div>
+
+    <script>
+        // --- XML DE EJEMPLO ---
+        const codigoXML = `<?xml version="1.0" encoding="UTF-8"?>
+<biblioteca>
+    <libro id="01">
+        <titulo>El Señor de los Anillos</titulo>
+        <autor>J.R.R. Tolkien</autor>
+    </libro>
+    <libro id="02">
+        <titulo>Cien Años de Soledad</titulo>
+        <autor>Gabriel García Márquez</autor>
+    </libro>
+    <libro id="03">
+        <titulo>Dune</titulo>
+        <autor>Frank Herbert</autor>
+    </libro>
+</biblioteca>`;
+        document.getElementById('xml-ejemplo').textContent = codigoXML;
+
+        // --- SCRIPT FUNCIONAL ---
+        const boton = document.getElementById('cargarXmlBtn');
+        const resultadoDiv = document.getElementById('resultado');
+
+        boton.addEventListener('click', function() {
+            // En un caso real, aquí usarías fetch. Para este ejemplo, usamos el string directamente.
+            const xmlTexto = codigoXML;
+            
+            // Paso 2: Parsear el string
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlTexto, 'application/xml');
+
+            // Comprobación de errores de parseo
+            const errorNode = xmlDoc.querySelector('parsererror');
+            if (errorNode) {
+                resultadoDiv.innerHTML = '<p>Error al parsear el XML. Revisa la consola.</p>';
+                console.error(errorNode);
+                return;
+            }
+
+            // Paso 3: Extraer los datos
+            const libros = xmlDoc.querySelectorAll('libro');
+            let htmlResultado = '<h3>Libros Encontrados:</h3><ul>';
+            
+            if (libros.length === 0) {
+                htmlResultado += '<li>No se encontraron libros.</li>';
+            } else {
+                libros.forEach(libro => {
+                    const id = libro.getAttribute('id');
+                    const titulo = libro.querySelector('titulo').textContent;
+                    const autor = libro.querySelector('autor').textContent;
+                    
+                    htmlResultado += `<li><strong>${titulo}</strong> (ID: ${id}) por <em>${autor}</em></li>`;
+                });
+            }
+            
+            htmlResultado += '</ul>';
+            resultadoDiv.innerHTML = htmlResultado;
+        });
+    </script>
+</body>
+</html>

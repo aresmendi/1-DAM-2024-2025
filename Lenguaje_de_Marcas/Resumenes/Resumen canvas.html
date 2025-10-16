@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de Canvas con JavaScript</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #0277bd; /* Tono azul para creatividad/dibujo */
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        h1 { font-size: 2.2em; text-align: center; }
+        h2 { font-size: 1.6em; margin-top: 40px; }
+        h3 { font-size: 1.2em; margin-top: 30px; border: none; font-weight: bold; }
+        p, li { font-size: 1.05em; }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #e1f5fe;
+            color: #01579b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #f8f8f2;
+            white-space: pre-wrap;
+        }
+        .canvas-container {
+            text-align: center;
+            margin: 20px 0;
+            border: 2px dashed #b3e5fc;
+            background-color: #fafafa;
+            padding: 10px;
+        }
+        #miCanvas {
+             background-color: white;
+             border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guía Completa de Canvas con JavaScript</h1>
+    
+    <h2>1. Configuración Inicial del Canvas</h2>
+    <p>Para empezar a dibujar, necesitas dos cosas: el elemento <code><canvas></code> en tu HTML y obtener su "contexto" de renderizado 2D en JavaScript.</p>
+    
+    <h3>HTML Necesario:</h3>
+    <pre><code id="html-ejemplo"></code></pre>
+    
+    <h3>JavaScript Inicial:</h3>
+    <pre><code>// 1. Seleccionar el canvas
+const canvas = document.getElementById('miCanvas');
+
+// 2. Obtener el contexto de dibujo 2D
+const ctx = canvas.getContext('2d');
+
+// ¡A partir de aquí, usamos 'ctx' para todas las operaciones de dibujo!
+</code></pre>
+
+    <h2>2. Dibujando Figuras Básicas</h2>
+    
+    <h3>a) Rectángulos</h3>
+    <p>Son las figuras más sencillas de dibujar.</p>
+    <pre><code>// Estilo para el relleno
+ctx.fillStyle = 'green';
+// Dibuja un rectángulo relleno: (x, y, ancho, alto)
+ctx.fillRect(25, 25, 100, 100);
+
+// Estilo para el borde
+ctx.strokeStyle = 'red';
+// Dibuja el borde de un rectángulo: (x, y, ancho, alto)
+ctx.strokeRect(150, 25, 100, 100);
+</code></pre>
+
+    <h3>b) Líneas y Trazados (Paths)</h3>
+    <p>Para cualquier figura que no sea un rectángulo, usamos trazados. Es como dibujar con un lápiz: levantas, te mueves a un punto y empiezas a trazar.</p>
+    <pre><code>ctx.beginPath(); // Inicia un nuevo trazado (levanta el lápiz)
+ctx.moveTo(300, 50); // Mueve el lápiz a la posición inicial (x, y)
+ctx.lineTo(400, 150); // Dibuja una línea hasta este punto
+ctx.lineTo(300, 150); // Dibuja otra línea
+ctx.closePath(); // Opcional: cierra el trazado volviendo al punto inicial
+ctx.fillStyle = 'purple';
+ctx.fill(); // Rellena la figura
+ctx.stroke(); // Dibuja el borde
+</code></pre>
+
+    <h3>c) Círculos y Arcos</h3>
+    <p>Se crean con el método <code>arc()</code>.</p>
+    <pre><code>ctx.beginPath();
+// arc(x, y, radio, anguloInicio, anguloFinal)
+// Los ángulos se miden en radianes. Math.PI * 2 es un círculo completo.
+ctx.arc(500, 100, 50, 0, Math.PI * 2); 
+ctx.fillStyle = 'orange';
+ctx.fill();
+</code></pre>
+
+    <h2>3. Aplicando Estilos y Texto</h2>
+    <p>Puedes controlar colores, grosores y fuentes.</p>
+    <pre><code>// Grosor de la línea
+ctx.lineWidth = 5;
+ctx.strokeStyle = '#003366'; // Azul oscuro
+
+// Dibuja un círculo solo con borde grueso
+ctx.beginPath();
+ctx.arc(75, 200, 40, 0, Math.PI * 2);
+ctx.stroke();
+
+// Escribir texto
+ctx.font = '30px Arial';
+ctx.fillStyle = 'black';
+ctx.fillText('Hola Canvas!', 150, 215); // texto, x, y
+</code></pre>
+
+    <h2>4. Figuras Complejas (Combinando técnicas)</h2>
+    <p>Aquí es donde la creatividad empieza. Combinamos figuras básicas para crear algo más reconocible.</p>
+
+    <h3>a) Una Casa Sencilla</h3>
+    <pre><code>// Base de la casa (un rectángulo)
+ctx.fillStyle = '#a52a2a'; // Marrón
+ctx.fillRect(25, 270, 150, 110);
+
+// Tejado (un trazado triangular)
+ctx.beginPath();
+ctx.moveTo(15, 270);
+ctx.lineTo(100, 200);
+ctx.lineTo(185, 270);
+ctx.closePath();
+ctx.fillStyle = '#6b4423'; // Marrón oscuro
+ctx.fill();
+</code></pre>
+
+    <h3>b) Un Smiley</h3>
+    <pre><code>// Cara (círculo amarillo)
+ctx.beginPath();
+ctx.arc(300, 320, 50, 0, Math.PI * 2);
+ctx.fillStyle = 'yellow';
+ctx.fill();
+ctx.stroke(); // Borde negro
+
+// Ojos (rectángulos pequeños)
+ctx.fillStyle = 'black';
+ctx.fillRect(280, 300, 10, 15);
+ctx.fillRect(310, 300, 10, 15);
+
+// Sonrisa (un arco)
+ctx.beginPath();
+ctx.arc(300, 325, 35, 0, Math.PI); // Media vuelta
+ctx.stroke();
+</code></pre>
+
+    <h3>c) Una Estrella (Uso de bucles y trigonometría)</h3>
+    <p>Esto demuestra cómo se pueden crear figuras complejas de forma programática.</p>
+    <pre><code>function dibujarEstrella(x, y, picos, radioExt, radioInt) {
+    ctx.beginPath();
+    ctx.moveTo(x, y - radioExt); // Mueve al pico superior
+    for (let i = 0; i < picos; i++) {
+        const anguloExt = Math.PI / picos * (2 * i + 1.5);
+        const anguloInt = Math.PI / picos * (2 * i + 2.5);
+        ctx.lineTo(x + Math.cos(anguloExt) * radioExt, y + Math.sin(anguloExt) * radioExt);
+        ctx.lineTo(x + Math.cos(anguloInt) * radioInt, y + Math.sin(anguloInt) * radioInt);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'gold';
+    ctx.fill();
+    ctx.stroke();
+}
+
+dibujarEstrella(450, 320, 5, 50, 25); // Dibuja una estrella de 5 picos
+</code></pre>
+    
+    <h2>5. Dibujar Imágenes</h2>
+    <p>También puedes cargar y dibujar imágenes en el canvas.</p>
+    <pre><code>const miImagen = new Image();
+miImagen.src = 'https://via.placeholder.com/100'; // URL de una imagen de ejemplo
+
+// Importante: La imagen debe cargarse ANTES de dibujarla
+miImagen.onload = function() {
+    // drawImage(imagen, x, y, ancho, alto)
+    ctx.drawImage(miImagen, 550, 270, 100, 100);
+};
+</code></pre>
+
+    <div class="canvas-container">
+        <p><strong>Resultado de todos los ejemplos:</strong></p>
+        <canvas id="miCanvas" width="800" height="400"></canvas>
+    </div>
+
+    <script>
+        // --- CÓDIGO HTML DE EJEMPLO ---
+        const codigoHTML = `<canvas id="miCanvas" width="800" height="400"></canvas>`;
+        document.getElementById('html-ejemplo').textContent = codigoHTML;
+
+        // --- SCRIPT DE DIBUJO EN CANVAS ---
+        window.addEventListener('load', function() {
+            const canvas = document.getElementById('miCanvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                console.error("El navegador no soporta Canvas.");
+                return;
+            }
+            
+            // 2a) Rectángulos
+            ctx.fillStyle = 'green';
+            ctx.fillRect(25, 25, 100, 100);
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 1; // Reset line width for this
+            ctx.strokeRect(150, 25, 100, 100);
+
+            // 2b) Trazados (Triángulo)
+            ctx.beginPath();
+            ctx.moveTo(300, 50);
+            ctx.lineTo(400, 150);
+            ctx.lineTo(300, 150);
+            ctx.closePath();
+            ctx.fillStyle = 'purple';
+            ctx.fill();
+            ctx.strokeStyle = 'black'; // Reset stroke style
+            ctx.stroke();
+
+            // 2c) Círculo
+            ctx.beginPath();
+            ctx.arc(500, 100, 50, 0, Math.PI * 2); 
+            ctx.fillStyle = 'orange';
+            ctx.fill();
+
+            // 3) Estilos y Texto
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = '#003366';
+            ctx.beginPath();
+            ctx.arc(75, 200, 40, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.font = '30px Arial';
+            ctx.fillStyle = 'black';
+            ctx.fillText('Hola Canvas!', 150, 215);
+
+            // 4a) Casa
+            ctx.fillStyle = '#a52a2a';
+            ctx.fillRect(25, 270, 150, 110);
+            ctx.beginPath();
+            ctx.moveTo(15, 270);
+            ctx.lineTo(100, 200);
+            ctx.lineTo(185, 270);
+            ctx.closePath();
+            ctx.fillStyle = '#6b4423';
+            ctx.fill();
+
+            // 4b) Smiley
+            ctx.lineWidth = 1; // Reset line width
+            ctx.beginPath();
+            ctx.arc(300, 320, 50, 0, Math.PI * 2);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+            ctx.stroke(); 
+            ctx.fillStyle = 'black';
+            ctx.fillRect(280, 300, 10, 15);
+            ctx.fillRect(310, 300, 10, 15);
+            ctx.beginPath();
+            ctx.arc(300, 325, 35, 0, Math.PI); 
+            ctx.stroke();
+
+            // 4c) Estrella
+            function dibujarEstrella(x, y, picos, radioExt, radioInt) {
+                ctx.beginPath();
+                ctx.moveTo(x, y - radioExt);
+                for (let i = 0; i < picos; i++) {
+                    const anguloExt = Math.PI / picos * (2 * i + 1.5);
+                    const anguloInt = Math.PI / picos * (2 * i + 2.5);
+                    ctx.lineTo(x + Math.cos(anguloExt) * radioExt, y + Math.sin(anguloExt) * radioExt);
+                    ctx.lineTo(x + Math.cos(anguloInt) * radioInt, y + Math.sin(anguloInt) * radioInt);
+                }
+                ctx.closePath();
+                ctx.fillStyle = 'gold';
+                ctx.fill();
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+            dibujarEstrella(500, 320, 5, 50, 25);
+            
+            // 5) Imagen
+            const miImagen = new Image();
+            miImagen.src = 'https://via.placeholder.com/100x100/0277bd/ffffff?text=IMG';
+            miImagen.onload = function() {
+                ctx.drawImage(miImagen, 650, 270, 100, 100);
+            };
+        });
+    </script>
+</body>
+</html>
