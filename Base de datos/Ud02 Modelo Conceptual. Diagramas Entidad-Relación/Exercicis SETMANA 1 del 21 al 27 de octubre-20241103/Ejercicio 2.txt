@@ -1,0 +1,12 @@
+LIBRO(ISBN, Titulo, Nombre_Editorial)						EDITORIAL(Nombre, Dirección)
+	C.P.:{ISBN}									C.P:{Nombre}
+	UNI: {Nombre_Editorial}								V.N.N.:{Dirección}	
+	C.F.:{Nombre_Editorial}->Editorial
+	V.N.N.:{Nombre_Editorial, Titulo}
+
+
+
+
+
+
+
