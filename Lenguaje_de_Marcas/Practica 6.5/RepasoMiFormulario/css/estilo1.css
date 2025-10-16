@@ -1,0 +1,15 @@
+@charset "utf-8";
+h2{
+    font-family: 'Sans Serif Collection';
+    text-align: center;
+}
+form{
+    font-family: 'Sans Serif Collection';
+    background-color: lightgrey;
+    border: 8px solid grey;
+    margin: 0 50px;
+    padding: 10px;
+}
+#leyenda{
+    font-size:12px;
+}

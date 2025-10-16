@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Formularios</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Formularios que recogen los datos de los estudiantes">
+    <meta name="keywords" content="formulario, datos, alumnos, alumnas, IES Serpis, ciclos, formaci�n profesional, grado superior, grado medio, estudios, profesor, html,deporte,política,tecnología,filatelia">
+    <meta name="author" content="Ares Caballero Rey">
+    <link rel="stylesheet" href="css/estilo1.css">
+</head>
+<body>
+    <header>
+        <h2>Formulario 1</h2>
+    </header>
+    <div>
+
+        <form method="post" enctype="text/plain" action="mailto:aresmendi@pililoncio.com">
+            <p><label for="nombreApellidos"><strong>Nombre  y apellidos (*)</strong></label>
+            <p>
+                <input type="text" id="nombreApellidos" name="nombreApellidos" required size="66">
+                <hr>
+            <p><label for="email"><strong>Correo electrónico(*)</strong></label>
+            <p><input type="text" id="" name="email" required size="66">
+            <p><label for="telefono"><strong>Teléfono</strong></label>
+            <p>
+                <input type="tel" id="telefono" name="telefono" size="12" placeholder="+34XXXXXXXXX" pattern="\+34 [6-9]\d{8}"
+                       title="Formato: +34 seguido de 9 dígitos comenzando por 6, 7, 8 o 9">
+                <hr>
+            <p><b>Sexo</b>
+            <p>
+                <label for="hombre"><input type="radio" name="sexo" id="hombre" value="hombre">Hombre</label>
+                <label for="mujer"><input type="radio" name="sexo" id="mujer" value="mujer" checked>Mujer</label>
+                <label for="otro"><input type="radio" name="sexo" id="otro" value="otro">Otro</label>
+                <hr>
+            <p><label for="nacimiento"><strong>Fecha de nacimiento:</strong></label>
+            <p>
+                <input type="date" name="nacimiento" id="nacimiento" value="2007-07-01">
+                <hr>
+            <p><b>Intereses</b>
+            <p>
+                <label for="deporte"><input type="checkbox" id="deporte" name="deporte" value="deporte">Deporte</label>
+                <label for="politica"><input type="checkbox" id="politica" name="politica" value="politica">Politica</label>
+                <label for="tecnologia"><input type="checkbox" id="tecnologia" name="tecnologia" value="tecnologia">Tecnologia</label>
+                <label for="filatelia"><input type="checkbox" id="filatelia" name="filatelia" value="filatelia">Filatelia</label>
+                <hr>
+            <p><b>Comentarios</b>
+            <p><textarea name="comentario" cols="50" rows="4" maxlength="150">Max. 150 caracteres</textarea>
+            <p id="leyenda">(*)Campos requeridos
+            <p>
+                <label for="enviarDatos"><input type="submit" value="Enviar datos"></label>
+                <label for="limpiar"><input type="reset" value="Limpiar Formulario"></label>
+        </form>
+    </div>
+
+    <div>
+        <form method="post" enctype="text/plain" action="mailto:aresmendi@pililoncio.com">
+            <p><label for="nombreApellidos"><strong>Nombre  y apellidos (*)</strong></label>
+            <p>
+                <input type="text" id="nombreApellidos" name="nombreApellidos" required size="66">
+                <hr>
+            <p><label for="email"><strong>Correo electrónico(*)</strong></label>
+            <p><input type="text" id="" name="email" required size="66">
+            <p><label for="telefono"><strong>Teléfono</strong></label>
+            <p>
+                <input type="tel" id="telefono" name="telefono" size="12" placeholder="+34XXXXXXXXX" pattern="\+34 [6-9]\d{8}"
+                       title="Formato: +34 seguido de 9 dígitos comenzando por 6, 7, 8 o 9">
+                <hr>
+            <p><b>Sexo</b>
+            <p>
+                <label for="hombre"><input type="radio" name="sexo" id="hombre" value="hombre">Hombre</label>
+                <label for="mujer"><input type="radio" name="sexo" id="mujer" value="mujer" checked>Mujer</label>
+                <label for="otro"><input type="radio" name="sexo" id="otro" value="otro">Otro</label>
+                <hr>
+            <p><label for="nacimiento"><strong>Fecha de nacimiento:</strong></label>
+            <p>
+                <input type="date" name="nacimiento" id="nacimiento" value="2007-07-01">
+                <hr>
+            <p><b>Intereses</b>
+            <p>
+                <label for="deporte"><input type="checkbox" id="deporte" name="deporte" value="deporte">Deporte</label>
+                <label for="politica"><input type="checkbox" id="politica" name="politica" value="politica">Politica</label>
+                <label for="tecnologia"><input type="checkbox" id="tecnologia" name="tecnologia" value="tecnologia">Tecnologia</label>
+                <label for="filatelia"><input type="checkbox" id="filatelia" name="filatelia" value="filatelia">Filatelia</label>
+                <hr>
+            <p><b>Comentarios</b>
+            <p><textarea name="comentario" cols="50" rows="4" maxlength="150">Max. 150 caracteres</textarea>
+            <p id="leyenda">(*)Campos requeridos
+            <p>
+                <label for="enviarDatos"><input type="submit" value="Enviar datos"></label>
+                <label for="limpiar"><input type="reset" value="Limpiar Formulario"></label>
+        </form>
+    </div>
+</body>
+</html>

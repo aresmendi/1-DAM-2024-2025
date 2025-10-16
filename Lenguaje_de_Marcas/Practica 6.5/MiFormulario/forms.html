@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Formularios</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Formularios que recogen los datos de los estudiantes">
+    <meta name="keywords" content="formulario, datos, alumnos, alumnas, IES Serpis, ciclos, formaci�n profesional, grado superior, grado medio, estudios, profesor, html,deporte,política,tecnología,filatelia">
+    <meta name="author" content="Ares Caballero Rey">
+    <link rel="stylesheet" href="css/estilo1.css">
+</head>
+<body>
+    <h2 class="titulo1">Formulario 1</h2>
+    <div class="formu1">
+        <form method="post" enctype="text/plain"
+              action="mailto:arescaballero96@hotmail.com?subject=V.S.F.%20submission">
+            <p>
+                <label for="nombreApellidos"><strong>Nombre y apellidos(*)</strong></label><br>
+                <input type="text" id="nombreApellidos" name="nombreApellidos" size="60" required>
+                <hr>
+            <p>
+                <label for="email"><strong>Correo electrónico(*)</strong></label><br>
+                <input type="text" id="email" name="email" size="60" pattern=".+@.+." required>
+            <p>
+                <label for="telefono"><strong>Teléfono</strong></label><br>
+                <input type="tel" id="telefono" name="telefono" size="12" 
+                       placeholder="+34XXXXXXXXX" pattern="\+34[6789]\d{8}"
+                       title="Formato: +34 seguido de 9 dígitos comenzando por 6, 7, 8 o 9">
+                <hr>
+            <p>
+                <strong>Sexo</strong><br>
+                <label for="hombre"><input type="radio" id="hombre" name="sexo" value="hombre">Hombre</label><br>
+                <label for="mujer"><input type="radio" id="mujer" name="sexo" value="mujer" checked>Mujer</label><br>
+                <label for="otro"><input type="radio" id="otro" name="sexo" value="otro">Otro</label><br>
+                <hr>
+            <p>
+                <label for="fechaNacimiento"><strong>Fecha de nacimiento</strong></label><br>
+                <input type="date" id="fechaNacimiento" name="fechaNacimiento" value="2007-01-01">
+                <hr>
+            <p>
+                <strong>Intereses</strong><br>
+                <label for="deporte"><input type="checkbox" id="deporte" name="chkDeporte" value="Deporte">Deporte</label>
+                <label for="politica"><input type="checkbox" id="politica" name="chkPolitica" value="Politica">Política</label>
+                <label for="tecnologia"><input type="checkbox" id="tecnologia" name="chkTecnologia" value="Tecnologia">Tecnología</label>
+                <label for="filatelia"><input type="checkbox" id="filatelia" name="chkFilatelia" value="Filatelia">Filatelia</label>
+                <hr>
+            <p>
+                <strong>Comentarios</strong><br>
+                <textarea name ="taName" cols="50" rows="4" maxlength="150" placeholder="Max. 150 caracteres"></textarea><br><br>
+            <p class="leyenda1">(*)Campos requeridos
+            <p>
+                <label for="enviarDatos"><input type="submit" id="enviarDatos" value="Enviar datos"></label>
+                <label for="limpiar"><input type="reset" id="limpiar" name="limpiar" value="Limpiar formulario"></label>
+        </form>
+    </div>
+    <div class="formu2">
+        <h2 class="titulo2">Formulario 2</h2>
+        <form method="post" action="php/programa.php" enctype="multipart/form-data">
+            <fieldset>
+                <legend>Usuario</legend>
+                <label for="email2"> Login:
+                <input type="email" id="email2" name="email2" placeholder="dir.correo" pattern=".+@.+." required></label>
+                <label for="contraseña">Contraseña:<input type="password" id="contraseña" name="contraseña" required></label>
+            </fieldset>
+            <fieldset>
+                <legend>Datos Personales</legend>
+                <table>
+                    <tr>
+                        <td id="0"><label for="nombre">Nombre:</label></td>
+                        <td><input type="text" id="nombre" name="nombre"></td>
+                    </tr>
+                    <tr>
+                        <td id="1"><label for="apellidos">Apellidos:</label></td>
+                        <td><input type="text" id="apellidos" name="apellidos" size="40"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><label for="estatura">Estatura:</label></td>
+                        <td>
+                            <input type="number" id="estatura" name="estatura" step="0.01" min="1.2" max="2.5" value="1.6">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="fotografia">Fotografía:</label></td>
+                        <td><input type="file" id="fotografia" name="fotografia" accept="image/*"></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend>Datos Estudiante</legend>
+                <label for="ciclo">
+                    Ciclo:
+                    <select id="ciclo" name="ciclo">
+                        <option value="SMR">SMR</option>
+                        <option value="ASIR">ASIR</option>
+                        <option value="DAM" selected>DAM</option>
+                        <option value="DAW">DAW</option>
+                    </select>
+                </label>
+                <br><br>
+                Curso:
+                <input type="radio" id="curso1" name="curso1" value="1º">
+                <label for="curso1">1º</label>
+                <input type="radio" id="curso2" name="curso2" value="2º">
+                <label for="curso2">2º</label>
+                <br>
+                    <h3>Afinidad:</h3>
+                    <table class="especial">
+                        <tr>
+                            <td><label for="hardware"><input type="radio" id="hardware" name="afinidad" value="hardware"> Hardware</label></td>
+                            <td><label for="redes"><input type="radio" id="redes" name="afinidad" value="redes"> Redes</label></td>
+                        </tr>
+                        <tr>
+                            <td><label for="sistemas"><input type="radio" id="sistemas" name="afinidad" value="sistemas"> Sistemas</label></td>
+                            <td><label for="seguridad"><input type="radio" id="seguridad" name="afinidad" value="seguridad"> Seguridad</label></td>
+                        </tr>
+                        <tr>
+                            <td><label for="prog_front"><input type="radio" id="prog_front" name="afinidad" value="prog_front"> Prog. Front</label></td>
+                            <td><label for="prog_back"><input type="radio" id="prog_back" name="afinidad" value="prog_back"> Prog. Back</label></td>
+                        </tr>
+                        <tr>
+                            <td><label for="bases_datos"><input type="radio" id="bases_datos" name="afinidad" value="bases_datos"> Bases de datos</label></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <br>
+                <input type="image" src="images/enviar.png" alt="Enviar" width="40" style="margin-left: 20px;">
+</form>
+   </div>
+</body>
+</html>
