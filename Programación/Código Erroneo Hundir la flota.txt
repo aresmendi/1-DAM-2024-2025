@@ -1,0 +1,153 @@
+/*//Colocamos los barcos en el tablero
+Random r = new Random();	
+
+	int coord1 = 0;
+	int coord2 = 0;
+	int dir = 0;
+	boolean correcto = false; //Este boolean nos dice si entra en el tablero
+	boolean comprobarOtro = false; //Este boolean nos dice si hay algo que no sea agua donde va a poner al barco
+	for (int i1 = 0; i1 < longitud; i1++) {
+		if(dir == 0) { //Derecha
+			if(coord2 + i1 > 9) {
+				comprobarOtro = false;
+			}
+			if(tablero[coord1][coord2 + i1] != "*") {
+				comprobarOtro = false;
+			}
+		}
+		if(dir == 1) { //Izquierda
+			if(coord2 - i1 < 0) {
+				comprobarOtro = false;
+			}
+			if(tablero[coord1][coord2 - i1] != "*") {
+				comprobarOtro = false;
+			}
+			
+		}
+		if (dir == 2) { //Arriba
+			if(coord1 - i1 < 0) {
+				comprobarOtro = false;
+			}
+			if(tablero[coord1 - i1][coord2] != "*") {
+				comprobarOtro = false;
+			}
+		}
+		if(dir == 3) { //Abajo
+			if(coord1 + i1 > 9) {
+				comprobarOtro = false;
+			}
+			if(tablero[coord1 + i1][coord2] != "*") {
+				comprobarOtro = false;
+			}
+		}
+		comprobarOtro =true;
+	}
+	while(!correcto) {
+		coord1 = r.nextInt(0,9);
+		coord2 = r.nextInt(0,9);
+		if(tablero[coord1][coord2] == "*") {
+			if (!comprobarOtro) {
+				dir = 1;
+				if(!comprobarOtro) {
+					dir = 2;
+					if(!comprobarOtro) {
+						dir = 3;
+						if(comprobarOtro) {
+							correcto = true;
+						}
+					} 
+					else {
+						correcto = true;
+					}
+				}
+				else {
+					correcto = true;
+				}
+			}
+			else {
+				correcto = true;
+			}
+		}
+	}
+	String barco = "*"; //Los Strings barcos inicialmente son como agua, pero les cambiamos a un número según su logitud
+	switch(longitud) {
+	case 2:
+		barco ="2";
+		break;
+	case 3:
+		barco ="3";
+		break;
+	case 4:
+		barco ="4";
+		break;
+	case 5:
+		barco ="5";
+	}
+	if(dir == 0) {
+		for (int j = 0; j < longitud; j++) {
+			tablero[coord1][coord2 + i] = barco;
+		}
+	}
+	if(dir == 1) {
+		for (int j = 0; j < longitud; j++) {
+			tablero[coord1][coord2 - i] = barco;
+		}
+	}
+	if(dir == 2) {
+		for (int j = 0; j < longitud; j++) {
+			tablero[coord1 - i][coord2] = barco;
+		}
+	}
+	if(dir == 3) {
+		for (int j = 0; j < longitud; j++) {
+			tablero[coord1 + i][coord2] = barco;
+		}
+	}
+}
+
+Scanner sc = new Scanner(System.in);
+boolean juego = true;
+int coord1, coord2;
+int puntos = 0;
+while(juego) {
+	String[][] tableroVisible = new String[10][10]; //Este será el tablero que el jugador verá. Ahora empezamos a gestionar el juego
+	for(int i=0; i<tableroVisible.length; i++) {
+        for(int j=0; j<tableroVisible.length; j++) {
+            tableroVisible[i][j] = "*";
+        }
+    }
+	for (int i = 0; i < tableroVisible.length; i++) {
+        for (int j = 0; j < tableroVisible[i].length; j++) {
+            System.out.print(tableroVisible[i][j] + " "); 
+        }
+        System.out.println(); 
+    }
+	coord1 = -1;
+	coord2 = -2;
+	while(coord1 < 0 || coord1 > 9) {
+		System.out.println("Dame coordenada 1");
+		coord1 = sc.nextInt();
+	}
+	while(coord2 < 0 || coord2 > 9) {
+		System.out.println("Dame coordenada 2");
+		coord2 = sc.nextInt();
+}
+	if(tableroVisible[coord1][coord2] == "*") {
+		if(tablero[coord1][coord2] == "*") {
+			System.out.println("Agua");
+			tableroVisible[coord1][coord2] = "0";
+		}
+		else {
+			System.out.println("Tocado");
+			tableroVisible[coord1][coord2] = tablero[coord1][coord2];
+			puntos++;
+		}
+	}
+	else {
+		System.out.println("Casilla ya comprobada");
+	}
+	if(puntos == 17) {
+		juego = false;
+		System.out.println("Has ganado, máquina!!");
+	}
+}*/
